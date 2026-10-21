@@ -33,3 +33,17 @@
 
 **Next step:**
 - Run `adaptive_rmppi_test` and the benchmark on a GPU machine.
+
+### Milestone: Respond to retest of c0f2fa7
+
+**Status:** Done (compile-only)
+
+**Changed:**
+- Fixed combined RMPPI rollout kernel nominal-cost indexing (cross-thread race; stock path).
+- Added cartpole recovery benchmark (nominal/kick/mismatch) and paired-seed analyzer.
+
+**Validation:**
+- CPU reference 14/14; GPU targets, rmppi_kernel_tests and the new benchmark compile only (no GPU); analyzer smoke-tested on synthetic CSV.
+
+**Next step:**
+- On GPU: rerun stock-vs-stock and adaptive parity, racecheck, rmppi_kernel_tests, then the recovery benchmark.

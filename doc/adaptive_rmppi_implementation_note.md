@@ -34,3 +34,30 @@ On a trigger at timestep t, DDP is re-solved over the remaining horizon `T - t`,
 - With state-dependent, per-rollout gains, the actual-system control distribution is no longer the fixed-gain feedback policy that the stock RMPPI change-of-measure assumes. The kernel still adds the same likelihood-ratio and feedback-cost terms, computed from the feedback actually applied. Whether the RMPPI free-energy growth bound still holds has **not** been shown.
 - The nominal-state selection, cost function and sampling policy are unchanged.
 - DDP calls `std::exit` on an LDLT failure inside the backward pass. The "solver failure" fallback only catches non-finite output.
+
+## Combined-kernel nominal-cost race (stock RMPPI)
+
+`rolloutRMPPIKernel` (the combined kernel, one sample per `threadIdx.x`) combined the nominal cost with the actual
+rollout's tracking cost using an index copied from the split cost kernel, where each block holds a single sample. As a
+result, every actual-state thread in a block read-modified-wrote the nominal cost of the block's first sample, while
+the other nominal samples never received the value-function mix or their likelihood-ratio term. The update now uses
+`thread_idx + blockDim.x * blockDim.y * NOMINAL_STATE_IDX`, which matches the split kernel and the CPU reference in
+`tests/include/kernel_tests/core/rmppi_kernel_test.cu`. This is a stock-path change. It is the most likely cause of
+the stock-vs-stock same-seed divergence and racecheck reports in the retest, but this has not been confirmed on a GPU.
+
+## Recovery benchmark (nonlinear)
+
+`examples/adaptive_rmppi_recovery_benchmark` runs a cartpole balancing task with three scenarios: `nominal` (no
+disturbance), `kick` (pole angular-velocity kicks of 1, 2 and 3 rad/s at cycle 50) and `mismatch` (the same kicks,
+with a simulated plant whose pole mass is 1.5 kg and pole length 1.3 m; the planner model is unchanged). Seeds are
+1000+ and mode order alternates by seed. Recovery success, the failure checks and the error weights are defined in
+the file header and were fixed before any run; the trigger radius has not been tuned. Per-trial rows include recovery
+time, peak error, post-disturbance cost, trial p95/max latency, deadline misses (latency > 20 ms), refresh mean/p95
+and the fraction of cycles hitting the budget. An optional per-cycle trace is also written.
+`examples/adaptive_rmppi_recovery_analyze.py` produces paired-bootstrap and Wilson intervals, `table.md`,
+`summary.json` and, with `--plot`, a recovery plot plus a latency histogram. Neither has been run on a GPU yet.
+
+```bash
+./examples/adaptive_rmppi_recovery_benchmark 30 300 recovery.csv 0.5 recovery_trace.csv
+python3 ../examples/adaptive_rmppi_recovery_analyze.py recovery.csv --trace recovery_trace.csv --plot
+```

@@ -851,9 +851,10 @@ __global__ void rolloutRMPPIKernel(DYN_T* __restrict__ dynamics, COST_T* __restr
   __syncthreads();
   if (thread_idz != NOMINAL_STATE_IDX && thread_idy == 0)
   {
-    float* running_nom_cost = &running_cost_shared[blockDim.x * blockDim.y * NOMINAL_STATE_IDX];
+    // One sample per thread_idx in this kernel: each actual rollout updates only its own nominal partner.
+    float* running_nom_cost = &running_cost_shared[thread_idx + blockDim.x * blockDim.y * NOMINAL_STATE_IDX];
     const float* running_nom_cost_likelihood_ratio_cost =
-        &running_cost_shared[blockDim.x * blockDim.y * (blockDim.z + NOMINAL_STATE_IDX)];
+        &running_cost_shared[thread_idx + blockDim.x * blockDim.y * (blockDim.z + NOMINAL_STATE_IDX)];
     *running_nom_cost =
         0.5 * *running_nom_cost + 0.5 * fmaxf(fminf(*running_cost_extra, value_func_threshold), *running_nom_cost);
     *running_nom_cost += *running_nom_cost_likelihood_ratio_cost;
