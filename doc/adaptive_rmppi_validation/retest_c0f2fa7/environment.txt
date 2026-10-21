@@ -1,0 +1,16 @@
+implementation_sha=c0f2fa751d368f199e4338ba9e79d77edab52df5
+baseline_sha=bb24b33c65e5f3528e83e806dd0370c621d96194
+review_date=2026-10-21
+GPU=NVIDIA GeForce RTX 3060 Laptop GPU
+GPU_memory=6144 MiB
+driver=595.99.02
+CUDA_toolkit=12.6.85
+GCC=13.2.0
+CMake=3.28.3
+CXX_standard=17
+build=Release
+CUDA_arch=sm_86
+image=trustnav:local_planner
+image_sha=591b0231a7862a814ab54a3261f64d21058fd07f7e0f58279617c30b0ccd0e0b
+barriers=repository defaults
+benchmark_args=30 300 benchmark.csv 0.5

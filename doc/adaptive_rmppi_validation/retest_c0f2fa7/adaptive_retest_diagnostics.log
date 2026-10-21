@@ -1,0 +1,199 @@
+[==========] Running 13 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from AdaptiveRMPPI
+[ RUN      ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 6
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 7
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 8
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 9
+
+[  FAILED  ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed (190 ms)
+[ RUN      ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 2
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 3
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 4
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 5
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 6
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 7
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 8
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 9
+
+[  FAILED  ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock (32 ms)
+[ RUN      ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged
+[       OK ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged (16 ms)
+[ RUN      ] AdaptiveRMPPI.FirstViolationMatchesCPUReference
+[       OK ] AdaptiveRMPPI.FirstViolationMatchesCPUReference (13 ms)
+[----------] 4 tests from AdaptiveRMPPI (252 ms total)
+
+[----------] 3 tests from AdaptiveReview
+[ RUN      ] AdaptiveReview.DisabledParityWithPinnedEvaluationKernels
+autotuned eval choices 0 0
+cycle 0 stock -0.230892 0.0409486 adaptive -0.230892 0.0409486 max_abs_diff 0
+cycle 1 stock -0.553965 -0.157399 adaptive -0.553965 -0.157399 max_abs_diff 0
+cycle 2 stock -0.585117 -0.311315 adaptive -0.585117 -0.311315 max_abs_diff 0
+cycle 3 stock -0.473014 -0.306884 adaptive -0.473014 -0.306884 max_abs_diff 0
+cycle 4 stock -0.440165 -0.219013 adaptive -0.440181  -0.21901 max_abs_diff 1.60933e-05
+cycle 5 stock -0.502051 -0.194823 adaptive -0.502078 -0.194828 max_abs_diff 2.68221e-05
+cycle 6 stock -0.553319 -0.285806 adaptive -0.553604 -0.285637 max_abs_diff 0.000285029
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:24: Failure
+Value of: ua[i].isApprox(us[i], 1e-4f)
+  Actual: false
+Expected: true
+
+cycle 7 stock -0.629116 -0.347768 adaptive  -0.62964 -0.347697 max_abs_diff 0.000523627
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:24: Failure
+Value of: ua[i].isApprox(us[i], 1e-4f)
+  Actual: false
+Expected: true
+
+cycle 8 stock -0.649013 -0.392487 adaptive -0.649533 -0.392534 max_abs_diff 0.000519276
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:24: Failure
+Value of: ua[i].isApprox(us[i], 1e-4f)
+  Actual: false
+Expected: true
+
+cycle 9 stock -0.553748 -0.467424 adaptive -0.554437 -0.467469 max_abs_diff 0.00068891
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:24: Failure
+Value of: ua[i].isApprox(us[i], 1e-4f)
+  Actual: false
+Expected: true
+
+[  FAILED  ] AdaptiveReview.DisabledParityWithPinnedEvaluationKernels (30 ms)
+[ RUN      ] AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix
+event sample=0 t=1 outcome=0
+event sample=0 t=2 outcome=0
+event sample=0 t=3 outcome=1
+t=1 CPU control=-0.2    0 GPU control=-0.2    0
+[       OK ] AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix (13 ms)
+[ RUN      ] AdaptiveReview.StockMatchesStockWithPinnedKernels
+stock/stock cycle 0 max_abs_diff 0
+stock/stock cycle 1 max_abs_diff 0
+stock/stock cycle 2 max_abs_diff 0
+stock/stock cycle 3 max_abs_diff 0.000129044
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 4 max_abs_diff 0.000196218
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 5 max_abs_diff 0.000277281
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 6 max_abs_diff 0.00035131
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 7 max_abs_diff 0.000248611
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 8 max_abs_diff 0.000217795
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 9 max_abs_diff 0.00023523
+/repo/doc/adaptive_rmppi_validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+[  FAILED  ] AdaptiveReview.StockMatchesStockWithPinnedKernels (30 ms)
+[----------] 3 tests from AdaptiveReview (74 ms total)
+
+[----------] 6 tests from AdaptiveRetest
+[ RUN      ] AdaptiveRetest.GPURejectsEnabledResidualTriggerWithoutChangingConfig
+[       OK ] AdaptiveRetest.GPURejectsEnabledResidualTriggerWithoutChangingConfig (9 ms)
+[ RUN      ] AdaptiveRetest.ZeroRefreshBudgetStillReportsViolations
+[       OK ] AdaptiveRetest.ZeroRefreshBudgetStillReportsViolations (11 ms)
+[ RUN      ] AdaptiveRetest.FinalReplayReportsUnmetRefreshDemand
+[       OK ] AdaptiveRetest.FinalReplayReportsUnmetRefreshDemand (12 ms)
+[ RUN      ] AdaptiveRetest.DisablingClearsLastIterationStats
+[       OK ] AdaptiveRetest.DisablingClearsLastIterationStats (14 ms)
+[ RUN      ] AdaptiveRetest.EnabledModeSelectsCombinedKernel
+[       OK ] AdaptiveRetest.EnabledModeSelectsCombinedKernel (13 ms)
+[ RUN      ] AdaptiveRetest.CombinedKernelRejectsExcessSharedMemory
+[       OK ] AdaptiveRetest.CombinedKernelRejectsExcessSharedMemory (12 ms)
+[----------] 6 tests from AdaptiveRetest (74 ms total)
+
+[----------] Global test environment tear-down
+[==========] 13 tests from 3 test suites ran. (401 ms total)
+[  PASSED  ] 9 tests.
+[  FAILED  ] 4 tests, listed below:
+[  FAILED  ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+[  FAILED  ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+[  FAILED  ] AdaptiveReview.DisabledParityWithPinnedEvaluationKernels
+[  FAILED  ] AdaptiveReview.StockMatchesStockWithPinnedKernels
+
+ 4 FAILED TESTS

@@ -1,5 +1,7 @@
 # Adaptive RMPPI review evidence
 
+For the current follow-up results and artifacts, see [retest_c0f2fa7](retest_c0f2fa7/README.md). This directory retains the original review evidence.
+
 These artifacts validate implementation commit `fd97da2af63e3464d1f4e12288a68ecfbaef7cc9`. See [the review report](../Adaptive_RMPPI_RESULTS.md) for interpretation. No controller or benchmark source was changed during review. Retained log copies have trailing whitespace normalized; their diagnostic content is unchanged.
 
 - `benchmark.csv`: 180 submitted-executable trials: 30 paired seeds, three severities, two modes, 300 cycles/trial. Its success and peak columns are the submitted proxy definitions, not the recovery metrics in the plan.

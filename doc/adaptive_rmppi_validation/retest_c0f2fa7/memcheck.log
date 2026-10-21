@@ -1,0 +1,32 @@
+========= COMPUTE-SANITIZER
+Note: Google Test filter = AdaptiveRetest.*:AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix
+[==========] Running 7 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from AdaptiveReview
+[ RUN      ] AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix
+event sample=0 t=1 outcome=0
+event sample=0 t=2 outcome=0
+event sample=0 t=3 outcome=1
+t=1 CPU control=-0.2    0 GPU control=-0.2    0
+[       OK ] AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix (2273 ms)
+[----------] 1 test from AdaptiveReview (2273 ms total)
+
+[----------] 6 tests from AdaptiveRetest
+[ RUN      ] AdaptiveRetest.GPURejectsEnabledResidualTriggerWithoutChangingConfig
+[       OK ] AdaptiveRetest.GPURejectsEnabledResidualTriggerWithoutChangingConfig (0 ms)
+[ RUN      ] AdaptiveRetest.ZeroRefreshBudgetStillReportsViolations
+[       OK ] AdaptiveRetest.ZeroRefreshBudgetStillReportsViolations (273 ms)
+[ RUN      ] AdaptiveRetest.FinalReplayReportsUnmetRefreshDemand
+[       OK ] AdaptiveRetest.FinalReplayReportsUnmetRefreshDemand (276 ms)
+[ RUN      ] AdaptiveRetest.DisablingClearsLastIterationStats
+[       OK ] AdaptiveRetest.DisablingClearsLastIterationStats (317 ms)
+[ RUN      ] AdaptiveRetest.EnabledModeSelectsCombinedKernel
+[       OK ] AdaptiveRetest.EnabledModeSelectsCombinedKernel (317 ms)
+[ RUN      ] AdaptiveRetest.CombinedKernelRejectsExcessSharedMemory
+[       OK ] AdaptiveRetest.CombinedKernelRejectsExcessSharedMemory (277 ms)
+[----------] 6 tests from AdaptiveRetest (1462 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 2 test suites ran. (3736 ms total)
+[  PASSED  ] 7 tests.
+========= ERROR SUMMARY: 0 errors

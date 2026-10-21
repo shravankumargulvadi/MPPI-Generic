@@ -3,13 +3,18 @@
 Requires NumPy. With --plot, also requires Matplotlib. Run from any directory:
   python3 doc/adaptive_rmppi_validation/analyze.py [--plot]
 """
+import argparse
 import csv
 import json
-import sys
 from pathlib import Path
 import numpy as np
 
-root = Path(__file__).resolve().parent
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--directory', type=Path, default=Path(__file__).resolve().parent,
+                    help='Directory containing benchmark.csv and receiving summaries')
+parser.add_argument('--plot', action='store_true')
+args = parser.parse_args()
+root = args.directory.resolve()
 rows = list(csv.DictReader((root / 'benchmark.csv').open()))
 assert len(rows) == 180
 rng = np.random.default_rng(20261021)
@@ -52,7 +57,7 @@ print('\n'.join(lines))
 print('\nPaired adaptive minus stock mean differences with 95% bootstrap intervals:')
 for severity, item in summary.items():
     print(severity, json.dumps(item['paired_adaptive_minus_stock']))
-if '--plot' in sys.argv:
+if args.plot:
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
