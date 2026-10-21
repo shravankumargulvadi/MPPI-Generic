@@ -306,6 +306,9 @@ protected:
   // Computes and saves the feedback gains used in the rollout kernel and tracking.
   virtual void computeNominalFeedbackGains(const Eigen::Ref<const state_array>& state);
 
+  // Launches the rollout kernel(s) for one optimization iteration; costs land in trajectory_costs_d_.
+  virtual void launchRolloutKernels();
+
   // CUDA Memory
   float* importance_sampling_costs_d_ = nullptr;
   float* importance_sampling_outputs_d_ = nullptr;

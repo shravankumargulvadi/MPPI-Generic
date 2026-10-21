@@ -1,0 +1,35 @@
+# Adaptive RMPPI: implementation note
+
+Status: prototype. CPU reference tests pass. The GPU path compiles; it has **not been run** on a GPU (see `RESULTS.md`).
+
+## Where adaptation happens
+- `AdaptiveDDPFeedback` (`include/mppi/feedback_controllers/adaptive/adaptive_ddp.cuh`) computes the baseline gains with the same DDP problem as `DDPFeedback`. It also owns a bank of refreshed policies (`MAX_POLICIES` slots) and one policy assignment per rollout (slot id + start timestep).
+- `AdaptiveRobustMPPIController` (`include/mppi/controllers/R-MPPI/adaptive_robust_mppi_controller.cuh`) overrides the new `RobustMPPIController::launchRolloutKernels()` hook. With `AdaptiveFeedbackConfig::enabled == false` it calls the parent, so behaviour is stock RMPPI.
+- `AdaptiveRMPPIReference` (`adaptive_rmppi_reference.h`) is the CPU oracle. It also provides the refresh solver used by the GPU path.
+
+## Tracking law
+`u = v + K~_t (x_t - x*_t)`, where `x*` is the paired nominal state (unchanged from stock). Only the gain `K~` changes. The recovery trajectory `x~` is used only to judge whether the gain is still valid. It is never used as the tracking target.
+
+## Trigger
+- V0 (CPU and GPU): `sqrt(sum_i w_i (x_i - x~_i)^2) > distance_radius`, with optional angle wrapping.
+- V1 (CPU reference only): one-step residual between the nonlinear step and the cached affine model, `x~_{t} + A_d (x_{t-1} - x~_{t-1}) + B_d (u_{t-1} - u~_{t-1})`, plus a hard distance radius. Here `A_d = I + A dt` and `B_d = B dt`, matching the DDP solver's Euler discretization.
+
+## Refresh
+On a trigger at timestep t, DDP is re-solved over the remaining horizon `T - t`, starting from the actual state. It uses the same Q, R, Q_f and control limits, and it tracks the nominal reference suffix (RMPPI's nominal trajectory and controls). A refresh is skipped when fewer than 2 steps remain. Refreshes are capped per rollout and per optimization iteration, and the GPU path is also capped by the number of bank slots. Overflows, solver failures (non-finite output) and short-horizon skips are counted and returned in `AdaptiveRolloutStats`. The fallback is to keep the previous gains.
+
+## Staged GPU execution (per optimization iteration)
+1. Save the sampled controls. The rollout kernel overwrites them with the applied controls.
+2. Pass A: the combined `rolloutRMPPIKernel` runs. `DeviceAdaptiveDDP::k` records each rollout's first V0 violation (t and state).
+3. The host refreshes the recorded rollouts in sample order, within budget.
+4. Pass B: the noise is restored and all rollouts are re-run from t = 0 with their new policies. All costs, likelihood-ratio terms and feedback-cost terms are recomputed from the trajectory that was actually simulated, so old and new trajectories are never mixed. Steps 2-4 repeat until no policy changes or `max_refreshes_per_rollout` is reached. The final pass does not record.
+- Adaptive mode always uses the single combined kernel, because the policy lookup is keyed by sample index.
+- Re-running every rollout, not just the affected ones, is simpler and always consistent. It costs one extra full kernel per refresh round.
+
+## Differences between the CPU oracle and the GPU path
+- The oracle refreshes immediately inside a sequential rollout. The GPU refreshes between passes. Both produce the same (sample, t, gain) for the first refresh of each rollout. When the per-iteration budget binds, the GPU allocates refreshes by sample index within a pass, while the oracle allocates them in rollout order. Results can then differ.
+- V1 is not implemented on the GPU. That would need cached `A_d`/`B_d` in the bank.
+
+## Theoretical limitations
+- With state-dependent, per-rollout gains, the actual-system control distribution is no longer the fixed-gain feedback policy that the stock RMPPI change-of-measure assumes. The kernel still adds the same likelihood-ratio and feedback-cost terms, computed from the feedback actually applied. Whether the RMPPI free-energy growth bound still holds has **not** been shown.
+- The nominal-state selection, cost function and sampling policy are unchanged.
+- DDP calls `std::exit` on an LDLT failure inside the backward pass. The "solver failure" fallback only catches non-finite output.
