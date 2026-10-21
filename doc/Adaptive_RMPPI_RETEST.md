@@ -1,5 +1,53 @@
 # Adaptive RMPPI follow up GPU validation
 
+**Latest tested MR head: `6731dcbf08cf4258af83c6bf605eaa69169cae86`.** The reported combined-kernel cost-index fix restores same-seed parity in the targeted GPU tests and passes CUDA memcheck. The full nonlinear recovery benchmark found no recovery benefit in its kicked cases and showed the adaptive path consuming its refresh cap on almost every cycle. CUDA racecheck still reports shared-memory hazards, including in an isolated combined-rollout test, so the concurrency finding remains open. Recommendation: request changes.
+
+The new benchmark ran 30 paired seeds for nominal balancing, three matched-plant kicks and three mismatched-plant kicks. Both controllers succeeded in all nominal trials and in none of the disturbance trials. The disturbance conditions are too severe to establish adaptive effectiveness: every 2/3 rad/s kick and every mismatch trial hit a safety limit, while 1 rad/s kicks did not recover within the stated criterion. Adaptive mean trial p95 latency was 1.55-1.77 ms versus 0.48-0.49 ms stock; it hit the 64-refresh budget on 99.8-100% of cycles. No measured cycle missed the 20 ms deadline. Peak-error and cost intervals include zero.
+
+The reported stock-vs-stock parity issue is fixed in the focused functional tests. This does not close sanitizer validation: racecheck reports 65 hazards in the stock-vs-stock diagnostic and 10 in the isolated combined rollout kernel. The new change addresses normal functional parity, while the remaining racecheck output requires investigation before concurrency can be called clean.
+
+Current results and raw outputs are in [retest-6731dcb](adaptive_rmppi_validation/retest-6731dcb/README.md). The previous `c0f2fa7` retest is retained below as historical evidence.
+
+## Latest test results
+
+| Suite or check | Result |
+| --- | --- |
+| CPU reference | 14/14 passed |
+| Submitted adaptive GPU suite | 4/4 passed |
+| Expanded review diagnostics | 13/13 passed; overlaps the adaptive GPU suite |
+| Existing RMPPI kernels | 5/5 passed |
+| Existing RMPPI controller | 21/21 passed |
+| Existing DDP | 10/10 passed |
+| Existing generic feedback | 2/2 passed |
+| CUDA memcheck on adaptive GPU suite | 4/4 passed; 0 errors |
+| CUDA racecheck on stock-vs-stock diagnostic | numerical test passed; 65 shared-memory hazards reported |
+| CUDA racecheck on isolated combined rollout kernel | numerical test passed; 10 shared-memory hazards reported |
+
+## Recovery benchmark results
+
+| Scenario | Severity | Mode | Recovery | Failed constraint | Mean peak error | Mean trial p95 (ms) | Max latency (ms) | Deadline misses | Refreshes/cycle | Budget-hit fraction |
+| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| nominal | 0 | stock | 30/30 | 0 | 0.0500 | 0.483 | 0.755 | 0 | 0.000 | 0.000 |
+| nominal | 0 | adaptive | 30/30 | 0 | 0.0500 | 1.546 | 3.987 | 0 | 63.108 | 1.000 |
+| kick | 1 | stock | 0/30 | 0 | 0.9383 | 0.485 | 0.639 | 0 | 0.000 | 0.000 |
+| kick | 1 | adaptive | 0/30 | 0 | 0.9383 | 1.616 | 3.451 | 0 | 63.191 | 1.000 |
+| kick | 2 | stock | 0/30 | 30 | 5.1716 | 0.487 | 0.627 | 0 | 0.000 | 0.000 |
+| kick | 2 | adaptive | 0/30 | 30 | 5.1716 | 1.721 | 3.887 | 0 | 62.158 | 1.000 |
+| kick | 3 | stock | 0/30 | 30 | 2.7210 | 0.487 | 0.670 | 0 | 0.000 | 0.000 |
+| kick | 3 | adaptive | 0/30 | 30 | 2.7210 | 1.673 | 3.336 | 0 | 62.771 | 1.000 |
+| mismatch | 1 | stock | 0/30 | 30 | 2.8919 | 0.484 | 0.676 | 0 | 0.000 | 0.000 |
+| mismatch | 1 | adaptive | 0/30 | 30 | 2.8629 | 1.729 | 4.079 | 0 | 63.003 | 0.998 |
+| mismatch | 2 | stock | 0/30 | 30 | 3.3453 | 0.492 | 0.718 | 0 | 0.000 | 0.000 |
+| mismatch | 2 | adaptive | 0/30 | 30 | 3.3452 | 1.690 | 4.017 | 0 | 61.465 | 0.997 |
+| mismatch | 3 | stock | 0/30 | 30 | 2.6464 | 0.494 | 0.759 | 0 | 0.000 | 0.000 |
+| mismatch | 3 | adaptive | 0/30 | 30 | 2.6464 | 1.771 | 4.184 | 0 | 62.979 | 1.000 |
+
+No paired-bootstrap interval for peak error or cumulative cost excludes zero. Recovery success is identical in every condition. Adaptive's p95 latency is 3.2-3.6x stock across these scenarios. The full table, paired intervals, recovery plot, raw 420-trial CSV and per-cycle trace are in the linked artifact directory. The success-rate Wilson interval output has a tiny floating-point negative lower bound for 0/30; mathematically it is zero.
+
+The benchmark's input grid is not yet calibrated for a useful recovery comparison: nominal balancing is already trivial for stock, while all disturbance cases yield zero recoveries. The results show that the current adaptive path is more expensive without a measured benefit in these conditions; they do not establish that no recoverable regime can benefit.
+
+## Previous retest (`c0f2fa7`)
+
 **Retested implementation: `c0f2fa751d368f199e4338ba9e79d77edab52df5`. Recommendation remains request changes.** The policy-prefix, telemetry, trigger-validation and kernel-selection fixes pass their targeted checks. Disabled/unreachable-radius parity and stock-versus-stock reproducibility still fail, racecheck still reports shared-memory hazards, and the submitted benchmark still does not measure the plan's nonlinear recovery criterion.
 
 This retest covers commits `64afd3b` and `c0f2fa7`. Controller and benchmark code were not changed during retesting. The [earlier report](Adaptive_RMPPI_RESULTS.md) and its artifacts remain historical evidence for `fd97da2`; current evidence is in [retest_c0f2fa7](adaptive_rmppi_validation/retest_c0f2fa7/README.md).

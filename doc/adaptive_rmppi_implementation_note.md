@@ -1,6 +1,6 @@
 # Adaptive RMPPI: implementation note
 
-Status: prototype; **acceptance remains blocked by parity/concurrency and benchmark gaps**. Retesting `c0f2fa7` on the RTX 3060 passes all seven targeted fix checks under memcheck, including preservation of earlier policy segments across refreshes. CPU reference tests pass 14/14; the submitted GPU suite still passes 2/4, and stock-versus-stock reproducibility and racecheck remain unresolved. A 180-trial linear benchmark rerun shows roughly 2.3x mean-trial-p95 overhead with no statistically distinguishable improvement in its proxy error/cost metrics. See [the current retest report](Adaptive_RMPPI_RETEST.md) and [historical results](Adaptive_RMPPI_RESULTS.md).
+Status: prototype; **acceptance remains blocked by concurrency and benchmark gaps**. On MR head `6731dcb`, CPU reference tests pass 14/14, adaptive GPU tests 4/4, and the focused parity diagnostics pass. CUDA memcheck reports zero errors. CUDA racecheck still reports 10 hazards in the isolated combined rollout kernel and 65 in the broader parity diagnostic. The new 420-trial nonlinear cart-pole benchmark reports no recovery in any kicked condition for either mode, while adaptive mode uses about 3.2-3.6x stock mean-trial-p95 and hits its refresh budget on nearly every cycle. The disturbance grid needs calibration because nominal balancing is trivial and all kicked conditions are unrecoverable under the stated success criterion. See [the current retest report](Adaptive_RMPPI_RETEST.md), [latest raw test and benchmark artifacts](adaptive_rmppi_validation/retest-6731dcb/README.md), and [historical results](Adaptive_RMPPI_RESULTS.md).
 
 ## Where adaptation happens
 - `AdaptiveDDPFeedback` (`include/mppi/feedback_controllers/adaptive/adaptive_ddp.cuh`) computes the baseline gains with the same DDP problem as `DDPFeedback`. It also owns a bank of refreshed policies (`MAX_POLICIES` slots) and one policy assignment per rollout (slot id + start timestep).
@@ -55,7 +55,7 @@ the file header and were fixed before any run; the trigger radius has not been t
 time, peak error, post-disturbance cost, trial p95/max latency, deadline misses (latency > 20 ms), refresh mean/p95
 and the fraction of cycles hitting the budget. An optional per-cycle trace is also written.
 `examples/adaptive_rmppi_recovery_analyze.py` produces paired-bootstrap and Wilson intervals, `table.md`,
-`summary.json` and, with `--plot`, a recovery plot plus a latency histogram. Neither has been run on a GPU yet.
+`summary.json` and, with `--plot`, a recovery plot plus a latency histogram. The benchmark was run on an RTX 3060 for 30 paired seeds per condition; results and raw traces are in [the latest retest artifacts](adaptive_rmppi_validation/retest-6731dcb/README.md). Neither mode recovered in the kicked conditions, and adaptive mode used its 64-refresh iteration budget on 99.8-100% of cycles. The chosen kicks therefore need calibration to include recoverable regimes before this can establish whether adaptation helps.
 
 ```bash
 ./examples/adaptive_rmppi_recovery_benchmark 30 300 recovery.csv 0.5 recovery_trace.csv

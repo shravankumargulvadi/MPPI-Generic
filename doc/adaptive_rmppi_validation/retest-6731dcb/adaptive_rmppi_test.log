@@ -1,0 +1,16 @@
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from AdaptiveRMPPI
+[ RUN      ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+[       OK ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed (202 ms)
+[ RUN      ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+[       OK ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock (32 ms)
+[ RUN      ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged
+[       OK ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged (15 ms)
+[ RUN      ] AdaptiveRMPPI.FirstViolationMatchesCPUReference
+[       OK ] AdaptiveRMPPI.FirstViolationMatchesCPUReference (14 ms)
+[----------] 4 tests from AdaptiveRMPPI (265 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (265 ms total)
+[  PASSED  ] 4 tests.

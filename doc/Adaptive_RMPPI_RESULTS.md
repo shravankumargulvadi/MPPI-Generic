@@ -1,6 +1,6 @@
 # Adaptive RMPPI GPU review and benchmark results
 
-**Historical review of `fd97da2`. For the current `c0f2fa7` validation, see [the follow-up retest](Adaptive_RMPPI_RETEST.md).** The earlier replay-prefix defect now passes its reproducer; remaining parity/concurrency and benchmark-scope findings are tracked there.
+**Historical review of `fd97da2`. For the current `6731dcb` validation, see [the follow-up retest](Adaptive_RMPPI_RETEST.md).** The earlier replay-prefix defect now passes its reproducer; remaining parity/concurrency and benchmark-scope findings are tracked there.
 
 **Recommendation: request changes.** The submitted implementation at `fd97da2af63e3464d1f4e12288a68ecfbaef7cc9` runs on the RTX 3060, but it does not pass the plan's GPU/CPU agreement gate. A deterministic two-refresh reproduction loses an earlier refreshed gain. Two submitted GPU parity tests also fail; a stock-versus-stock control demonstrates a separate baseline reproducibility problem, so those failures cannot be attributed solely to adaptive feedback.
 
