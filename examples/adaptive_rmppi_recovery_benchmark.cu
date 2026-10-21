@@ -15,7 +15,9 @@
  * until the end of the trial. Errors use the plant state at the start of each control cycle (time k * DT).
  *
  * Usage: adaptive_rmppi_recovery_benchmark [num_seeds=30] [steps=300] [summary.csv] [radius=0.5] [trace.csv|-]
+ *        [seed_offset=1000] [kicks=1,2,3]
  * Writes one summary row per (scenario, severity, mode, seed) and, unless trace is "-", one trace row per cycle.
+ * Calibrate kicks and radius with seed_offset < 1000 (e.g. 0) and then freeze them before the evaluation run.
  * Requires a CUDA GPU.
  */
 #include <mppi/controllers/R-MPPI/adaptive_robust_mppi_controller.cuh>
@@ -304,15 +306,31 @@ int main(int argc, char** argv)
   const std::string out_path = argc > 3 ? argv[3] : "adaptive_rmppi_recovery_benchmark.csv";
   const float radius = argc > 4 ? std::stof(argv[4]) : 0.5f;
   const std::string trace_path = argc > 5 ? argv[5] : "adaptive_rmppi_recovery_trace.csv";
-  // Evaluation seeds start at 1000; tune thresholds on seeds < 1000 only.
-  const unsigned seed_offset = 1000;
+  // Evaluation seeds start at 1000; tune thresholds and kicks on seeds < 1000 only.
+  const unsigned seed_offset = argc > 6 ? static_cast<unsigned>(std::stoul(argv[6])) : 1000;
+  std::vector<float> kicks = { 1.0f, 2.0f, 3.0f };
+  if (argc > 7)
+  {
+    kicks.clear();
+    std::string list = argv[7];
+    size_t start = 0;
+    while (start <= list.size())
+    {
+      const size_t end = std::min(list.find(',', start), list.size());
+      if (end > start)
+      {
+        kicks.push_back(std::stof(list.substr(start, end - start)));
+      }
+      start = end + 1;
+    }
+  }
 
   std::vector<Scenario> scenarios = { { "nominal", 0.0f, false } };
-  for (float s : { 1.0f, 2.0f, 3.0f })
+  for (float s : kicks)
   {
     scenarios.push_back({ "kick", s, false });
   }
-  for (float s : { 1.0f, 2.0f, 3.0f })
+  for (float s : kicks)
   {
     scenarios.push_back({ "mismatch", s, true });
   }

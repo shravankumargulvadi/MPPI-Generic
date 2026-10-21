@@ -61,3 +61,18 @@ and the fraction of cycles hitting the budget. An optional per-cycle trace is al
 ./examples/adaptive_rmppi_recovery_benchmark 30 300 recovery.csv 0.5 recovery_trace.csv
 python3 ../examples/adaptive_rmppi_recovery_analyze.py recovery.csv --trace recovery_trace.csv --plot
 ```
+
+## Strided cost-reduction race (stock MPPI/RMPPI combined kernels)
+
+`costArrayReduction` and `multiCostArrayReduction` finish with a warp-synchronous tail (`warpReduceAdd`, no
+barriers) once 32 or fewer partial sums remain. The combined kernels call them with `stride = blockDim.x` to reduce
+across `threadIdx.y` for each sample. Those partial sums belong to threads in different warps, so the tail read and
+wrote shared memory across warps without synchronization whenever `blockDim.y` is a power of two of at least 4. Both
+the adaptive tests and the benchmarks use `(64, 4, 2)`. Strided reductions now use `__syncthreads` at every level, and
+contiguous (`stride == 1`) reductions are unchanged. The isolated kernel test uses `blockDim.y` 1-3, which never
+reaches this path, so its remaining racecheck reports have a different source. A `-lineinfo` racecheck run is needed
+to locate it.
+
+Recovery benchmark calibration: arguments 6 and 7 set the seed offset and the kick list, so kicks and the trigger
+radius can be chosen on seeds below 1000 and then frozen, e.g.
+`adaptive_rmppi_recovery_benchmark 10 300 cal.csv 2.0 - 0 0.25,0.5,0.75`.

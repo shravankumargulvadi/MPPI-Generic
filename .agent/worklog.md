@@ -47,3 +47,17 @@
 
 **Next step:**
 - On GPU: rerun stock-vs-stock and adaptive parity, racecheck, rmppi_kernel_tests, then the recovery benchmark.
+
+### Milestone: Respond to retest of 6731dcb
+
+**Status:** Done (compile-only)
+
+**Changed:**
+- Strided cost reductions no longer use the warp-synchronous tail (cross-warp race for blockDim.y >= 4).
+- Recovery benchmark takes seed offset and kick list for calibration on seeds < 1000.
+
+**Validation:**
+- rmppi/rollout/viz kernel tests, rmppi_test, adaptive tests and benchmark compile; nothing run (no GPU).
+
+**Next step:**
+- On GPU: racecheck with -lineinfo; calibrate kicks/radius on seeds < 1000, then rerun the evaluation seeds.

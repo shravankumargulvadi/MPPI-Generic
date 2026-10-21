@@ -1138,7 +1138,10 @@ __device__ void multiCostArrayReduction(float* running_cost, float* running_cost
 {
   int prev_size = start_size;
   const bool block_power_of_2 = (prev_size & (prev_size - 1)) == 0;
-  const int stop_condition = (block_power_of_2) ? 32 : 0;
+  // The warp-synchronous tail is only valid when the reduced elements belong to consecutive threads of one warp.
+  // With stride > 1 (one reduction per threadIdx.x across threadIdx.y) those threads sit in different warps, so
+  // reduce with __syncthreads at every level instead.
+  const int stop_condition = (block_power_of_2 && stride == 1) ? 32 : 0;
   int size;
   int j;
 
