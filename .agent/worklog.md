@@ -19,3 +19,17 @@
 
 **Next step:**
 - Run adaptive_rmppi_test and the Phase 4 benchmark on a GPU machine.
+
+### Milestone: Address Devin Review findings on PR #1
+
+**Status:** Done
+
+**Changed:**
+- Adaptive mode now validates/selects the combined kernel (throws if it does not fit shared memory); disabled iterations clear stats.
+- Repeated refreshes carry earlier policy segments forward; last pass records violations as budget overflows; residual-trigger switch rebuilds baseline Jacobians.
+
+**Validation:**
+- CPU reference tests 14/14 in CUDA container; GPU targets compile only (no GPU).
+
+**Next step:**
+- Run `adaptive_rmppi_test` and the benchmark on a GPU machine.

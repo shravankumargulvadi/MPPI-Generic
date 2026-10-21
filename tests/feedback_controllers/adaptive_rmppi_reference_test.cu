@@ -330,6 +330,24 @@ TEST(AdaptiveRMPPIReference, ResidualTriggerIgnoresOffsetsOnLinearDynamics)
   EXPECT_FALSE(ref.rollout(0, x0, x_act0, f.v_nom, f.v_act).events.empty());
 }
 
+TEST(AdaptiveRMPPIReference, SwitchingToResidualTriggerBuildsBaselineJacobians)
+{
+  DIFixture f;
+  f.config.enabled = true;
+  f.config.trigger = TriggerType::DISTANCE;
+  f.config.hard_distance_radius = 100.0f;
+  DIFixture::state_array x0 = DIFixture::state_array::Zero();
+  auto ref = f.make(x0);
+  AdaptiveFeedbackConfig<4> residual = f.config;
+  residual.trigger = TriggerType::MODEL_RESIDUAL;
+  residual.residual_threshold = 1e-3f;
+  ref.setConfig(residual);
+  DIFixture::state_array x_act0;
+  x_act0 << 3.0f, -3.0f, 1.0f, 1.0f;
+  // Without rebuilt Jacobians this indexes empty A_d/B_d; with them the exact linear model never triggers.
+  EXPECT_TRUE(ref.rollout(0, x0, x_act0, f.v_nom, f.v_act).events.empty());
+}
+
 TEST(AdaptiveRMPPIReference, ResidualTriggerFiresOnNonlinearDeviation)
 {
   DubinsFixture f;

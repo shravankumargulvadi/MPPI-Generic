@@ -12,7 +12,8 @@
  *   pass B: the sampled noise is restored and all rollouts are re-run from t = 0, so every cost, likelihood-ratio and
  *           feedback-cost term comes from the trajectory that was actually simulated.
  * Passes repeat until no rollout changes policy or max_refreshes_per_rollout is reached.
- * The single combined rollout kernel is always used in adaptive mode because the policy lookup is keyed by sample.
+ * Adaptive mode requires the combined rollout kernel (policy lookup is keyed by sample); it is selected automatically and
+ * a std::runtime_error is thrown if it does not fit in shared memory.
  * See doc/adaptive_rmppi_implementation_note.md for limitations.
  */
 #pragma once
@@ -97,9 +98,12 @@ public:
 
 protected:
   void launchRolloutKernels() override;
+  // Throws if the combined kernel does not fit in shared memory; otherwise selects it.
+  void ensureCombinedKernel();
   void launchSingleKernel();
   void copyPolicyAssignmentToDevice(const std::vector<int>& policy_id, const std::vector<int>& policy_start);
 
+  size_t shared_mem_per_block_ = 0;
   float* saved_samples_d_ = nullptr;
   size_t saved_samples_size_ = 0;
   Stats last_stats_;

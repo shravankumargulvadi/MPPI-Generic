@@ -264,7 +264,7 @@ void AdaptiveDDP::computeFeedback(const Eigen::Ref<const state_array>& init_stat
 }
 
 ADAPTIVE_DDP_TEMPLATE
-mppi::adaptive::RefreshOutcome AdaptiveDDP::refreshPolicy(int slot, int t, const state_array& x)
+mppi::adaptive::RefreshOutcome AdaptiveDDP::refreshPolicy(int slot, int t, const state_array& x, int base_slot)
 {
   typename Reference::Cache cache = reference_->getBaselineCache();
   auto outcome = reference_->refresh(cache, t, x);
@@ -276,6 +276,12 @@ mppi::adaptive::RefreshOutcome AdaptiveDDP::refreshPolicy(int slot, int t, const
   const int SC = DYN_T::STATE_DIM * DYN_T::CONTROL_DIM;
   float* gains = &s->policy_gains_[slot * INTERNAL_STATE_T::GAIN_SIZE];
   float* x_ref = &s->policy_x_ref_[slot * INTERNAL_STATE_T::REF_SIZE];
+  const float* base_gains =
+      base_slot < 0 ? s->fb_gain_traj_ : &s->policy_gains_[base_slot * INTERNAL_STATE_T::GAIN_SIZE];
+  const float* base_x_ref =
+      base_slot < 0 ? s->x_ref_traj_ : &s->policy_x_ref_[base_slot * INTERNAL_STATE_T::REF_SIZE];
+  std::memcpy(gains, base_gains, sizeof(float) * INTERNAL_STATE_T::GAIN_SIZE);
+  std::memcpy(x_ref, base_x_ref, sizeof(float) * INTERNAL_STATE_T::REF_SIZE);
   for (int k = 0; k < cache.size(); k++)
   {
     const int abs_t = cache.start_t + k;

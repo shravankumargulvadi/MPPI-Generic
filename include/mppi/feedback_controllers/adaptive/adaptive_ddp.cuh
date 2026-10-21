@@ -131,7 +131,9 @@ public:
    * Remaining-horizon re-solve from actual state x at absolute timestep t, written into bank slot `slot`.
    * Returns the outcome; the slot is only written on REFRESHED.
    */
-  mppi::adaptive::RefreshOutcome refreshPolicy(int slot, int t, const state_array& x);
+  // Writes a refreshed policy into `slot`: gains before t are copied from `base_slot` (-1 = baseline), so earlier
+  // refreshes of the same rollout are preserved.
+  mppi::adaptive::RefreshOutcome refreshPolicy(int slot, int t, const state_array& x, int base_slot = -1);
 
   // Host copy of a stored policy gain (baseline when slot < 0) for tests and logging.
   feedback_gain_matrix getPolicyGain(int slot, int t);

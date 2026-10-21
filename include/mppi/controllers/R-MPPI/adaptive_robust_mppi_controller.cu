@@ -16,6 +16,32 @@ AdaptiveRMPPI::~AdaptiveRobustMPPIController()
 }
 
 ADAPTIVE_RMPPI_TEMPLATE
+void AdaptiveRMPPI::ensureCombinedKernel()
+{
+  if (shared_mem_per_block_ == 0)
+  {
+    cudaDeviceProp device_prop;
+    HANDLE_ERROR(cudaGetDeviceProperties(&device_prop, 0));
+    shared_mem_per_block_ = device_prop.sharedMemPerBlock;
+  }
+  const size_t combined_bytes = mppi::kernels::rmppi::calcRMPPICombinedKernelSharedMemSize(
+      this->model_, this->cost_, this->sampler_, this->fb_controller_->getHostPointer().get(),
+      this->params_.dynamics_rollout_dim_);
+  if (combined_bytes > shared_mem_per_block_)
+  {
+    throw std::runtime_error("Adaptive RMPPI requires the combined rollout kernel, which needs " +
+                             std::to_string(combined_bytes) + " bytes of shared memory; the device allows " +
+                             std::to_string(shared_mem_per_block_) +
+                             ". Lower dynamics_rollout_dim_ or disable adaptive feedback.");
+  }
+  // Keep the inherited sampled-trajectory/visualization paths consistent with the kernel actually used.
+  if (this->getKernelChoiceAsEnum() != kernelType::USE_SINGLE_KERNEL)
+  {
+    this->setKernelChoice(kernelType::USE_SINGLE_KERNEL);
+  }
+}
+
+ADAPTIVE_RMPPI_TEMPLATE
 void AdaptiveRMPPI::launchSingleKernel()
 {
   mppi::kernels::rmppi::launchRMPPIRolloutKernel<DYN_T, COST_T, SAMPLING_T, FEEDBACK_GPU>(
@@ -43,9 +69,11 @@ void AdaptiveRMPPI::launchRolloutKernels()
   const Config& cfg = this->fb_controller_->getAdaptiveConfig();
   if (!cfg.enabled)
   {
+    last_stats_ = Stats();
     PARENT_CLASS::launchRolloutKernels();
     return;
   }
+  ensureCombinedKernel();
   constexpr int S_DIM = DYN_T::STATE_DIM;
   auto gpu_fb = this->fb_controller_->getHostPointer();
   gpu_fb->setNumRollouts(NUM_ROLLOUTS);
@@ -85,16 +113,14 @@ void AdaptiveRMPPI::launchRolloutKernels()
       HANDLE_ERROR(cudaMemcpyAsync(samples_d, saved_samples_d_, sizeof(float) * num_sample_floats,
                                    cudaMemcpyDeviceToDevice, this->stream_));
     }
-    const bool record = pass < max_passes - 1;
-    fb_state->record_violations_ = record ? 1 : 0;
+    // Recording never changes the applied control, so the last pass is recorded too for diagnostics; its
+    // violations cannot be refreshed and are reported as budget overflows.
+    const bool last_pass = pass == max_passes - 1;
+    fb_state->record_violations_ = 1;
     gpu_fb->copyFlagsToDevice(false);
     HANDLE_ERROR(cudaMemsetAsync(fb_state->violation_t_d_, 0xFF, sizeof(int) * NUM_ROLLOUTS, this->stream_));
     launchSingleKernel();
     stats.passes++;
-    if (!record)
-    {
-      break;
-    }
 
     HANDLE_ERROR(cudaMemcpyAsync(violation_t.data(), fb_state->violation_t_d_, sizeof(int) * NUM_ROLLOUTS,
                                  cudaMemcpyDeviceToHost, this->stream_));
@@ -121,7 +147,7 @@ void AdaptiveRMPPI::launchRolloutKernels()
       e.t = t;
       e.distance = mppi::adaptive::weightedStateDistance<S_DIM>(x.data(), x_ref, cfg.state_weights,
                                                                  cfg.angle_state_mask);
-      if (attempts[n] >= cfg.max_refreshes_per_rollout || iteration_refreshes >= cfg.max_refreshes_per_iteration ||
+      if (last_pass || attempts[n] >= cfg.max_refreshes_per_rollout || iteration_refreshes >= cfg.max_refreshes_per_iteration ||
           slots_used >= FB_T::MAX_POLICY_SLOTS)
       {
         e.outcome = RefreshOutcome::BUDGET_EXCEEDED;
@@ -131,11 +157,15 @@ void AdaptiveRMPPI::launchRolloutKernels()
       {
         attempts[n]++;
         iteration_refreshes++;
-        e.outcome = this->fb_controller_->refreshPolicy(slots_used, t, x);
+        e.outcome = this->fb_controller_->refreshPolicy(slots_used, t, x, policy_id[n]);
         if (e.outcome == RefreshOutcome::REFRESHED)
         {
+          // The new slot carries the earlier segments forward, so the earliest start is kept.
+          if (policy_id[n] < 0)
+          {
+            policy_start[n] = t;
+          }
           policy_id[n] = slots_used++;
-          policy_start[n] = t;
           policies_changed = true;
           stats.refreshes++;
         }
@@ -152,7 +182,7 @@ void AdaptiveRMPPI::launchRolloutKernels()
       }
       stats.events.push_back(e);
     }
-    if (!policies_changed)
+    if (last_pass || !policies_changed)
     {
       // Nothing to replay: the costs of this pass already correspond to the policies that were used.
       break;

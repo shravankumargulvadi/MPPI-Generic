@@ -114,6 +114,12 @@ public:
   void setConfig(const Config& config)
   {
     config_ = config;
+    // The residual trigger needs A_d/B_d for the baseline; they are only built when that trigger is active.
+    if (config_.trigger == TriggerType::MODEL_RESIDUAL && !baseline_.K.empty() &&
+        baseline_.A_d.size() != baseline_.K.size())
+    {
+      fillJacobians(baseline_);
+    }
   }
   const Config& getConfig() const
   {
