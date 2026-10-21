@@ -22,6 +22,7 @@ On a trigger at timestep t, DDP is re-solved over the remaining horizon `T - t`,
 2. Pass A: the combined `rolloutRMPPIKernel` runs. `DeviceAdaptiveDDP::k` records each rollout's first V0 violation (t and state).
 3. The host refreshes the recorded rollouts in sample order, within budget.
 4. Pass B: the noise is restored and all rollouts are re-run from t = 0 with their new policies. All costs, likelihood-ratio terms and feedback-cost terms are recomputed from the trajectory that was actually simulated, so old and new trajectories are never mixed. Steps 2-4 repeat until no policy changes or `max_refreshes_per_rollout` is reached. The final pass does not record.
+- The GPU feedback rejects an enabled `MODEL_RESIDUAL` config with `std::invalid_argument` (V1 is CPU-reference only).
 - Adaptive mode requires the single combined kernel, because the policy lookup is keyed by sample index. It selects that kernel automatically (so the inherited sampled-trajectory paths stay consistent) and throws `std::runtime_error` if the combined kernel does not fit in shared memory, rather than falling back to split kernels.
 - Re-running every rollout, not just the affected ones, is simpler and always consistent. It costs one extra full kernel per refresh round.
 

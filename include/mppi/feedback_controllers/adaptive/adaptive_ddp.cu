@@ -1,6 +1,7 @@
 #include <mppi/feedback_controllers/adaptive/adaptive_ddp.cuh>
 
 #include <cstring>
+#include <stdexcept>
 
 #define ADAPTIVE_DDP_DEVICE_TEMPLATE template <class GPU_FB_T, class DYN_T, int NUM_TIMESTEPS, int MAX_POLICIES>
 #define AdaptiveDDPDevice DeviceAdaptiveDDPImpl<GPU_FB_T, DYN_T, NUM_TIMESTEPS, MAX_POLICIES>
@@ -206,6 +207,11 @@ void AdaptiveDDP::setParams(const DDPParams<DYN_T>& params)
 ADAPTIVE_DDP_TEMPLATE
 void AdaptiveDDP::setAdaptiveConfig(const Config& config)
 {
+  if (config.enabled && config.trigger != mppi::adaptive::TriggerType::DISTANCE)
+  {
+    // The device rollout only implements the V0 distance test; V1 is CPU-reference only.
+    throw std::invalid_argument("AdaptiveDDPFeedback supports only TriggerType::DISTANCE on the GPU");
+  }
   config_ = config;
   reference_->setConfig(config);
   auto* s = this->getFeedbackStatePointer();
