@@ -1,0 +1,93 @@
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from AdaptiveRMPPI
+[ RUN      ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 6
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 7
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 8
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:108: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 9
+
+[  FAILED  ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed (190 ms)
+[ RUN      ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 2
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 3
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 4
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 5
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 6
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 7
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 8
+
+/repo/tests/controllers/adaptive_rmppi_test.cu:132: Failure
+Value of: u_adaptive[k].isApprox(u_stock[k], 1e-4f)
+  Actual: false
+Expected: true
+cycle 9
+
+[  FAILED  ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock (30 ms)
+[ RUN      ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged
+[       OK ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged (13 ms)
+[ RUN      ] AdaptiveRMPPI.FirstViolationMatchesCPUReference
+[       OK ] AdaptiveRMPPI.FirstViolationMatchesCPUReference (12 ms)
+[----------] 4 tests from AdaptiveRMPPI (247 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (247 ms total)
+[  PASSED  ] 2 tests.
+[  FAILED  ] 2 tests, listed below:
+[  FAILED  ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+[  FAILED  ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+
+ 2 FAILED TESTS

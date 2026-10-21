@@ -1,6 +1,6 @@
 # Adaptive RMPPI: implementation note
 
-Status: prototype. CPU reference tests pass. The GPU path compiles; it has **not been run** on a GPU (see `RESULTS.md`).
+Status: prototype; **changes required before acceptance**. GPU validation on an RTX 3060 passed the 13 CPU reference tests but only 2 of 4 adaptive GPU tests. A deterministic two-refresh replay loses an earlier gain segment. Stock-versus-stock same-seed reproducibility also fails, and racecheck reports hazards in shared RMPPI kernels. The submitted 30-seed-per-severity linear benchmark shows roughly 2.2x planning-p95 overhead with no detectable improvement in its proxy error/cost metrics. See [GPU review and results](Adaptive_RMPPI_RESULTS.md) for evidence, scope limits and reproduction steps.
 
 ## Where adaptation happens
 - `AdaptiveDDPFeedback` (`include/mppi/feedback_controllers/adaptive/adaptive_ddp.cuh`) computes the baseline gains with the same DDP problem as `DDPFeedback`. It also owns a bank of refreshed policies (`MAX_POLICIES` slots) and one policy assignment per rollout (slot id + start timestep).
