@@ -76,3 +76,8 @@ to locate it.
 Recovery benchmark calibration: arguments 6 and 7 set the seed offset and the kick list, so kicks and the trigger
 radius can be chosen on seeds below 1000 and then frozen, e.g.
 `adaptive_rmppi_recovery_benchmark 10 300 cal.csv 2.0 - 0 0.25,0.5,0.75`.
+
+Plant-side feedback: before this fix, both benchmarks applied only `getControlSeq().col(0)` to the simulated plant.
+RMPPI optimizes from a nominal state x* that can differ from the plant state, so the real system also needs the
+tracking term. Both benchmarks now apply `u*_0 + K_0 (x - x*_0)`, using `getFeedbackControl` against
+`getTargetStateSeq().col(0)`. Results recorded for `6731dcb` and earlier were produced without this term.

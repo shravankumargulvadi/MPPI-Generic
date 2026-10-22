@@ -92,7 +92,9 @@ RunResult run(CONTROLLER& c, DYN& model, COST& cost, int steps, float severity, 
     c.computeControl(x, 1);
     latency.push_back(std::chrono::duration<float, std::milli>(std::chrono::steady_clock::now() - t0).count());
     stats(r);
-    DYN::control_array u = c.getControlSeq().col(0);
+    // RMPPI applies u*_0 + K_0 (x - x*_0): its control sequence is optimized for the nominal state x*, which can
+    // differ from the plant state, so the tracking feedback must be applied on the real system too.
+    DYN::control_array u = c.getControlSeq().col(0) + c.getFeedbackControl(x, c.getTargetStateSeq().col(0), 0);
     model.step(x, next, der, u, y, k, DT);
     x = next;
     float state_cost = cost.computeStateCost(x);

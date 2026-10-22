@@ -61,3 +61,4 @@
 
 **Next step:**
 - On GPU: racecheck with -lineinfo; calibrate kicks/radius on seeds < 1000, then rerun the evaluation seeds.
+- Benchmarks now apply RMPPI plant-side feedback u*_0 + K_0(x - x*_0); earlier benchmark results omitted it.

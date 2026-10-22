@@ -216,7 +216,9 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
              << x(0) << "," << x(1) << "," << x(2) << "," << x(3) << "," << e << "," << ms << "," << cs.refreshes
              << "," << cs.overflows << "," << cs.violations << "\n";
     }
-    DYN::control_array u = c.getControlSeq().col(0);
+    // RMPPI applies u*_0 + K_0 (x - x*_0): its control sequence is optimized for the nominal state x*, which can
+    // differ from the plant state, so the tracking feedback must be applied on the real system too.
+    DYN::control_array u = c.getControlSeq().col(0) + c.getFeedbackControl(x, c.getTargetStateSeq().col(0), 0);
     plant.enforceConstraints(x, u);
     plant.step(x, next, der, u, y, k * DT, DT);
     x = next;
