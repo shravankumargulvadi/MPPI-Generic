@@ -1,0 +1,1732 @@
+[
+  {
+    "case": "neither",
+    "scenario": "heading_kick",
+    "severity": 1.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.6866599917,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.52653566797,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.71954298,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.63125270009,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.7151111125933336,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.10471703211999998,
+        0.09671185945483332,
+        0.11652565018316666
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "neither",
+    "scenario": "heading_kick",
+    "severity": 2.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7194859982,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2304.975732433333,
+        "latency_p95_ms": 0.5300084988233332,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.625117064,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2304.975732433333,
+        "latency_p95_ms": 0.6257880032066667,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8334444443366666,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.09577950438333334,
+        0.09106392353975,
+        0.10047979822433334
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 0,
+    "both_success_recovery_diff_ci95": null,
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "neither",
+    "scenario": "heading_kick",
+    "severity": 2.5,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 7,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.8535699844,
+        "recovery_time_s": 4.547333256400001,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2272.688655533333,
+        "latency_p95_ms": 0.5524648328666667,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 7,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 3.281610966,
+        "recovery_time_s": 4.547333256400001,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2272.688655533333,
+        "latency_p95_ms": 0.6605811019666668,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8251111030533331,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.10811626909999998,
+        0.100336626961,
+        0.11777909263174997
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 7,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "neither",
+    "scenario": "heading_kick",
+    "severity": 3.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 12,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7313399911,
+        "recovery_time_s": 4.419333211600001,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1940.854134066667,
+        "latency_p95_ms": 0.5402415653166667,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 12,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.845417976,
+        "recovery_time_s": 4.419333211600001,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1940.854134066667,
+        "latency_p95_ms": 0.6609832346599999,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8077777783033332,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.12074166934333332,
+        0.09809061416891666,
+        0.15345219772816665
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 12,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "neither",
+    "scenario": "nominal",
+    "severity": 0.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.6964470148,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.5176929344766666,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.338522911,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.60709533492,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.6713333368333334,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.08940240044333334,
+        0.08480764962958331,
+        0.09356364978483332
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "plant-only",
+    "scenario": "heading_kick",
+    "severity": 1.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7155420184,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.5204670667633334,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.521435022,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.6114622672400001,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.7151111125933336,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.09099520047666668,
+        0.08513489608733332,
+        0.09642370953208335
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "plant-only",
+    "scenario": "heading_kick",
+    "severity": 2.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.732288003,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2304.975732433333,
+        "latency_p95_ms": 0.5261959751433333,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.449700117,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2272.4973470333334,
+        "latency_p95_ms": 0.62832516432,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8334444443366666,
+        "plant_refreshes": 16.9,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.10212918917666666,
+        0.09741188039033333,
+        0.10688272666641667
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      -32.47838539999999,
+      -66.21245842999993,
+      0.0
+    ],
+    "both_success_pairs": 0,
+    "both_success_recovery_diff_ci95": null,
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "plant-only",
+    "scenario": "heading_kick",
+    "severity": 2.5,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 7,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7383520007,
+        "recovery_time_s": 4.547333256400001,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2272.688655533333,
+        "latency_p95_ms": 0.5304526984766667,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 3,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.646637917,
+        "recovery_time_s": 4.6099999030333345,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2471.7296630999995,
+        "latency_p95_ms": 0.6328452269233333,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8365555524933334,
+        "plant_refreshes": 42.5,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        -0.13333333333333333,
+        -0.26666666666666666,
+        -0.03333333333333333
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.10239252844666669,
+        0.0970369934933333,
+        0.10795879875541667
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      199.0410075666667,
+      -48.82906616166658,
+      481.15908658833314
+    ],
+    "both_success_pairs": 3,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 4,
+    "exact_paired_success_p_two_sided": 0.125
+  },
+  {
+    "case": "plant-only",
+    "scenario": "heading_kick",
+    "severity": 3.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 12,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7194309831,
+        "recovery_time_s": 4.419333211600001,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1940.854134066667,
+        "latency_p95_ms": 0.5303999741866667,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 13,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.314609051,
+        "recovery_time_s": 4.410666569066666,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1994.4641356333332,
+        "latency_p95_ms": 0.6336019674933334,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8195555547833332,
+        "plant_refreshes": 69.13333333333334,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.03333333333333333,
+        -0.13333333333333333,
+        0.2
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.1032019933066667,
+        0.09782064482441669,
+        0.10878684615183334
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      53.61000156666662,
+      -235.99809400500004,
+      333.1179868216666
+    ],
+    "both_success_pairs": 9,
+    "both_success_recovery_diff_ci95": [
+      0.006666686777777819,
+      -0.004444440222222272,
+      0.02222222755555567
+    ],
+    "adaptive_only_successes": 4,
+    "stock_only_successes": 3,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "plant-only",
+    "scenario": "nominal",
+    "severity": 0.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.694773972,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.5154213666899999,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 1.996446967,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.5997445325,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.6713333368333334,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.08432316581000003,
+        0.07830457448108333,
+        0.08938294006825
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "scenario": "heading_kick",
+    "severity": 1.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.6902469993,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.51845290065,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.110349894,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.6069736659566666,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.7151111125933336,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.08852076530666667,
+        0.08460138578674999,
+        0.09273404220191665
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "scenario": "heading_kick",
+    "severity": 2.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.6779969931,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2272.4973470333334,
+        "latency_p95_ms": 0.5152302056599999,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 16.9
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.417296886,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2272.4973470333334,
+        "latency_p95_ms": 0.6094250321333333,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8334444443366666,
+        "plant_refreshes": 16.9,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.09419482647333334,
+        0.08962393214766666,
+        0.09869774355341668
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 0,
+    "both_success_recovery_diff_ci95": null,
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "scenario": "heading_kick",
+    "severity": 2.5,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 3,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.6852009892,
+        "recovery_time_s": 4.6099999030333345,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2471.7296630999995,
+        "latency_p95_ms": 0.5137557923799999,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 42.5
+      },
+      "adaptive_v0": {
+        "successes": 3,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.027235031,
+        "recovery_time_s": 4.6099999030333345,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2471.7296630999995,
+        "latency_p95_ms": 0.6087362011266665,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8365555524933334,
+        "plant_refreshes": 42.5,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.09498040874666665,
+        0.09036066326150001,
+        0.09986110734874999
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 3,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "scenario": "heading_kick",
+    "severity": 3.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 13,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.733931005,
+        "recovery_time_s": 4.410666569066666,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1994.4641356333332,
+        "latency_p95_ms": 0.5184599638066666,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 69.13333333333334
+      },
+      "adaptive_v0": {
+        "successes": 13,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.785469055,
+        "recovery_time_s": 4.410666569066666,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1994.4641356333332,
+        "latency_p95_ms": 0.6128313600933334,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.8195555547833332,
+        "plant_refreshes": 69.13333333333334,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.09437139628666666,
+        0.088543402588,
+        0.10104250459808331
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 13,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "scenario": "nominal",
+    "severity": 0.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.8697400093,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.5162811299133333,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.649674892,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.6076856036966666,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.6713333368333334,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.09140447378333333,
+        0.08608597225925001,
+        0.09642365370375
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "rollout-only",
+    "scenario": "heading_kick",
+    "severity": 1.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.6734570265,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.5116260280133332,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.09119606,
+        "recovery_time_s": 2.9259998560999994,
+        "peak_error": 0.9992556372933333,
+        "cumulative_cost": 312.1688720666668,
+        "latency_p95_ms": 0.8436634003966667,
+        "refreshes_mean": 1.2132222057000002,
+        "budget_hit_fraction": 0.0006666666828000001,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.33203737238333336,
+        0.32784394757941665,
+        0.33655847222866664
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "rollout-only",
+    "scenario": "heading_kick",
+    "severity": 2.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.66356498,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2304.975732433333,
+        "latency_p95_ms": 0.5160418003866666,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.1700809,
+        "recovery_time_s": 4.609999974499999,
+        "peak_error": 1.9989598432333335,
+        "cumulative_cost": 2304.9331583666667,
+        "latency_p95_ms": 1.0877542376333333,
+        "refreshes_mean": 3.5715555587333343,
+        "budget_hit_fraction": 0.04766666671986667,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.5717124372466668,
+        0.5614292409786665,
+        0.5832818411882499
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      -0.0425740666666267,
+      -0.06178434416656785,
+      -0.025866426666610973
+    ],
+    "both_success_pairs": 0,
+    "both_success_recovery_diff_ci95": null,
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "rollout-only",
+    "scenario": "heading_kick",
+    "severity": 2.5,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 7,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7042109966,
+        "recovery_time_s": 4.547333256400001,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2272.688655533333,
+        "latency_p95_ms": 0.5252883633033334,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 7,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.263940096,
+        "recovery_time_s": 4.547333256400001,
+        "peak_error": 2.498959438066666,
+        "cumulative_cost": 2272.688521333333,
+        "latency_p95_ms": 1.1001574357000001,
+        "refreshes_mean": 3.6283333698666667,
+        "budget_hit_fraction": 0.06088888966846666,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.5748690723966665,
+        0.5565292887919167,
+        0.59523354903575
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      -0.00013419999999465896,
+      -0.0023234683332854426,
+      0.0018515016666871512
+    ],
+    "both_success_pairs": 7,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "rollout-only",
+    "scenario": "heading_kick",
+    "severity": 3.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 12,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.724988997,
+        "recovery_time_s": 4.419333211600001,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1940.854134066667,
+        "latency_p95_ms": 0.5289234340266666,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 12,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.220280886,
+        "recovery_time_s": 4.419333211600001,
+        "peak_error": 2.9989592075333333,
+        "cumulative_cost": 1940.854984566667,
+        "latency_p95_ms": 1.0735060770666667,
+        "refreshes_mean": 3.1873333216,
+        "budget_hit_fraction": 0.04966666704753332,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.54458264304,
+        0.5260000285015833,
+        0.5664157923122499
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0008504999999634795,
+      -0.000476196666695993,
+      0.002376468333286348
+    ],
+    "both_success_pairs": 12,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "rollout-only",
+    "scenario": "nominal",
+    "severity": 0.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7134770155,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.5150988042433332,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.262717962,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.016013189870666668,
+        "cumulative_cost": 0.09071067354599999,
+        "latency_p95_ms": 0.8356980323733332,
+        "refreshes_mean": 0.9445555507700001,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.32059922812999997,
+        0.31560660609325,
+        0.3259878186281666
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "submitted",
+    "scenario": "heading_kick",
+    "severity": 1.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.651429,
+        "recovery_time_s": 2.9260000000000006,
+        "peak_error": 0.9992556000000001,
+        "cumulative_cost": 312.16883333333334,
+        "latency_p95_ms": 0.5136341333333334,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.35876,
+        "recovery_time_s": 2.9260000000000006,
+        "peak_error": 0.9992556000000001,
+        "cumulative_cost": 312.16883333333334,
+        "latency_p95_ms": 0.8530721666666666,
+        "refreshes_mean": 1.2132226666666668,
+        "budget_hit_fraction": 0.0006666659999999999,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.3394380333333334,
+        0.32973090499999996,
+        0.3513845475
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "submitted",
+    "scenario": "heading_kick",
+    "severity": 2.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7295,
+        "recovery_time_s": 4.61,
+        "peak_error": 1.998959,
+        "cumulative_cost": 2304.9763333333335,
+        "latency_p95_ms": 0.5138892,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.05986,
+        "recovery_time_s": 4.61,
+        "peak_error": 1.998959,
+        "cumulative_cost": 2272.4543333333336,
+        "latency_p95_ms": 1.0819283333333334,
+        "refreshes_mean": 3.5512223333333335,
+        "budget_hit_fraction": 0.04588889,
+        "plant_refreshes": 16.9,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.5680391333333332,
+        0.5591293783333333,
+        0.5778376099999999
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      -32.521999999999984,
+      -74.85473333333326,
+      -0.03366666666667356
+    ],
+    "both_success_pairs": 0,
+    "both_success_recovery_diff_ci95": null,
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "submitted",
+    "scenario": "heading_kick",
+    "severity": 2.5,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 7,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.7137,
+        "recovery_time_s": 4.547333333333333,
+        "peak_error": 2.498958666666667,
+        "cumulative_cost": 2272.6893333333337,
+        "latency_p95_ms": 0.5146166,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 3,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 3.19911,
+        "recovery_time_s": 4.61,
+        "peak_error": 2.498958666666667,
+        "cumulative_cost": 2471.7270000000003,
+        "latency_p95_ms": 1.090819666666667,
+        "refreshes_mean": 3.863999666666667,
+        "budget_hit_fraction": 0.06322218766666668,
+        "plant_refreshes": 42.5,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        -0.13333333333333333,
+        -0.26666666666666666,
+        -0.03333333333333333
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.5762030666666667,
+        0.5580362708333334,
+        0.5958489224999999
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      199.0376666666667,
+      -49.69958333333333,
+      482.04777499999983
+    ],
+    "both_success_pairs": 3,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 4,
+    "exact_paired_success_p_two_sided": 0.125
+  },
+  {
+    "case": "submitted",
+    "scenario": "heading_kick",
+    "severity": 3.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 12,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.667808,
+        "recovery_time_s": 4.4193333333333324,
+        "peak_error": 2.9989586666666668,
+        "cumulative_cost": 1940.8543333333332,
+        "latency_p95_ms": 0.5264425666666667,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 13,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.72237,
+        "recovery_time_s": 4.410666666666668,
+        "peak_error": 2.9989586666666668,
+        "cumulative_cost": 1994.4626666666668,
+        "latency_p95_ms": 1.1028303333333336,
+        "refreshes_mean": 3.831332666666667,
+        "budget_hit_fraction": 0.07088889566666666,
+        "plant_refreshes": 69.13333333333334,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.03333333333333333,
+        -0.13333333333333333,
+        0.2
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.5763877666666666,
+        0.5460404158333334,
+        0.6115012241666665
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      53.60833333333333,
+      -237.15454999999997,
+      334.4862666666665
+    ],
+    "both_success_pairs": 9,
+    "both_success_recovery_diff_ci95": [
+      0.006666666666666672,
+      -0.004444444444444449,
+      0.02222222222222224
+    ],
+    "adaptive_only_successes": 4,
+    "stock_only_successes": 3,
+    "exact_paired_success_p_two_sided": 1.0
+  },
+  {
+    "case": "submitted",
+    "scenario": "nominal",
+    "severity": 0.0,
+    "trials": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 0.646928,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.01601318666666667,
+        "cumulative_cost": 0.09071065333333334,
+        "latency_p95_ms": 0.5110129999999999,
+        "refreshes_mean": 0.0,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "failed_constraints": 0,
+        "deadline_misses": 0,
+        "max_latency_ms": 2.18168,
+        "recovery_time_s": 0.0,
+        "peak_error": 0.01601318666666667,
+        "cumulative_cost": 0.09071065333333334,
+        "latency_p95_ms": 0.8320421333333333,
+        "refreshes_mean": 0.9445552333333332,
+        "budget_hit_fraction": 0.0,
+        "plant_refreshes": 0.0,
+        "plant_refresh_failures": 0.0,
+        "reused_ddp_actions": 0.0
+      }
+    },
+    "paired_diff_ci95": {
+      "success": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "peak_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "latency_p95_ms": [
+        0.3210291333333334,
+        0.31726376333333334,
+        0.32514975999999995
+      ]
+    },
+    "complete_pairs": 30,
+    "complete_cost_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "both_success_pairs": 30,
+    "both_success_recovery_diff_ci95": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "adaptive_only_successes": 0,
+    "stock_only_successes": 0,
+    "exact_paired_success_p_two_sided": 1.0
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "case": "neither",
+    "pairs": 150,
+    "max_applied_control_difference": 0.0,
+    "matched_command_pairs_at_1e_5": 150,
+    "max_trace_error_reconstruction_difference": 4.2030321001362836e-07,
+    "plant_failure_events": 0
+  },
+  {
+    "case": "plant-only",
+    "pairs": 150,
+    "max_applied_control_difference": 1.5472748876,
+    "matched_command_pairs_at_1e_5": 87,
+    "max_trace_error_reconstruction_difference": 4.2030321001362836e-07,
+    "plant_failure_events": 0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "pairs": 150,
+    "max_applied_control_difference": 0.0,
+    "matched_command_pairs_at_1e_5": 150,
+    "max_trace_error_reconstruction_difference": 3.8738413188355025e-07,
+    "plant_failure_events": 0
+  },
+  {
+    "case": "rollout-only",
+    "pairs": 150,
+    "max_applied_control_difference": 0.0003695487999999525,
+    "matched_command_pairs_at_1e_5": 61,
+    "max_trace_error_reconstruction_difference": 4.2030321001362836e-07,
+    "plant_failure_events": 0
+  },
+  {
+    "case": "submitted",
+    "pairs": 150,
+    "max_applied_control_difference": 1.54727,
+    "matched_command_pairs_at_1e_5": 60,
+    "max_trace_error_reconstruction_difference": 1.0348592682341007e-05,
+    "plant_failure_events": 0
+  }
+]

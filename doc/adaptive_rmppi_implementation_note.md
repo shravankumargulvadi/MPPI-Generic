@@ -1,6 +1,6 @@
 # Adaptive RMPPI: implementation note
 
-Status: prototype; **no measured cart-pole recovery advantage after trigger and common-parameter tuning**. The [2,838-trial cart-pole study](Adaptive_RMPPI_CARTPOLE_STUDY.md) calibrates radii 4 and 4.5 and includes 1,620 frozen evaluation trials on seeds 5000-5029. Stock/adaptive primary recovery is identical: 61/360 disturbed trials with original settings and 254/360 with cart weight 200/force 20 N. Adaptive mean trial p95 remains about 1.7x stock on disturbed cases, and even a zero-refresh nominal control adds 0.082 ms [95% CI 0.066, 0.098]. Keep adaptive mode disabled for these tested settings. Earlier functional tests and [lineinfo racecheck findings](Adaptive_RMPPI_RETEST.md) are unchanged; this study edits no controller/kernel code.
+Status: prototype; **the new Dubins heading test does not demonstrate a practical adaptive advantage**. At `54895c8`, the exact submitted run yields stock/adaptive 49/120 versus 46/120 disturbed recoveries, with about 2x adaptive planning p95. The aggregate success difference is not statistically conclusive. Attribution controls show no recovery benefit from rollout gain refresh, and the new plant-side branch executes a DDP action already computed by the baseline. The isolated combined rollout is racecheck-clean; init-eval hazards remain. See [Dubins results and mechanism findings](Adaptive_RMPPI_DUBINS_RESULTS.md), the [historical cart-pole study](Adaptive_RMPPI_CARTPOLE_STUDY.md), and [earlier regression reports](Adaptive_RMPPI_RETEST.md).
 
 ## Where adaptation happens
 - `AdaptiveDDPFeedback` (`include/mppi/feedback_controllers/adaptive/adaptive_ddp.cuh`) computes the baseline gains with the same DDP problem as `DDPFeedback`. It also owns a bank of refreshed policies (`MAX_POLICIES` slots) and one policy assignment per rollout (slot id + start timestep).
@@ -84,21 +84,24 @@ tracking term. Both benchmarks now apply `u*_0 + K_0 (x - x*_0)`, using `getFeed
 
 ## Plant-side adaptive feedback and the heading-kick scenario
 
-RMPPI applies `u*_0 + K_0 (x - x*_0)` to the real system. Until now adaptive mode refreshed gains only inside the
-sampled rollouts, so the plant still used the nominal's gains after a large deviation. `AdaptiveRobustMPPIController`
-now overrides `getFeedbackControl`: when adaptive mode is enabled, `plant_feedback` is on and the plant state is
-outside `distance_radius` of the nominal state, it solves one remaining-horizon recovery policy from the plant state
-(`AdaptiveDDPFeedback::solveRecovery`, same DDP problem as the rollout refresh, at most one solve per cycle) and
-applies that policy's first action `u~_0 + K~_0 (x - x~_0)` instead of the baseline correction. Inside the radius,
-and whenever the solve fails, behaviour is stock. Counts are reported as `plant_refreshes` /
-`plant_refresh_failures`. This term is the hypothesis under test, not an established result.
+The plant-side override runs when adaptive mode and `plant_feedback` are enabled and the real/nominal state distance
+exceeds `distance_radius`. It re-solves a remaining-horizon DDP tracking problem and returns a term which replaces
+the MPPI action with the recovery policy's first action. At the first applied step the recovery trajectory starts at
+the real state, so `K~_0 (x - x~_0)` is zero: this branch executes `u~_0`, rather than only refreshing the gain in
+`u*_0 + K~_0 (x - x*_0)`. Counts are reported separately as `plant_refreshes` / `plant_refresh_failures`.
 
-`examples/adaptive_rmppi_heading_benchmark` is the scenario built to expose the mechanism: a Dubins vehicle tracks
-the line y = 0 and receives a yaw kick of 1, 2, 2.5 or 3 rad. Since `y_dot = v sin(yaw)`, gains linearized about the
-nominal heading push the wrong way once the heading error exceeds pi/2, while a policy re-solved at the actual
-heading does not. Success requires `sqrt(y^2 + yaw^2) < 0.2` from some time within 4 s of the kick until the end,
-with |y| never exceeding 10 m. The analyzer `adaptive_rmppi_recovery_analyze.py` works on its output unchanged.
-Not yet run on a GPU.
+GPU validation at `54895c8` shows that, in the Dubins benchmark, the baseline DDP solve already starts at the actual
+state and produces the same gains and first action as the recovery re-solve. Reusing that existing first action in
+stock exactly reproduces adaptive plant-only actuation in all 150 paired trials. The override currently performs a
+solve per getter invocation; it does not enforce a one-solve-per-cycle budget or cache. These are mechanism and
+performance limitations of the new path, not demonstrated benefits.
+
+`examples/adaptive_rmppi_heading_benchmark` follows y=0 with a Dubins vehicle and applies yaw kicks of 1, 2, 2.5,
+and 3 rad. The proposed explanation was that nominal-heading gains have the wrong sign beyond pi/2. However, stock
+DDP initializes its trajectory at the actual state, so that explanation does not match the applied-step baseline in
+this implementation. Success requires `sqrt(y^2 + wrap(yaw)^2) < 0.2` within 4 s after the kick and maintained until
+the end, with |y| <=10 m. The GPU run gives stock/adaptive 49/120 versus 46/120 disturbed recoveries and about 2x
+adaptive planning p95. See [the complete results and ablations](Adaptive_RMPPI_DUBINS_RESULTS.md).
 
 ## Per-sample barriers in the RMPPI rollout kernels (stock)
 
@@ -107,5 +110,6 @@ sample's `threadIdx.y` group with its own `cuda::barrier`. The actual rollout, h
 state `x_nom`, which is advanced by a different group under a different barrier, so nothing ordered those accesses
 and the nominal group could run an iteration ahead and overwrite the buffer being read. `rolloutRMPPIKernel` and
 `rolloutRMPPIDynamicsKernel` now use `__syncthreads()` regardless of the barrier options; the single-system MPPI
-kernels and the RMPPI init-eval kernel are unchanged. Expected to remove the remaining lineinfo racecheck reports on
-the `u`/`y` handoffs in those kernels; not verified here (no GPU).
+kernels and the RMPPI init-eval kernel are unchanged. GPU validation clears the isolated combined-rollout racecheck reproducer (0 hazards), but isolated combined init-eval
+still reports two errors and two warnings. The full controller cannot yet be called racecheck-clean; see the logs in
+[the Dubins validation artifacts](adaptive_rmppi_validation/dubins_heading/README.md).

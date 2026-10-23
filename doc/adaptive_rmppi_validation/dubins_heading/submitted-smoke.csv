@@ -1,0 +1,5 @@
+scenario,severity,mode,seed,order,success,failed_constraint,recovery_time_s,peak_error,cumulative_cost,latency_p95_ms,latency_max_ms,deadline_misses,refreshes_mean,refreshes_p95,budget_hit_fraction,violations,refreshes,overflows,plant_refreshes
+nominal,0,stock,42,0,1,0,0,0.0170338,0.088044,0.602086,0.666524,0,0,0,0,0,0,0,0
+nominal,0,adaptive_v0,42,1,1,0,0,0.0170338,0.088044,1.05435,1.87549,0,0.94,3,0,342,282,0,0
+heading_kick,2.5,stock,42,0,0,0,4.4,2.49525,1558.2,0.635002,0.695135,0,0,0,0,0,0,0,0
+heading_kick,2.5,adaptive_v0,42,1,0,0,5,2.49525,4938.62,1.16593,1.5683,0,5.20667,16,0.08,1682,1562,30,5

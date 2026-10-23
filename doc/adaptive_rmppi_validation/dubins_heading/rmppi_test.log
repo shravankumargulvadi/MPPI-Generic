@@ -1,0 +1,506 @@
+[==========] Running 21 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 12 tests from RMPPINominalStateCandidates
+[ RUN      ] RMPPINominalStateCandidates.UpdateNumCandidates_LessThan3
+[       OK ] RMPPINominalStateCandidates.UpdateNumCandidates_LessThan3 (539 ms)
+[ RUN      ] RMPPINominalStateCandidates.UpdateNumCandidates_Negative
+[       OK ] RMPPINominalStateCandidates.UpdateNumCandidates_Negative (387 ms)
+[ RUN      ] RMPPINominalStateCandidates.UpdateNumCandidates_Even
+[       OK ] RMPPINominalStateCandidates.UpdateNumCandidates_Even (309 ms)
+[ RUN      ] RMPPINominalStateCandidates.UpdateNumCandidates_TooManyCandidates
+[       OK ] RMPPINominalStateCandidates.UpdateNumCandidates_TooManyCandidates (407 ms)
+[ RUN      ] RMPPINominalStateCandidates.CandidateVectorSizeNonzero
+[       OK ] RMPPINominalStateCandidates.CandidateVectorSizeNonzero (25 ms)
+[ RUN      ] RMPPINominalStateCandidates.CudaMemoryInitialized
+[       OK ] RMPPINominalStateCandidates.CudaMemoryInitialized (24 ms)
+[ RUN      ] RMPPINominalStateCandidates.CudaMemoryRemoved
+[       OK ] RMPPINominalStateCandidates.CudaMemoryRemoved (24 ms)
+[ RUN      ] RMPPINominalStateCandidates.CudaMemoryReset
+[       OK ] RMPPINominalStateCandidates.CudaMemoryReset (25 ms)
+[ RUN      ] RMPPINominalStateCandidates.LineSearchWeights_9
+[       OK ] RMPPINominalStateCandidates.LineSearchWeights_9 (25 ms)
+[ RUN      ] RMPPINominalStateCandidates.ImportanceSampler_Stride_2
+[       OK ] RMPPINominalStateCandidates.ImportanceSampler_Stride_2 (24 ms)
+[ RUN      ] RMPPINominalStateCandidates.ImportanceSampler_Stride_4
+[       OK ] RMPPINominalStateCandidates.ImportanceSampler_Stride_4 (24 ms)
+[ RUN      ] RMPPINominalStateCandidates.InitEvalSelection_Weights
+[       OK ] RMPPINominalStateCandidates.InitEvalSelection_Weights (24 ms)
+[----------] 12 tests from RMPPINominalStateCandidates (1845 ms total)
+
+[----------] 7 tests from RMPPINominalStateSelection
+[ RUN      ] RMPPINominalStateSelection.GetCandidateBaseline
+[       OK ] RMPPINominalStateSelection.GetCandidateBaseline (71 ms)
+[ RUN      ] RMPPINominalStateSelection.ComputeBestCandidate
+[       OK ] RMPPINominalStateSelection.ComputeBestCandidate (74 ms)
+[ RUN      ] RMPPINominalStateSelection.ComputeNominalStateAndStride_InitFalse
+[       OK ] RMPPINominalStateSelection.ComputeNominalStateAndStride_InitFalse (74 ms)
+[ RUN      ] RMPPINominalStateSelection.ComputeNominalStateAndStride_PreviousNominal
+[       OK ] RMPPINominalStateSelection.ComputeNominalStateAndStride_PreviousNominal (75 ms)
+[ RUN      ] RMPPINominalStateSelection.ComputeNominalStateAndStride_CurrentNominal
+[       OK ] RMPPINominalStateSelection.ComputeNominalStateAndStride_CurrentNominal (74 ms)
+[ RUN      ] RMPPINominalStateSelection.ComputeNominalStateAndStride_CurrentReal
+[       OK ] RMPPINominalStateSelection.ComputeNominalStateAndStride_CurrentReal (74 ms)
+[ RUN      ] RMPPINominalStateSelection.DDPFeedbackGainInternalStorage
+[       OK ] RMPPINominalStateSelection.DDPFeedbackGainInternalStorage (75 ms)
+[----------] 7 tests from RMPPINominalStateSelection (521 ms total)
+
+[----------] 2 tests from RMPPITest
+[ RUN      ] RMPPITest.RobustMPPILargeVariance
+Current Time: 0.000000  X position: 2.000000; Y position: 0.000000; X velocity: 0.000000; Y velocity: 1.000000
+                    Candidate Free Energies: 0 0 0 0 0 0 0 0 0
+Current Time: 2.000000  X position: 1.447788; Y position: 1.551211; X velocity: 0.389051; Y velocity: 0.351893
+                    Candidate Free Energies:  6.4882 6.34372 6.59596 6.58574 6.57627 12.8773 219.006 361.605     inf
+Current Time: 4.000000  X position: -0.548654; Y position: 1.758580; X velocity: -1.527299; Y velocity: -0.440342
+                    Candidate Free Energies: 3.23951 3.24164 3.62405 3.53215 3.44169 138.355     inf     inf     inf
+Current Time: 6.000000  X position: -1.049577; Y position: 1.561981; X velocity: 0.597724; Y velocity: 0.493887
+                    Candidate Free Energies:   7.892 7.89189 7.89102 7.89091 7.89081 7.87851 7.48162 7.32696 7.24644
+Current Time: 8.000000  X position: -1.266805; Y position: 1.369305; X velocity: -1.117563; Y velocity: -1.371247
+                    Candidate Free Energies: 4.06974 4.18943 4.17263 4.17273 4.17277 138.527 338.184     inf     inf
+Current Time: 10.000000  X position: -1.878062; Y position: -0.494488; X velocity: 0.691493; Y velocity: -1.560870
+                    Candidate Free Energies: 3.02099 3.02374 2.86224 3.10196 3.10454 6.89143 18.5572     inf     inf
+Current Time: 12.000000  X position: 0.176150; Y position: -1.884798; X velocity: 1.627717; Y velocity: 0.253539
+                    Candidate Free Energies: 2.54374 2.54533 2.83668 2.76121  2.6925  2.7283 3.97534 5.59331  7.2757
+Current Time: 14.000000  X position: 1.893512; Y position: -0.771785; X velocity: 0.325403; Y velocity: 0.767269
+                    Candidate Free Energies: 3.72568 3.72017 3.73753 3.73199 3.72642 3.41304 3.40494 3.37667 3.56836
+Current Time: 16.000000  X position: 1.627846; Y position: 1.163834; X velocity: -0.888740; Y velocity: 0.711565
+                    Candidate Free Energies: 5.40225 5.40344 5.40543  5.4061 5.40626 5.19234 5.21289 5.51113 6.95327
+Current Time: 18.000000  X position: 1.910750; Y position: 0.833546; X velocity: -0.454509; Y velocity: -0.571209
+                    Candidate Free Energies: 6.82644 6.99572 6.91796 6.91682 6.99719 9.24046 11.4254 16.4842  22.903
+Current Time: 20.000000  X position: 1.590300; Y position: 1.348242; X velocity: 0.502507; Y velocity: -0.413001
+                    Candidate Free Energies:  6.9778 7.05148 6.90828 6.98035 7.12992 8.23488 8.89677 9.90411 10.6392
+Current Time: 22.000000  X position: 2.062799; Y position: -0.022639; X velocity: -0.544419; Y velocity: -1.239793
+                    Candidate Free Energies: 7.87268 7.87121 7.80385 7.87426 7.87283 8.23069 8.38102 9.42539 10.2827
+Current Time: 24.000000  X position: 0.526301; Y position: -1.882259; X velocity: -0.905953; Y velocity: -0.185205
+                    Candidate Free Energies: 6.89611  6.8939 6.96541 6.96277 6.96058 7.01153 7.19717  7.3825  7.7133
+Current Time: 26.000000  X position: 0.860629; Y position: -1.755487; X velocity: 0.607172; Y velocity: 0.246413
+                    Candidate Free Energies: 5.03213  5.0313 5.04122 5.04033 5.03881 4.40267 4.39513 5.12346 6.54043
+Current Time: 28.000000  X position: 1.848819; Y position: 0.469520; X velocity: -0.698330; Y velocity: 1.327640
+                    Candidate Free Energies: 3.45668 3.55611 3.54655 3.55575 3.67568 3.51073 3.29106 3.08066 2.72458
+Current Time: 30.000000  X position: -0.880526; Y position: 1.708749; X velocity: -1.833142; Y velocity: -0.519015
+                    Candidate Free Energies: 3.23335 3.24148 3.41118 3.33333 3.25274 6.42671 10.4944 18.4547 158.334
+Current Time: 32.000000  X position: -1.935879; Y position: -0.746563; X velocity: 0.360707; Y velocity: -0.370028
+                    Candidate Free Energies: 4.07751 4.08946 3.54923 3.92707 4.08876 6.39525 9.47317 13.4635 18.2545
+Current Time: 34.000000  X position: -1.664151; Y position: -1.074161; X velocity: -0.115852; Y velocity: -1.274583
+                    Candidate Free Energies: 4.70982 4.70989 4.90126 4.80986 4.81041 8.82607 19.6175     inf     inf
+Current Time: 36.000000  X position: 1.472871; Y position: -1.520884; X velocity: 0.102399; Y velocity: -0.310086
+                    Candidate Free Energies: 7.01983 7.02066 7.30343 7.15744 7.02091 8.71731 15.9127 303.093     inf
+Current Time: 38.000000  X position: 2.007867; Y position: 0.269853; X velocity: -0.535245; Y velocity: 1.029995
+                    Candidate Free Energies: 3.81688 3.81883 3.40852 3.48413 3.82042 4.20029 4.57326 5.19491 5.51792
+Current Time: 40.000000  X position: 0.401811; Y position: 1.937111; X velocity: -0.847317; Y velocity: -0.148285
+                    Candidate Free Energies: 5.09263 5.09187 5.17513 5.17437  5.1736 4.77839 4.40606 4.17676 4.02651
+Current Time: 42.000000  X position: -1.040985; Y position: 1.806404; X velocity: -1.792195; Y velocity: -0.389837
+                    Candidate Free Energies: 3.12129 2.95022 3.38116 3.13648 3.14072  9.5862  378.18     inf     inf
+Current Time: 44.000000  X position: -1.796496; Y position: -0.815906; X velocity: 0.507596; Y velocity: -2.336496
+                    Candidate Free Energies: 2.11815 1.95434 2.59322 2.59422 2.22362 2.73726  3.4309  3.9249 5.86761
+Current Time: 46.000000  X position: -0.642493; Y position: -1.823702; X velocity: -0.298627; Y velocity: -0.706187
+                    Candidate Free Energies: 5.14611 5.14906 5.21268 5.21558 5.21797  5.8572 7.04923 8.50648 10.6472
+Current Time: 48.000000  X position: 0.992566; Y position: -1.727791; X velocity: 0.960319; Y velocity: 0.915122
+                    Candidate Free Energies: 4.50183 4.59029 4.27735 4.50434 4.51028 5.96509 8.18154 10.3187 14.9896
+Current Time: 50.000000  X position: 1.988904; Y position: 0.436466; X velocity: -0.074890; Y velocity: 0.271437
+                    Candidate Free Energies: 5.35774 5.29584 5.34757 5.35406 5.36006 5.60728 6.44025 9.35151 17.3939
+Current Time: 52.000000  X position: 1.521253; Y position: -1.254519; X velocity: -0.146265; Y velocity: -1.135699
+                    Candidate Free Energies:  7.5869  7.5089 7.44058 7.65811 7.65379 7.70996 8.10947 9.63242 12.1329
+Current Time: 54.000000  X position: 1.229095; Y position: -1.451822; X velocity: -0.796020; Y velocity: -0.015697
+                    Candidate Free Energies: 6.91931 6.84459 7.36095 7.20424 6.98555 8.71172 16.5584     inf     inf
+Current Time: 56.000000  X position: -1.263517; Y position: -1.459359; X velocity: -0.806281; Y velocity: 0.768526
+                    Candidate Free Energies: 7.98077 7.97951 8.22407 8.13852 8.13734 9.23224 10.1835 13.0655 18.0305
+Current Time: 58.000000  X position: -1.646980; Y position: -1.177468; X velocity: 0.001552; Y velocity: -0.059847
+                    Candidate Free Energies: 7.10845 7.10816 7.02624 7.18524 7.18493 6.79501 6.37045 6.86941 7.10036
+Current Time: 60.000000  X position: 0.470016; Y position: -2.001658; X velocity: 1.797658; Y velocity: 0.728983
+                    Candidate Free Energies: 2.09787 2.09508 2.60654 2.60363 2.70501 4.89318 8.46141 10.6018 18.0152
+Current Time: 62.000000  X position: 1.796667; Y position: -0.939726; X velocity: -0.497096; Y velocity: 0.529908
+                    Candidate Free Energies: 5.81876 5.81801 5.81903 5.81826 5.81747 12.1787     inf     inf     inf
+Current Time: 64.000000  X position: 1.969328; Y position: 0.627789; X velocity: -0.299005; Y velocity: 0.799635
+                    Candidate Free Energies: 3.68571 3.68091 3.69125  3.7478 3.74297 4.35109   5.446 6.40793 7.48389
+Current Time: 66.000000  X position: -0.560589; Y position: 1.890481; X velocity: -2.162350; Y velocity: -0.730927
+                    Candidate Free Energies: 2.96571 2.96814 3.57384 3.34304 3.34867 4.47239 7.06304 8.53438 14.5956
+Current Time: 68.000000  X position: -1.685574; Y position: -1.085075; X velocity: 0.676214; Y velocity: -0.415435
+                    Candidate Free Energies: 4.80563 4.97583 4.64652 4.64735 4.89211 5.75601 7.70504 10.4483 13.2158
+Current Time: 70.000000  X position: -1.869975; Y position: 0.000280; X velocity: 0.178826; Y velocity: 1.715404
+                    Candidate Free Energies: 7.94491 8.01785  8.1763 8.25507 8.09262 9.52168 17.4841 343.718     inf
+Current Time: 72.000000  X position: -1.655165; Y position: 0.836861; X velocity: -0.137413; Y velocity: 0.398987
+                    Candidate Free Energies:  7.2745 7.19378 7.44483 7.44315 7.27565 9.74482 202.959  400.21     inf
+Current Time: 74.000000  X position: -1.835774; Y position: 0.945216; X velocity: 0.685175; Y velocity: 1.380644
+                    Candidate Free Energies: 7.93015 7.92629 8.08206  8.0782 8.07487 9.42905 15.6525 24.1005  224.19
+Current Time: 76.000000  X position: 0.575754; Y position: 1.787418; X velocity: 1.924085; Y velocity: -0.170297
+                    Candidate Free Energies: 8.22282 8.22029 8.30707 8.22362 8.22176 8.62585 8.78099 9.65397 11.7364
+Current Time: 78.000000  X position: 1.908470; Y position: 0.344981; X velocity: 0.013556; Y velocity: -0.789128
+                    Candidate Free Energies: 7.70077 7.69824 7.62394 7.62145 7.78166 8.84665 11.6752 16.7411 18.7226
+Current Time: 80.000000  X position: 1.628169; Y position: -0.893109; X velocity: -0.405010; Y velocity: -0.811749
+                    Candidate Free Energies: 7.09298 7.02269  7.2421 7.24348 7.24292 7.98558 30.4924 54.0249 76.7583
+Current Time: 82.000000  X position: 1.805926; Y position: 0.571234; X velocity: -0.816559; Y velocity: 0.849125
+                    Candidate Free Energies: 4.04483 3.96848 4.28474  4.0435 4.04335 7.94264 179.327     inf     inf
+Current Time: 84.000000  X position: 0.891672; Y position: 1.903765; X velocity: 0.463937; Y velocity: -0.168148
+                    Candidate Free Energies: 7.05519 6.91221 7.06277  7.2008 7.05384 7.83558 10.7808 15.9763 123.099
+Current Time: 86.000000  X position: 0.202447; Y position: 2.110493; X velocity: 0.243310; Y velocity: -0.045947
+                    Candidate Free Energies: 6.43716 6.27309 6.68425 6.44752 6.52067 7.56717  8.8868 12.4082 16.9983
+Current Time: 88.000000  X position: -1.000842; Y position: 1.672503; X velocity: -0.964795; Y velocity: -0.172226
+                    Candidate Free Energies: 5.55821 5.56324 5.55709 5.63769 5.64324 5.12432 6.04221 7.66656 10.5214
+Current Time: 90.000000  X position: -1.712854; Y position: 0.761815; X velocity: -0.468286; Y velocity: -1.087078
+                    Candidate Free Energies:  5.2074 5.02309 5.74955 5.37919 5.20521  5.1765 7.02397 14.3846 119.491
+Current Time: 92.000000  X position: -1.439949; Y position: 1.216050; X velocity: 0.349700; Y velocity: 0.226408
+                    Candidate Free Energies: 7.67465 7.50787 8.22265 8.12778 7.76053 7.68687 7.53167 7.54337 7.64074
+Current Time: 94.000000  X position: -0.555446; Y position: 1.910852; X velocity: 0.850665; Y velocity: 0.388203
+                    Candidate Free Energies: 8.10778 8.10656  8.0133 8.10851 8.10793 7.34334 7.42322 8.64911 11.2187
+Current Time: 96.000000  X position: 1.200264; Y position: 1.437214; X velocity: 0.906817; Y velocity: -0.704083
+                    Candidate Free Energies: 7.93448 7.93236 7.93633 7.93426 7.93221 8.96808 10.3931 32.6994 38.0206
+Current Time: 98.000000  X position: 1.980481; Y position: 0.290374; X velocity: 0.614758; Y velocity: 0.159416
+                    Candidate Free Energies: 6.15512 6.15192 6.15677 6.15356 6.15035 9.16317 42.1717     inf     inf
+[       OK ] RMPPITest.RobustMPPILargeVariance (2267 ms)
+[ RUN      ] RMPPITest.RobustMPPILargeVarianceRobustCost
+Current Time: 0.000000  X position: 2.000000; Y position: 0.000000; X velocity: 0.000000; Y velocity: 1.000000
+                    Candidate Free Energies: 0 0 0 0 0 0 0 0 0
+Real    FE [mean, variance]: [12.7818, 0.0229894]
+Nominal FE [mean, variance]: [12.7818, 0.0229894]
+Algorithm Health Normalizer: [0.0390029]
+DF(x, x0, u): [3.02555]
+
+Current Time: 2.000000  X position: 0.237542; Y position: 1.990690; X velocity: -1.958843; Y velocity: 0.652814
+                    Candidate Free Energies: 7.67514 7.56624 8.26735 8.12893 7.98181 22.2063 64.7165 85.2646 89.5586
+Real    FE [mean, variance]: [19.3287, 0.0113452]
+Nominal FE [mean, variance]: [10.7767, 0.0666516]
+Algorithm Health Normalizer: [0.107155]
+DF(x, x0, u): [3.40208]
+
+Current Time: 4.000000  X position: -2.063085; Y position: -0.004490; X velocity: 0.550772; Y velocity: -1.940605
+                    Candidate Free Energies: 8.87978 8.87533 9.35791 9.34654 9.33652 14.2629 19.9057 26.6255 38.2532
+Real    FE [mean, variance]: [14.689, 0.0153365]
+Nominal FE [mean, variance]: [10.496, 0.0759657]
+Algorithm Health Normalizer: [0.119418]
+DF(x, x0, u): [3.47747]
+
+Current Time: 6.000000  X position: 0.118629; Y position: -2.059337; X velocity: 1.657137; Y velocity: -0.041023
+                    Candidate Free Energies: 8.25001 8.31409 8.37713 8.54379 8.65407  15.143 22.8418 33.1858 51.4923
+Real    FE [mean, variance]: [27.4512, 0.0114629]
+Nominal FE [mean, variance]: [11.0154, 0.0745039]
+Algorithm Health Normalizer: [0.109295]
+DF(x, x0, u): [3.36941]
+
+Current Time: 8.000000  X position: 2.041311; Y position: 0.120261; X velocity: -0.280549; Y velocity: 1.720528
+                    Candidate Free Energies: 8.54221 8.50705 8.98698 8.94429 8.89991 11.1738 12.2757 12.7304 14.4544
+Real    FE [mean, variance]: [16.6126, 0.0139048]
+Nominal FE [mean, variance]: [10.7768, 0.0710008]
+Algorithm Health Normalizer: [0.10894]
+DF(x, x0, u): [3.45344]
+
+Current Time: 10.000000  X position: -0.430229; Y position: 1.923058; X velocity: -1.602857; Y velocity: -0.517323
+                    Candidate Free Energies: 8.58732 8.69861 8.78555 8.78024 8.89901 11.2454 22.2385 25.5874 47.9972
+Real    FE [mean, variance]: [17.7359, 0.00619181]
+Nominal FE [mean, variance]: [10.9806, 0.0758184]
+Algorithm Health Normalizer: [0.111169]
+DF(x, x0, u): [3.52724]
+
+Current Time: 12.000000  X position: -2.033922; Y position: -0.528318; X velocity: 0.218652; Y velocity: -1.632395
+                    Candidate Free Energies: 10.3297 10.3568 10.6003 10.6474 10.6965 19.9582 32.1194 49.3503 83.3776
+Real    FE [mean, variance]: [38.9933, 0.0143887]
+Nominal FE [mean, variance]: [10.8742, 0.0773091]
+Algorithm Health Normalizer: [0.118364]
+DF(x, x0, u): [3.3264]
+
+Current Time: 14.000000  X position: 0.747868; Y position: -1.901014; X velocity: 1.923746; Y velocity: 0.848653
+                    Candidate Free Energies:  8.7859 8.82469 9.00621 8.96688 8.97946 10.9812 16.8601 39.6488 63.1087
+Real    FE [mean, variance]: [17.8359, 0.0288995]
+Nominal FE [mean, variance]: [11.2952, 0.0651386]
+Algorithm Health Normalizer: [0.0950987]
+DF(x, x0, u): [3.4378]
+
+Current Time: 16.000000  X position: 1.715951; Y position: 1.016769; X velocity: -0.917896; Y velocity: 1.508465
+                    Candidate Free Energies: 7.49307 7.56314 7.79859 7.72472 7.72319 7.97678 9.51538 10.9418 11.0657
+Real    FE [mean, variance]: [8.82831, 0.0323438]
+Nominal FE [mean, variance]: [8.75802, 0.032254]
+Algorithm Health Normalizer: [0.0503454]
+DF(x, x0, u): [3.45011]
+
+Current Time: 18.000000  X position: -1.294625; Y position: 1.540938; X velocity: -0.873424; Y velocity: -0.999231
+                    Candidate Free Energies: 8.89546 9.06768 9.12149 9.08074  9.1217  10.597 19.2105 46.5135  71.898
+Real    FE [mean, variance]: [10.4831, 0.0207705]
+Nominal FE [mean, variance]: [10.6762, 0.0497223]
+Algorithm Health Normalizer: [0.0827506]
+DF(x, x0, u): [3.3881]
+
+Current Time: 20.000000  X position: -1.340594; Y position: -1.539438; X velocity: 0.926247; Y velocity: -0.987051
+                    Candidate Free Energies: 8.51988  8.5157 8.98219 8.89329 8.83915 13.5119 20.7564 28.1676 36.1205
+Real    FE [mean, variance]: [20.7969, 0.00651103]
+Nominal FE [mean, variance]: [11.1143, 0.0492086]
+Algorithm Health Normalizer: [0.0839696]
+DF(x, x0, u): [3.4135]
+
+Current Time: 22.000000  X position: 1.624220; Y position: -1.144681; X velocity: 1.101318; Y velocity: 0.893860
+                    Candidate Free Energies: 9.19961 9.23833 9.44445 9.46536 9.46649 12.2043 16.7007 27.4748 41.2209
+Real    FE [mean, variance]: [12.2942, 0.0243773]
+Nominal FE [mean, variance]: [10.7147, 0.0415069]
+Algorithm Health Normalizer: [0.0734446]
+DF(x, x0, u): [3.31564]
+
+Current Time: 24.000000  X position: 1.001603; Y position: 1.787238; X velocity: -1.604045; Y velocity: 0.847242
+                    Candidate Free Energies: 8.01151 8.30918 8.30971 8.23282 8.41768 11.6791 16.2892 20.2187 22.8414
+Real    FE [mean, variance]: [20.8962, 0.0249462]
+Nominal FE [mean, variance]: [10.7976, 0.0807402]
+Algorithm Health Normalizer: [0.115003]
+DF(x, x0, u): [3.47074]
+
+Current Time: 26.000000  X position: -1.865921; Y position: 0.525676; X velocity: -1.264157; Y velocity: -1.766857
+                    Candidate Free Energies: 8.58454 8.52808 8.94388 8.83118 8.74066 14.9577 72.9663 83.8459 86.9442
+Real    FE [mean, variance]: [13.5188, 0.0315052]
+Nominal FE [mean, variance]: [10.9909, 0.0680815]
+Algorithm Health Normalizer: [0.102136]
+DF(x, x0, u): [3.37373]
+
+Current Time: 28.000000  X position: -0.396145; Y position: -1.997674; X velocity: 1.793250; Y velocity: -0.838244
+                    Candidate Free Energies: 8.55067 8.57518 8.88442  8.8933 8.89598    27.3  73.078 90.8217 94.5212
+Real    FE [mean, variance]: [29.1679, 0.00824711]
+Nominal FE [mean, variance]: [10.8134, 0.065808]
+Algorithm Health Normalizer: [0.105376]
+DF(x, x0, u): [3.22105]
+
+Current Time: 30.000000  X position: 2.000856; Y position: 0.093870; X velocity: -0.320343; Y velocity: 1.888986
+                    Candidate Free Energies: 8.16312 8.15526 8.52419 8.52667 8.53329 9.42036   12.06 17.5375 23.3663
+Real    FE [mean, variance]: [10.3242, 0.0380303]
+Nominal FE [mean, variance]: [9.576, 0.0354534]
+Algorithm Health Normalizer: [0.0566838]
+DF(x, x0, u): [3.57276]
+
+Current Time: 32.000000  X position: -0.357439; Y position: 1.940684; X velocity: -1.500916; Y velocity: -0.543044
+                    Candidate Free Energies: 8.07938 8.09726 8.98937 8.42321 8.16048 16.0358 30.9364 53.4987 86.0289
+Real    FE [mean, variance]: [16.9931, 0.0154723]
+Nominal FE [mean, variance]: [11.0893, 0.0663315]
+Algorithm Health Normalizer: [0.100702]
+DF(x, x0, u): [3.56172]
+
+Current Time: 34.000000  X position: -1.969104; Y position: -0.536226; X velocity: 0.670427; Y velocity: -1.526621
+                    Candidate Free Energies: 7.55368 7.54706 7.89804  7.8828 7.86302 12.3577 12.6999 13.8237 21.4029
+Real    FE [mean, variance]: [13.9084, 0.0124602]
+Nominal FE [mean, variance]: [10.8488, 0.0712258]
+Algorithm Health Normalizer: [0.10203]
+DF(x, x0, u): [3.44149]
+
+Current Time: 36.000000  X position: 0.934459; Y position: -1.821456; X velocity: 1.938542; Y velocity: 0.986501
+                    Candidate Free Energies: 8.39391  8.3118 9.11541 8.86298 8.74297 12.8096 24.8434 56.3636 78.1558
+Real    FE [mean, variance]: [20.3726, 0.00547019]
+Nominal FE [mean, variance]: [11.1454, 0.0554523]
+Algorithm Health Normalizer: [0.0895617]
+DF(x, x0, u): [3.43309]
+
+Current Time: 38.000000  X position: 1.673467; Y position: 1.217384; X velocity: -0.987527; Y velocity: 1.374841
+                    Candidate Free Energies: 8.82036 8.82466 9.27894 9.27643 9.26671 11.9966 20.3967 27.9035 33.3849
+Real    FE [mean, variance]: [25.6991, 0.00425134]
+Nominal FE [mean, variance]: [10.8537, 0.0661608]
+Algorithm Health Normalizer: [0.103403]
+DF(x, x0, u): [3.43572]
+
+Current Time: 40.000000  X position: -1.171854; Y position: 1.569112; X velocity: -1.368095; Y velocity: -0.931378
+                    Candidate Free Energies: 7.99313 7.90973 8.50035 8.40378  8.2894  10.175 12.2086 15.1627 18.2116
+Real    FE [mean, variance]: [15.4659, 0.0251331]
+Nominal FE [mean, variance]: [10.8501, 0.0777056]
+Algorithm Health Normalizer: [0.111032]
+DF(x, x0, u): [3.40851]
+
+Current Time: 42.000000  X position: -1.376212; Y position: -1.455794; X velocity: 1.203039; Y velocity: -1.535415
+                    Candidate Free Energies: 8.25329 8.23162 8.62706 8.57335 8.55733 13.0942 37.0121 68.1634 80.8362
+Real    FE [mean, variance]: [13.9515, 0.0235453]
+Nominal FE [mean, variance]: [10.8884, 0.0719371]
+Algorithm Health Normalizer: [0.10403]
+DF(x, x0, u): [3.28992]
+
+Current Time: 44.000000  X position: 1.736171; Y position: -1.082963; X velocity: 0.452404; Y velocity: 1.929404
+                    Candidate Free Energies: 12.6458 11.8356 13.8717 13.5204 12.3989 17.4138 26.2706 55.9611  83.449
+Real    FE [mean, variance]: [17.6973, 0.0172649]
+Nominal FE [mean, variance]: [14.5795, 0.039658]
+Algorithm Health Normalizer: [0.0560526]
+DF(x, x0, u): [3.59027]
+
+Current Time: 46.000000  X position: 0.914332; Y position: 1.788365; X velocity: -1.741548; Y velocity: 0.944528
+                    Candidate Free Energies: 8.53495 8.62823 9.04721 8.95187 8.97481  9.9495 25.5304 14.7642 30.0154
+Real    FE [mean, variance]: [11.6637, 0.0251207]
+Nominal FE [mean, variance]: [10.6706, 0.0360909]
+Algorithm Health Normalizer: [0.0657279]
+DF(x, x0, u): [3.50978]
+
+Current Time: 48.000000  X position: -1.886006; Y position: 0.580741; X velocity: -0.608834; Y velocity: -1.847137
+                    Candidate Free Energies: 9.00733  8.9661 9.34611 9.26015 9.19777 9.46852 10.3025 11.4793 12.6899
+Real    FE [mean, variance]: [11.6176, 0.0189905]
+Nominal FE [mean, variance]: [10.5245, 0.0175817]
+Algorithm Health Normalizer: [0.0392222]
+DF(x, x0, u): [3.60196]
+
+Current Time: 50.000000  X position: -0.120740; Y position: -1.992841; X velocity: 1.350582; Y velocity: -0.205226
+                    Candidate Free Energies: 8.75302 8.41731   9.228 9.11394 9.01823 10.5745 15.9075 21.9327 27.8238
+Real    FE [mean, variance]: [9.59933, 0.0181515]
+Nominal FE [mean, variance]: [9.71886, 0.0185897]
+Algorithm Health Normalizer: [0.0386268]
+DF(x, x0, u): [3.49426]
+
+Current Time: 52.000000  X position: 2.044248; Y position: 0.108022; X velocity: -0.482291; Y velocity: 1.768234
+                    Candidate Free Energies: 9.18017 9.15601 9.62454 9.60501 9.59759 9.98254 16.0022 20.8863 28.4911
+Real    FE [mean, variance]: [11.4108, 0.0328936]
+Nominal FE [mean, variance]: [10.1808, 0.0303749]
+Algorithm Health Normalizer: [0.0488999]
+DF(x, x0, u): [3.49193]
+
+Current Time: 54.000000  X position: -0.382428; Y position: 2.006694; X velocity: -1.654614; Y velocity: -0.529143
+                    Candidate Free Energies: 9.72473 9.67262 9.97073 9.88378 9.81281 10.3109 11.8144 12.7449  15.408
+Real    FE [mean, variance]: [13.0664, 0.0117838]
+Nominal FE [mean, variance]: [11.2468, 0.0639947]
+Algorithm Health Normalizer: [0.0975737]
+DF(x, x0, u): [3.28708]
+
+Current Time: 56.000000  X position: -1.904341; Y position: -0.644097; X velocity: 0.543609; Y velocity: -1.745830
+                    Candidate Free Energies: 8.63896 8.44756 9.16143 9.03725 8.87155 10.4377 12.3752  19.634 20.1196
+Real    FE [mean, variance]: [12.2015, 0.0142966]
+Nominal FE [mean, variance]: [10.6439, 0.0631547]
+Algorithm Health Normalizer: [0.0986656]
+DF(x, x0, u): [3.46818]
+
+Current Time: 58.000000  X position: 0.924770; Y position: -1.675952; X velocity: 1.657267; Y velocity: 0.071359
+                    Candidate Free Energies:  8.5304 8.58106 9.01879 8.98933 9.00166  16.626 23.7337 64.3318 86.1291
+Real    FE [mean, variance]: [14.9127, 0.0300113]
+Nominal FE [mean, variance]: [10.7717, 0.0819025]
+Algorithm Health Normalizer: [0.115814]
+DF(x, x0, u): [3.36882]
+
+Current Time: 60.000000  X position: 1.828463; Y position: 0.912815; X velocity: -1.101398; Y velocity: 1.569178
+                    Candidate Free Energies: 8.65992 8.75362 9.14226 9.06773 9.02646 10.8541 12.1069 13.9337 16.9867
+Real    FE [mean, variance]: [14.0545, 0.00909287]
+Nominal FE [mean, variance]: [10.9401, 0.0606177]
+Algorithm Health Normalizer: [0.100159]
+DF(x, x0, u): [3.3565]
+
+Current Time: 62.000000  X position: -1.107798; Y position: 1.572442; X velocity: -1.464890; Y velocity: -0.560773
+                    Candidate Free Energies: 8.79965 8.78757 9.25742 9.21995 9.19599 11.8661 15.7636 24.8037 37.8174
+Real    FE [mean, variance]: [17.6119, 0.0310776]
+Nominal FE [mean, variance]: [11.1554, 0.0522363]
+Algorithm Health Normalizer: [0.0881379]
+DF(x, x0, u): [3.36417]
+
+Current Time: 64.000000  X position: -1.628394; Y position: -1.152614; X velocity: 0.957550; Y velocity: -1.492725
+                    Candidate Free Energies: 9.28607 9.15927 9.94743 9.64889 9.40427 9.63227 10.6084  10.687 14.4473
+Real    FE [mean, variance]: [9.49161, 0.0185667]
+Nominal FE [mean, variance]: [9.74267, 0.0239718]
+Algorithm Health Normalizer: [0.0456769]
+DF(x, x0, u): [3.43664]
+
+Current Time: 66.000000  X position: 1.227423; Y position: -1.520039; X velocity: 1.576974; Y velocity: 0.903324
+                    Candidate Free Energies: 8.60056  8.6592 8.83609 8.84714 8.88297 10.4418 11.8857 14.0379 32.7512
+Real    FE [mean, variance]: [12.0489, 0.0283205]
+Nominal FE [mean, variance]: [10.4673, 0.0345376]
+Algorithm Health Normalizer: [0.0638526]
+DF(x, x0, u): [3.41258]
+
+Current Time: 68.000000  X position: 1.497385; Y position: 1.290611; X velocity: -1.371079; Y velocity: 1.534535
+                    Candidate Free Energies: 8.22435 8.33558 8.46499 8.56401 8.70422  10.159 12.0802 13.4227 16.3328
+Real    FE [mean, variance]: [11.774, 0.0306037]
+Nominal FE [mean, variance]: [10.0006, 0.036368]
+Algorithm Health Normalizer: [0.0615563]
+DF(x, x0, u): [3.53109]
+
+Current Time: 70.000000  X position: -1.483532; Y position: 1.395696; X velocity: -0.924258; Y velocity: -0.707911
+                    Candidate Free Energies: 12.3415 12.4649 12.3067 12.4365 12.5737 15.6212 18.2786 24.4195 34.1001
+Real    FE [mean, variance]: [18.372, 0.0110018]
+Nominal FE [mean, variance]: [14.0766, 0.0465933]
+Algorithm Health Normalizer: [0.0666774]
+DF(x, x0, u): [3.33205]
+
+Current Time: 72.000000  X position: -1.171273; Y position: -1.599572; X velocity: 1.188385; Y velocity: -1.020463
+                    Candidate Free Energies: 8.90059 8.88005 9.13217 9.08953 9.04957  10.594 11.3724 10.2497  13.068
+Real    FE [mean, variance]: [9.48433, 0.0286158]
+Nominal FE [mean, variance]: [9.33221, 0.0297173]
+Algorithm Health Normalizer: [0.0501711]
+DF(x, x0, u): [3.53295]
+
+Current Time: 74.000000  X position: 1.596698; Y position: -1.061801; X velocity: 1.146922; Y velocity: 1.345335
+                    Candidate Free Energies: 8.56873 8.56525 8.89374 8.89066 8.89304 12.5345 16.9126 22.1128 31.0936
+Real    FE [mean, variance]: [22.1411, 0.0182599]
+Nominal FE [mean, variance]: [10.9057, 0.0696856]
+Algorithm Health Normalizer: [0.110234]
+DF(x, x0, u): [3.34297]
+
+Current Time: 76.000000  X position: 1.004483; Y position: 1.699809; X velocity: -1.781492; Y velocity: 0.756841
+                    Candidate Free Energies: 9.65705 9.59101 10.1955 10.0071 9.85825 13.0942 19.3704 26.8103  34.847
+Real    FE [mean, variance]: [15.3016, 0.0310314]
+Nominal FE [mean, variance]: [11.9327, 0.0773771]
+Algorithm Health Normalizer: [0.106714]
+DF(x, x0, u): [3.45421]
+
+Current Time: 78.000000  X position: -1.802856; Y position: 0.873932; X velocity: -0.352930; Y velocity: -1.222206
+                    Candidate Free Energies: 8.48184 8.23711 10.3605 9.54134 8.77231 12.6497 53.8711 74.5722 82.8414
+Real    FE [mean, variance]: [12.9588, 0.00760162]
+Nominal FE [mean, variance]: [10.9767, 0.0716598]
+Algorithm Health Normalizer: [0.108336]
+DF(x, x0, u): [3.50146]
+
+Current Time: 80.000000  X position: -0.784270; Y position: -1.813121; X velocity: 1.510950; Y velocity: -0.667391
+                    Candidate Free Energies:   8.889 8.89388 9.09899 9.08853  9.0697 11.2124 10.9296 14.3441 14.7366
+Real    FE [mean, variance]: [12.5036, 0.0237688]
+Nominal FE [mean, variance]: [11.1373, 0.0312758]
+Algorithm Health Normalizer: [0.0627693]
+DF(x, x0, u): [3.4737]
+
+Current Time: 82.000000  X position: 1.903624; Y position: -0.668551; X velocity: 0.721836; Y velocity: 1.660442
+                    Candidate Free Energies: 7.46751  7.5027 7.84602 7.87873 7.89554 9.91519 13.2495 17.0585  24.049
+Real    FE [mean, variance]: [13.3697, 0.00667131]
+Nominal FE [mean, variance]: [11.0242, 0.0345684]
+Algorithm Health Normalizer: [0.0633937]
+DF(x, x0, u): [3.51191]
+
+Current Time: 84.000000  X position: 0.216378; Y position: 1.991074; X velocity: -1.555033; Y velocity: -0.028471
+                    Candidate Free Energies: 8.09714 8.07565 8.39583 8.37004 8.35449 11.7229 13.1741 14.1728 26.9666
+Real    FE [mean, variance]: [9.41732, 0.0112372]
+Nominal FE [mean, variance]: [9.15601, 0.0466216]
+Algorithm Health Normalizer: [0.068894]
+DF(x, x0, u): [3.47701]
+
+Current Time: 86.000000  X position: -1.984945; Y position: -0.177201; X velocity: 0.263939; Y velocity: -1.843078
+                    Candidate Free Energies: 8.72093  8.7275  9.0136 9.01147 9.00189 9.86341 9.62799 11.2031 13.2268
+Real    FE [mean, variance]: [9.88115, 0.0244256]
+Nominal FE [mean, variance]: [9.5309, 0.0216375]
+Algorithm Health Normalizer: [0.0411957]
+DF(x, x0, u): [3.57209]
+
+Current Time: 88.000000  X position: 0.370999; Y position: -1.973937; X velocity: 1.409896; Y velocity: 0.420325
+                    Candidate Free Energies: 8.98462 9.10348 9.20069 9.23108 9.30855  10.255 10.1072 11.5276 11.1462
+Real    FE [mean, variance]: [8.83774, 0.0294094]
+Nominal FE [mean, variance]: [9.13953, 0.0192274]
+Algorithm Health Normalizer: [0.040993]
+DF(x, x0, u): [3.4113]
+
+Current Time: 90.000000  X position: 1.930419; Y position: 0.592449; X velocity: -0.857344; Y velocity: 1.218024
+                    Candidate Free Energies: 8.92052 8.92024 9.18463 9.17699 9.17263 17.5733 44.7164 76.1135 83.6431
+Real    FE [mean, variance]: [12.5902, 0.0136689]
+Nominal FE [mean, variance]: [10.7692, 0.0701398]
+Algorithm Health Normalizer: [0.10743]
+DF(x, x0, u): [3.57729]
+
+Current Time: 92.000000  X position: -0.708833; Y position: 1.850565; X velocity: -2.140369; Y velocity: -0.505149
+                    Candidate Free Energies: 8.80964 8.68894  9.1939 9.07532 8.94196 12.7505 32.3345 68.6929   78.52
+Real    FE [mean, variance]: [11.5669, 0.0232967]
+Nominal FE [mean, variance]: [10.7142, 0.0880883]
+Algorithm Health Normalizer: [0.124607]
+DF(x, x0, u): [3.47916]
+
+Current Time: 94.000000  X position: -1.715090; Y position: -0.978892; X velocity: 0.946743; Y velocity: -1.520799
+                    Candidate Free Energies: 8.12685 8.18187 8.32168 8.31117 8.38026 9.32775 13.9462 14.7979 18.1282
+Real    FE [mean, variance]: [13.0261, 0.0174605]
+Nominal FE [mean, variance]: [11.1506, 0.0491221]
+Algorithm Health Normalizer: [0.0823137]
+DF(x, x0, u): [3.54293]
+
+Current Time: 96.000000  X position: 1.170106; Y position: -1.613587; X velocity: 1.364048; Y velocity: 0.873429
+                    Candidate Free Energies: 9.29104 9.54963 9.39423 9.43026 9.57816 10.1711 9.89791 9.46199 10.2905
+Real    FE [mean, variance]: [8.98234, 0.0310839]
+Nominal FE [mean, variance]: [9.02798, 0.0290374]
+Algorithm Health Normalizer: [0.0442034]
+DF(x, x0, u): [3.39203]
+
+Current Time: 98.000000  X position: 1.285393; Y position: 1.565384; X velocity: -1.448052; Y velocity: 1.517954
+                    Candidate Free Energies:  8.2109 8.25356 8.51683 8.56952 8.61867 16.4137  47.882 81.0901 88.5235
+Real    FE [mean, variance]: [20.6921, 0.00814199]
+Nominal FE [mean, variance]: [10.6146, 0.0774531]
+Algorithm Health Normalizer: [0.115514]
+DF(x, x0, u): [3.38249]
+
+[       OK ] RMPPITest.RobustMPPILargeVarianceRobustCost (5248 ms)
+[----------] 2 tests from RMPPITest (7515 ms total)
+
+[----------] Global test environment tear-down
+[==========] 21 tests from 3 test suites ran. (9882 ms total)
+[  PASSED  ] 21 tests.
