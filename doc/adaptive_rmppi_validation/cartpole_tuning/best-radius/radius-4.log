@@ -1,0 +1,16 @@
+nominal 0 seed 200 done
+nominal 0 seed 201 done
+nominal 0 seed 202 done
+nominal 0 seed 203 done
+nominal 0 seed 204 done
+kick 1 seed 200 done
+kick 1 seed 201 done
+kick 1 seed 202 done
+kick 1 seed 203 done
+kick 1 seed 204 done
+mismatch 1 seed 200 done
+mismatch 1 seed 201 done
+mismatch 1 seed 202 done
+mismatch 1 seed 203 done
+mismatch 1 seed 204 done
+wrote radius-4.csv

@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.24)
+project(AdaptiveReviewBaseline LANGUAGES C CXX CUDA)
+enable_testing()
+add_subdirectory(/usr/src/googletest googletest)
+add_subdirectory(/repo mppi)
+add_executable(adaptive_retest_diagnostics /repo/doc/adaptive_rmppi_validation/retest_c0f2fa7/targeted_tests.cu /repo/tests/test_main.cpp)
+target_link_libraries(adaptive_retest_diagnostics PRIVATE MPPI::MPPI gtest gmock gtest_main)

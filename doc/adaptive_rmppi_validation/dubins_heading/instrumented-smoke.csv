@@ -1,0 +1,5 @@
+scenario,severity,mode,seed,order,success,failed_constraint,recovery_time_s,peak_error,cumulative_cost,latency_p95_ms,latency_max_ms,deadline_misses,refreshes_mean,refreshes_p95,budget_hit_fraction,violations,refreshes,overflows,plant_refreshes,plant_refresh_failures,plant_feedback,rollout_budget,stock_ddp_action,reused_ddp_actions
+nominal,0,stock,42,0,1,0,0,0.01703379676,0.0880439803,0.558118999,0.6692510247,0,0,0,0,0,0,0,0,0,1,64,0,0
+nominal,0,adaptive_v0,42,1,1,0,0,0.01703379676,0.0880439803,0.843035996,2.14925909,0,0.9399999976,3,0,342,282,0,0,0,1,64,0,0
+heading_kick,2.5,stock,42,0,0,0,4.400000095,2.495249271,1558.199463,0.5019130111,0.588620007,0,0,0,0,0,0,0,0,0,1,64,0,0
+heading_kick,2.5,adaptive_v0,42,1,0,0,5,2.495249271,4938.625,1.137212038,1.486166954,0,5.20666647,16,0.07999999821,1682,1562,30,5,0,1,64,0,0

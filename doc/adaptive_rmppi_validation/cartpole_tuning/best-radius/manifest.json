@@ -1,0 +1,82 @@
+[
+  {
+    "radius": 4,
+    "seeds": [
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "steps": 300,
+    "kicks": [
+      1
+    ],
+    "horizon": 50,
+    "options": [
+      "--cart-weight=200",
+      "--force=20",
+      "--diagnostics"
+    ]
+  },
+  {
+    "radius": 4.5,
+    "seeds": [
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "steps": 300,
+    "kicks": [
+      1
+    ],
+    "horizon": 50,
+    "options": [
+      "--cart-weight=200",
+      "--force=20",
+      "--diagnostics"
+    ]
+  },
+  {
+    "radius": 5,
+    "seeds": [
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "steps": 300,
+    "kicks": [
+      1
+    ],
+    "horizon": 50,
+    "options": [
+      "--cart-weight=200",
+      "--force=20",
+      "--diagnostics"
+    ]
+  },
+  {
+    "radius": 6,
+    "seeds": [
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "steps": 300,
+    "kicks": [
+      1
+    ],
+    "horizon": 50,
+    "options": [
+      "--cart-weight=200",
+      "--force=20",
+      "--diagnostics"
+    ]
+  }
+]

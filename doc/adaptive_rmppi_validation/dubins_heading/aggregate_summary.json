@@ -1,0 +1,117 @@
+[
+  {
+    "case": "neither",
+    "seeds": 30,
+    "disturbed_trials_per_mode": 120,
+    "stock_successes": 49,
+    "adaptive_successes": 49,
+    "success_rate_diff_ci95_seed_blocked": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cost_diff_ci95_seed_blocked": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "planning_p95_diff_ci95_seed_blocked": [
+      0.10733861873666667,
+      0.10107316473856251,
+      0.11541510911729166
+    ],
+    "failed_constraint_trials": 0
+  },
+  {
+    "case": "plant-only",
+    "seeds": 30,
+    "disturbed_trials_per_mode": 120,
+    "stock_successes": 49,
+    "adaptive_successes": 46,
+    "success_rate_diff_ci95_seed_blocked": [
+      -0.025,
+      -0.075,
+      0.03333333333333333
+    ],
+    "cost_diff_ci95_seed_blocked": [
+      55.04315593333336,
+      -34.169653941874955,
+      149.9623144166667
+    ],
+    "planning_p95_diff_ci95_seed_blocked": [
+      0.09967972785166665,
+      0.09697793233652081,
+      0.10240424573385416
+    ],
+    "failed_constraint_trials": 0
+  },
+  {
+    "case": "reuse-ddp-baseline",
+    "seeds": 30,
+    "disturbed_trials_per_mode": 120,
+    "stock_successes": 46,
+    "adaptive_successes": 46,
+    "success_rate_diff_ci95_seed_blocked": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cost_diff_ci95_seed_blocked": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "planning_p95_diff_ci95_seed_blocked": [
+      0.0930168492033333,
+      0.09085834749608333,
+      0.09531159729135415
+    ],
+    "failed_constraint_trials": 0
+  },
+  {
+    "case": "rollout-only",
+    "seeds": 30,
+    "disturbed_trials_per_mode": 120,
+    "stock_successes": 49,
+    "adaptive_successes": 49,
+    "success_rate_diff_ci95_seed_blocked": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cost_diff_ci95_seed_blocked": [
+      -0.010464441666636048,
+      -0.01526303729161422,
+      -0.006307883124967855
+    ],
+    "planning_p95_diff_ci95_seed_blocked": [
+      0.5058003812666666,
+      0.4971172275518541,
+      0.5154637591387708
+    ],
+    "failed_constraint_trials": 0
+  },
+  {
+    "case": "submitted",
+    "seeds": 30,
+    "disturbed_trials_per_mode": 120,
+    "stock_successes": 49,
+    "adaptive_successes": 46,
+    "success_rate_diff_ci95_seed_blocked": [
+      -0.025,
+      -0.075,
+      0.025
+    ],
+    "cost_diff_ci95_seed_blocked": [
+      55.030999999999985,
+      -33.59015833333331,
+      148.8175458333333
+    ],
+    "planning_p95_diff_ci95_seed_blocked": [
+      0.5150170000000001,
+      0.5041345266666667,
+      0.5272263679166667
+    ],
+    "failed_constraint_trials": 0
+  }
+]

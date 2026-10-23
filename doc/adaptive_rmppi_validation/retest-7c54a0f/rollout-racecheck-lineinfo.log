@@ -1,0 +1,42 @@
+========= COMPUTE-SANITIZER
+Note: Google Test filter = RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstCPU
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RMPPIKernels
+[ RUN      ] RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstCPU
+========= Error: Race reported between Write access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::readControlSample(const int &, const int &, const int &, float *, float *, const int &, const int &, const float *)+0x21b0 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:193
+=========     and Read access at void mppi::kernels::rmppi::rolloutRMPPIKernel<DoubleIntegratorDynamics, DoubleIntegratorCircleCost, DeviceDDP<DoubleIntegratorDynamics, (int)50>, mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, (int)0>(T1 *, T2 *, T3 *, T4 *, float, int, int, float, float, float, const float *, float *)+0x2900 in /repo/include/mppi/core/rmppi_kernels.cu:768 [1280 hazards]
+=========
+========= Error: Race reported between Write access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::stateToOutput(const float *, float *)+0x4030 in /repo/include/mppi/dynamics/dynamics.cu:163
+=========     and Read access at DoubleIntegratorCircleCost::computeStateCost(float *, int, float *, int *)+0x4510 in /repo/include/mppi/cost_functions/double_integrator/double_integrator_circle_cost.cu:10 [128 hazards]
+=========
+========= Error: Race reported between Write access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::readControlSample(const int &, const int &, const int &, float *, float *, const int &, const int &, const float *)+0x21b0 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:193
+=========     and Read access at void mppi::kernels::rmppi::rolloutRMPPIKernel<DoubleIntegratorDynamics, DoubleIntegratorCircleCost, DeviceDDP<DoubleIntegratorDynamics, (int)50>, mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, (int)0>(T1 *, T2 *, T3 *, T4 *, float, int, int, float, float, float, const float *, float *)+0x2900 in /repo/include/mppi/core/rmppi_kernels.cu:768 [640 hazards]
+=========
+========= Error: Race reported between Write access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::stateToOutput(const float *, float *)+0x4030 in /repo/include/mppi/dynamics/dynamics.cu:163
+=========     and Read access at DoubleIntegratorCircleCost::computeStateCost(float *, int, float *, int *)+0x4510 in /repo/include/mppi/cost_functions/double_integrator/double_integrator_circle_cost.cu:10 [749952 hazards]
+=========
+========= Error: Race reported between Write access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::enforceConstraints(float *, float *)+0x2cf0 in /repo/include/mppi/dynamics/dynamics.cu:124
+=========     and Read access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::writeControlSample(const int &, const int &, const int &, const float *, float *, const int &, const int &, const float *)+0x3770 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:302 [331840 hazards]
+=========     and Read access at DoubleIntegratorDynamics::computeDynamics(float *, float *, float *, float *)+0x3aa0 in /repo/include/mppi/dynamics/double_integrator/di_dynamics.cu:51 [359680 hazards]
+=========
+========= Error: Race reported between Write access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::readControlSample(const int &, const int &, const int &, float *, float *, const int &, const int &, const float *)+0x21b0 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:193
+=========     and Read access at void mppi::kernels::rmppi::rolloutRMPPIKernel<DoubleIntegratorDynamics, DoubleIntegratorCircleCost, DeviceDDP<DoubleIntegratorDynamics, (int)50>, mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, (int)0>(T1 *, T2 *, T3 *, T4 *, float, int, int, float, float, float, const float *, float *)+0x2900 in /repo/include/mppi/core/rmppi_kernels.cu:768 [409536 hazards]
+=========
+========= Error: Race reported between Write access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::stateToOutput(const float *, float *)+0x4030 in /repo/include/mppi/dynamics/dynamics.cu:163
+=========     and Read access at DoubleIntegratorCircleCost::computeStateCost(float *, int, float *, int *)+0x4510 in /repo/include/mppi/cost_functions/double_integrator/double_integrator_circle_cost.cu:10 [819200 hazards]
+=========
+========= Error: Race reported between Write access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::enforceConstraints(float *, float *)+0x2cf0 in /repo/include/mppi/dynamics/dynamics.cu:124
+=========     and Read access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::writeControlSample(const int &, const int &, const int &, const float *, float *, const int &, const int &, const float *)+0x3770 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:302 [408864 hazards]
+=========     and Read access at DoubleIntegratorDynamics::computeDynamics(float *, float *, float *, float *)+0x3aa0 in /repo/include/mppi/dynamics/double_integrator/di_dynamics.cu:51 [409600 hazards]
+=========
+========= Error: Race reported between Write access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::readControlSample(const int &, const int &, const int &, float *, float *, const int &, const int &, const float *)+0x21b0 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:193
+=========     and Read access at void mppi::kernels::rmppi::rolloutRMPPIKernel<DoubleIntegratorDynamics, DoubleIntegratorCircleCost, DeviceDDP<DoubleIntegratorDynamics, (int)50>, mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, (int)0>(T1 *, T2 *, T3 *, T4 *, float, int, int, float, float, float, const float *, float *)+0x2900 in /repo/include/mppi/core/rmppi_kernels.cu:768 [409600 hazards]
+=========
+[       OK ] RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstCPU (22779 ms)
+[----------] 1 test from RMPPIKernels (22779 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (22779 ms total)
+[  PASSED  ] 1 test.
+========= RACECHECK SUMMARY: 9 hazards displayed (9 errors, 0 warnings)

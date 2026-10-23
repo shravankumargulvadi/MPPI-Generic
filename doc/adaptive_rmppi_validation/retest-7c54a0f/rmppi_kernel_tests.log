@@ -1,0 +1,18 @@
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from RMPPIKernels
+[ RUN      ] RMPPIKernels.ValidateCombinedInitEvalKernelAgainstCPU
+[       OK ] RMPPIKernels.ValidateCombinedInitEvalKernelAgainstCPU (164 ms)
+[ RUN      ] RMPPIKernels.ValidateSplitInitEvalKernelAgainstCPU
+[       OK ] RMPPIKernels.ValidateSplitInitEvalKernelAgainstCPU (372 ms)
+[ RUN      ] RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstCPU
+[       OK ] RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstCPU (22 ms)
+[ RUN      ] RMPPIKernels.ValidateSplitRMPPIRolloutKernelAgainstCPU
+[       OK ] RMPPIKernels.ValidateSplitRMPPIRolloutKernelAgainstCPU (999 ms)
+[ RUN      ] RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstMPPIRollout
+[       OK ] RMPPIKernels.ValidateCombinedRMPPIRolloutKernelAgainstMPPIRollout (33 ms)
+[----------] 5 tests from RMPPIKernels (1591 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (1592 ms total)
+[  PASSED  ] 5 tests.

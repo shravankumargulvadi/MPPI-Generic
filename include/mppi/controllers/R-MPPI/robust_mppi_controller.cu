@@ -632,6 +632,26 @@ void RobustMPPI::computeNominalFeedbackGains(const Eigen::Ref<const state_array>
 }
 
 ROBUST_MPPI_TEMPLATE
+void RobustMPPI::launchRolloutKernels()
+{
+  if (this->getKernelChoiceAsEnum() == kernelType::USE_SPLIT_KERNELS)
+  {
+    mppi::kernels::rmppi::launchSplitRMPPIRolloutKernel<DYN_T, COST_T, SAMPLING_T, FEEDBACK_GPU>(
+        this->model_, this->cost_, this->sampler_, this->fb_controller_->getHostPointer().get(), this->getDt(),
+        this->getNumTimesteps(), NUM_ROLLOUTS, this->getLambda(), this->getAlpha(), getValueFunctionThreshold(),
+        this->initial_state_d_, this->output_d_, this->trajectory_costs_d_, this->params_.dynamics_rollout_dim_,
+        this->params_.cost_rollout_dim_, this->stream_, false);
+  }
+  else
+  {
+    mppi::kernels::rmppi::launchRMPPIRolloutKernel<DYN_T, COST_T, SAMPLING_T, FEEDBACK_GPU>(
+        this->model_, this->cost_, this->sampler_, this->fb_controller_->getHostPointer().get(), this->getDt(),
+        this->getNumTimesteps(), NUM_ROLLOUTS, this->getLambda(), this->getAlpha(), getValueFunctionThreshold(),
+        this->initial_state_d_, this->trajectory_costs_d_, this->params_.dynamics_rollout_dim_, this->stream_, false);
+  }
+}
+
+ROBUST_MPPI_TEMPLATE
 void RobustMPPI::computeControl(const Eigen::Ref<const state_array>& state, int optimization_stride)
 {
   // Handy dandy pointers to nominal data
@@ -664,21 +684,7 @@ void RobustMPPI::computeControl(const Eigen::Ref<const state_array>& state, int 
     this->sampler_->generateSamples(optimization_stride, opt_iter, this->gen_, false);
 
     // Launch the rollout kernel
-    if (this->getKernelChoiceAsEnum() == kernelType::USE_SPLIT_KERNELS)
-    {
-      mppi::kernels::rmppi::launchSplitRMPPIRolloutKernel<DYN_T, COST_T, SAMPLING_T, FEEDBACK_GPU>(
-          this->model_, this->cost_, this->sampler_, this->fb_controller_->getHostPointer().get(), this->getDt(),
-          this->getNumTimesteps(), NUM_ROLLOUTS, this->getLambda(), this->getAlpha(), getValueFunctionThreshold(),
-          this->initial_state_d_, this->output_d_, this->trajectory_costs_d_, this->params_.dynamics_rollout_dim_,
-          this->params_.cost_rollout_dim_, this->stream_, false);
-    }
-    else
-    {
-      mppi::kernels::rmppi::launchRMPPIRolloutKernel<DYN_T, COST_T, SAMPLING_T, FEEDBACK_GPU>(
-          this->model_, this->cost_, this->sampler_, this->fb_controller_->getHostPointer().get(), this->getDt(),
-          this->getNumTimesteps(), NUM_ROLLOUTS, this->getLambda(), this->getAlpha(), getValueFunctionThreshold(),
-          this->initial_state_d_, this->trajectory_costs_d_, this->params_.dynamics_rollout_dim_, this->stream_, false);
-    }
+    launchRolloutKernels();
 
     // Return the costs ->  nominal,  real costs
     HANDLE_ERROR(cudaMemcpyAsync(this->trajectory_costs_.data(), trajectory_costs_real_d, NUM_ROLLOUTS * sizeof(float),

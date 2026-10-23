@@ -400,13 +400,9 @@ __global__ void rolloutRMPPIDynamicsKernel(DYN_T* __restrict__ dynamics, FB_T* _
   float* xdot = &(reinterpret_cast<float*>(x_dot_shared)[shared_idx * DYN_T::STATE_DIM]);
   float* u = &(reinterpret_cast<float*>(u_shared)[shared_idx * DYN_T::CONTROL_DIM]);
   float* y = &(reinterpret_cast<float*>(y_shared)[shared_idx * DYN_T::OUTPUT_DIM]);
-#ifdef USE_CUDA_BARRIERS_DYN
-  barrier* bar = &barrier_shared[shared_idx];
-  if (thread_idy == 0)
-  {
-    init(bar, blockDim.y);
-  }
-#endif
+  // Block-wide barriers are required here even when per-sample cuda::barriers are enabled elsewhere: the actual
+  // rollout (thread_idz != NOMINAL_STATE_IDX) reads the nominal rollout's state x_nom, which is advanced by a
+  // different set of threads, so a per-sample barrier does not order those accesses.
   // The array to hold K(x,x*)
   float fb_control[DYN_T::CONTROL_DIM];
   int i;
@@ -425,11 +421,7 @@ __global__ void rolloutRMPPIDynamicsKernel(DYN_T* __restrict__ dynamics, FB_T* _
   {
     // Load noise trajectories scaled by the exploration factor
     sampling->readControlSample(global_idx, t, distribution_idx, u, theta_d_shared, blockDim.y, thread_idy, y);
-#ifdef USE_CUDA_BARRIERS_DYN
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
 
     // Now find feedback control
     for (i = 0; i < DYN_T::CONTROL_DIM; i++)
@@ -447,30 +439,18 @@ __global__ void rolloutRMPPIDynamicsKernel(DYN_T* __restrict__ dynamics, FB_T* _
     {
       u[i] += fb_control[i];
     }
-#ifdef USE_CUDA_BARRIERS_DYN
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
 
     // applies constraints as defined in dynamics.cuh see specific dynamics class for what happens here
     // usually just control clamping
     dynamics->enforceConstraints(x, u);
-#ifdef USE_CUDA_BARRIERS_DYN
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
     // copy back feedback-filled controls to global memory
     sampling->writeControlSample(global_idx, t, distribution_idx, u, theta_d_shared, blockDim.y, thread_idy, y);
 
     // Increment states
     dynamics->step(x, x_next, xdot, u, y, theta_s_shared, t, dt);
-#ifdef USE_CUDA_BARRIERS_DYN
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
     x_temp = x;
     x = x_next;
     x_next = x_temp;
@@ -718,13 +698,6 @@ __global__ void rolloutRMPPIKernel(DYN_T* __restrict__ dynamics, COST_T* __restr
   crash_status[0] = 0;  // We have not crashed yet as of the first trajectory.
   running_cost[0] = 0;
   running_cost_extra[0] = 0;
-#ifdef USE_CUDA_BARRIERS_ROLLOUT
-  barrier* bar = &barrier_shared[shared_idx];
-  if (thread_idy == 0)
-  {
-    init(bar, blockDim.y);
-  }
-#endif
   // The array to hold K(x,x*)
   float fb_control[DYN_T::CONTROL_DIM];
   int i;
@@ -745,11 +718,7 @@ __global__ void rolloutRMPPIKernel(DYN_T* __restrict__ dynamics, COST_T* __restr
   {
     // Load noise trajectories scaled by the exploration factor
     sampling->readControlSample(global_idx, t, distribution_idx, u, theta_d_shared, blockDim.y, thread_idy, y);
-#ifdef USE_CUDA_BARRIERS_ROLLOUT
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
 
     // Now find feedback control
     for (i = 0; i < DYN_T::CONTROL_DIM; i++)
@@ -767,30 +736,18 @@ __global__ void rolloutRMPPIKernel(DYN_T* __restrict__ dynamics, COST_T* __restr
     {
       u[i] += fb_control[i];
     }
-#ifdef USE_CUDA_BARRIERS_ROLLOUT
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
 
     // applies constraints as defined in dynamics.cuh see specific dynamics class for what happens here
     // usually just control clamping
     dynamics->enforceConstraints(x, u);
-#ifdef USE_CUDA_BARRIERS_ROLLOUT
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
     // copy back feedback-filled controls to global memory
     sampling->writeControlSample(global_idx, t, distribution_idx, u, theta_d_shared, blockDim.y, thread_idy, y);
 
     // Increment states
     dynamics->step(x, x_next, xdot, u, y, theta_s_shared, t, dt);
-#ifdef USE_CUDA_BARRIERS_ROLLOUT
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
 
     // Compute cost
     if (t < num_timesteps)
@@ -818,11 +775,7 @@ __global__ void rolloutRMPPIKernel(DYN_T* __restrict__ dynamics, COST_T* __restr
     // Nominal system needs to know running_state_cost_nom, running_control_cost_nom, and running_cost_feedback
     // Real system needs to know running_cost_real
 
-#ifdef USE_CUDA_BARRIERS_ROLLOUT
-    bar->arrive_and_wait();
-#else
     __syncthreads();
-#endif
     x_temp = x;
     x = x_next;
     x_next = x_temp;
@@ -851,9 +804,10 @@ __global__ void rolloutRMPPIKernel(DYN_T* __restrict__ dynamics, COST_T* __restr
   __syncthreads();
   if (thread_idz != NOMINAL_STATE_IDX && thread_idy == 0)
   {
-    float* running_nom_cost = &running_cost_shared[blockDim.x * blockDim.y * NOMINAL_STATE_IDX];
+    // One sample per thread_idx in this kernel: each actual rollout updates only its own nominal partner.
+    float* running_nom_cost = &running_cost_shared[thread_idx + blockDim.x * blockDim.y * NOMINAL_STATE_IDX];
     const float* running_nom_cost_likelihood_ratio_cost =
-        &running_cost_shared[blockDim.x * blockDim.y * (blockDim.z + NOMINAL_STATE_IDX)];
+        &running_cost_shared[thread_idx + blockDim.x * blockDim.y * (blockDim.z + NOMINAL_STATE_IDX)];
     *running_nom_cost =
         0.5 * *running_nom_cost + 0.5 * fmaxf(fminf(*running_cost_extra, value_func_threshold), *running_nom_cost);
     *running_nom_cost += *running_nom_cost_likelihood_ratio_cost;
@@ -1137,7 +1091,10 @@ __device__ void multiCostArrayReduction(float* running_cost, float* running_cost
 {
   int prev_size = start_size;
   const bool block_power_of_2 = (prev_size & (prev_size - 1)) == 0;
-  const int stop_condition = (block_power_of_2) ? 32 : 0;
+  // The warp-synchronous tail is only valid when the reduced elements belong to consecutive threads of one warp.
+  // With stride > 1 (one reduction per threadIdx.x across threadIdx.y) those threads sit in different warps, so
+  // reduce with __syncthreads at every level instead.
+  const int stop_condition = (block_power_of_2 && stride == 1) ? 32 : 0;
   int size;
   int j;
 

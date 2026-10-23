@@ -1,0 +1,485 @@
+[
+  {
+    "scenario": "kick",
+    "severity": 1.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.9383219,
+        "cumulative_cost_mean": 3832.9203333333335,
+        "trial_p95_latency_ms_mean": 0.48540563333333336,
+        "latency_max_ms": 0.638591,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.9383484999999998,
+        "cumulative_cost_mean": 3832.4933333333333,
+        "trial_p95_latency_ms_mean": 1.6161633333333334,
+        "latency_max_ms": 3.45052,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.19066333333333,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        2.6599999999995148e-05,
+        [
+          -0.0001390333333333309,
+          0.00019276916666665844
+        ]
+      ],
+      "cumulative_cost": [
+        -0.4270000000000133,
+        [
+          -2.039083333333305,
+          1.2411750000000272
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1307577,
+        [
+          1.084402171666667,
+          1.1770140816666668
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "kick",
+    "severity": 2.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 5.1715833333333325,
+        "cumulative_cost_mean": 43716.469999999994,
+        "trial_p95_latency_ms_mean": 0.4868564666666667,
+        "latency_max_ms": 0.62651,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 5.171592333333333,
+        "cumulative_cost_mean": 43717.32333333333,
+        "trial_p95_latency_ms_mean": 1.7209096666666666,
+        "latency_max_ms": 3.88687,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 62.15842,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        8.99999999995534e-06,
+        [
+          -5.000000000106771e-06,
+          3.466666666650964e-05
+        ]
+      ],
+      "cumulative_cost": [
+        0.8533333333337699,
+        [
+          -0.1033333333330423,
+          2.686666666667103
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.2340531999999997,
+        [
+          1.186927375,
+          1.2819756249999998
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "kick",
+    "severity": 3.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.7209593333333335,
+        "cumulative_cost_mean": 8063.972666666666,
+        "trial_p95_latency_ms_mean": 0.48736599999999997,
+        "latency_max_ms": 0.670253,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.720960666666666,
+        "cumulative_cost_mean": 8063.967333333332,
+        "trial_p95_latency_ms_mean": 1.6731766666666665,
+        "latency_max_ms": 3.3362,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 62.77093666666667,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        1.3333333333272653e-06,
+        [
+          -1.0000000000065511e-06,
+          4.999999999988347e-06
+        ]
+      ],
+      "cumulative_cost": [
+        -0.005333333333358799,
+        [
+          -0.02100000000009459,
+          0.003999999999996362
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1858106666666663,
+        [
+          1.1360778283333335,
+          1.2337463850000003
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "mismatch",
+    "severity": 1.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.8918513333333338,
+        "cumulative_cost_mean": 24173.03333333333,
+        "trial_p95_latency_ms_mean": 0.48419796666666665,
+        "latency_max_ms": 0.676158,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.8628793333333333,
+        "cumulative_cost_mean": 24125.08,
+        "trial_p95_latency_ms_mean": 1.7289613333333334,
+        "latency_max_ms": 4.07856,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.00345666666666,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 0.9979462
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        -0.02897200000000003,
+        [
+          -0.22489173333333332,
+          0.15490044166666667
+        ]
+      ],
+      "cumulative_cost": [
+        -47.95333333333328,
+        [
+          -1884.2067499999998,
+          1642.0345833333329
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.2447633666666669,
+        [
+          1.2068668149999997,
+          1.284973009166667
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "mismatch",
+    "severity": 2.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 3.345273333333334,
+        "cumulative_cost_mean": 13779.100000000002,
+        "trial_p95_latency_ms_mean": 0.4923503999999999,
+        "latency_max_ms": 0.718002,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 3.3452193333333335,
+        "cumulative_cost_mean": 13778.776666666667,
+        "trial_p95_latency_ms_mean": 1.6904323333333333,
+        "latency_max_ms": 4.01669,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 61.46532333333333,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 0.9970831666666666
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        -5.399999999998369e-05,
+        [
+          -0.00013999999999997015,
+          2.675000000030726e-06
+        ]
+      ],
+      "cumulative_cost": [
+        -0.32333333333347886,
+        [
+          -0.863416666667008,
+          0.02333333333329847
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1980819333333335,
+        [
+          1.1563286016666667,
+          1.2402464208333335
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "mismatch",
+    "severity": 3.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.646415333333333,
+        "cumulative_cost_mean": 7721.340666666666,
+        "trial_p95_latency_ms_mean": 0.4937894666666667,
+        "latency_max_ms": 0.759179,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.6464149999999997,
+        "cumulative_cost_mean": 7721.340333333332,
+        "trial_p95_latency_ms_mean": 1.7713110000000003,
+        "latency_max_ms": 4.18364,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 62.979023333333345,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        -3.333333333207141e-07,
+        [
+          -9.999999999621422e-07,
+          0.0
+        ]
+      ],
+      "cumulative_cost": [
+        -0.0003333333333406093,
+        [
+          -0.0010000000000218278,
+          0.0
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.2775215333333334,
+        [
+          1.2107674725,
+          1.3478989300000002
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "nominal",
+    "severity": 0.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "success_ci95": [
+          0.8864829086095221,
+          1.0
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.05001663666666666,
+        "cumulative_cost_mean": 6.614867000000001,
+        "trial_p95_latency_ms_mean": 0.4826547666666667,
+        "latency_max_ms": 0.755212,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "success_ci95": [
+          0.8864829086095221,
+          1.0
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.05001663666666666,
+        "cumulative_cost_mean": 6.614867000000001,
+        "trial_p95_latency_ms_mean": 1.546391333333333,
+        "latency_max_ms": 3.98683,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.108226666666674,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "cumulative_cost": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.0637365666666667,
+        [
+          1.0156269266666669,
+          1.1192802816666667
+        ]
+      ]
+    }
+  }
+]

@@ -1,0 +1,219 @@
+[
+  {
+    "name": "default",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/default.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics"
+    ]
+  },
+  {
+    "name": "force20",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/force20.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--force=20"
+    ]
+  },
+  {
+    "name": "cart200",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/cart200.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--cart-weight=200"
+    ]
+  },
+  {
+    "name": "noise2.5",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/noise2.5.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--noise=2.5"
+    ]
+  },
+  {
+    "name": "noise7.5",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/noise7.5.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--noise=7.5"
+    ]
+  },
+  {
+    "name": "lambda1",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/lambda1.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--lambda=1"
+    ]
+  },
+  {
+    "name": "ddp3",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/ddp3.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--ddp-iterations=3"
+    ]
+  },
+  {
+    "name": "budget8",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/budget8.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics",
+      "--budget=8"
+    ]
+  },
+  {
+    "name": "horizon100",
+    "horizon": 100,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/adaptive_cartpole_h100",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/horizon100.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics"
+    ]
+  },
+  {
+    "name": "horizon150",
+    "horizon": 150,
+    "radius": 4.0,
+    "seeds": [
+      20,
+      21,
+      22
+    ],
+    "command": [
+      "/validation/build/adaptive_cartpole_h150",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/parameter-screen/horizon150.csv",
+      "4.0",
+      "-",
+      "20",
+      "0.5,1,1.5",
+      "--diagnostics"
+    ]
+  }
+]

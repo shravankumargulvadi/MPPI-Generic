@@ -1,0 +1,16 @@
+nominal 0 seed 10 done
+nominal 0 seed 11 done
+nominal 0 seed 12 done
+nominal 0 seed 13 done
+nominal 0 seed 14 done
+kick 1 seed 10 done
+kick 1 seed 11 done
+kick 1 seed 12 done
+kick 1 seed 13 done
+kick 1 seed 14 done
+mismatch 1 seed 10 done
+mismatch 1 seed 11 done
+mismatch 1 seed 12 done
+mismatch 1 seed 13 done
+mismatch 1 seed 14 done
+wrote /validation/cartpole-tuning/refined-radius/radius-4.5.csv

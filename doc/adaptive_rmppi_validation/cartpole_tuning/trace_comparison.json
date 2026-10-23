@@ -1,0 +1,38 @@
+[
+  {
+    "file": "cart200-force20-r4.5-trace.csv.gz",
+    "compared_pairs": 390,
+    "equal_control_pairs": 384,
+    "max_control_difference": 0.4246673600000008,
+    "max_state_difference": 0.008490562999999618,
+    "truncated_pairs": 0,
+    "active_refresh_cycles": 7417,
+    "zero_tracking_gap_refresh_cycles": 1070,
+    "active_weight_mass_sum": 4.000169207310304,
+    "max_active_weight_mass": 0.9999979138
+  },
+  {
+    "file": "default-r4-trace.csv.gz",
+    "compared_pairs": 390,
+    "equal_control_pairs": 380,
+    "max_control_difference": 0.034856320000000274,
+    "max_state_difference": 0.0006961829999996283,
+    "truncated_pairs": 0,
+    "active_refresh_cycles": 16560,
+    "zero_tracking_gap_refresh_cycles": 6366,
+    "active_weight_mass_sum": 55.9713354300576,
+    "max_active_weight_mass": 1.0
+  },
+  {
+    "file": "no-refresh-control-trace.csv.gz",
+    "compared_pairs": 30,
+    "equal_control_pairs": 30,
+    "max_control_difference": 0.0,
+    "max_state_difference": 0.0,
+    "truncated_pairs": 0,
+    "active_refresh_cycles": 0,
+    "zero_tracking_gap_refresh_cycles": 0,
+    "active_weight_mass_sum": 0.0,
+    "max_active_weight_mass": 0.0
+  }
+]

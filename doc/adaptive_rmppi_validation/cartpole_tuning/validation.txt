@@ -1,0 +1,12 @@
+PASS: extended default settings preserve all 6 original smoke trial outcomes, costs, peaks, and refresh metrics within the precision of the original CSV.
+PASS: 1800 smoke trace rows obey force bounds and importance-weight bounds.
+PASS: all analyzed CSVs contain unique (scenario,severity,mode,seed) rows, matching headers and finite numeric values.
+PASS: each final condition contains matched stock/adaptive seeds exactly 5000-5029.
+PASS: held-out data were not used to select configuration or trigger settings.
+PASS: controller/feedback/kernel source was unchanged during the study.
+Builds: Release/C++17/sm_86/-lineinfo, default 50-step and 100/150-step horizon variants.
+GPU: NVIDIA GeForce RTX 3060 Laptop GPU 6144 MiB; driver 595.99.02.
+Container: trustnav:local_planner, sha256:591b0231a7862a814ab54a3261f64d21058fd07f7e0f58279617c30b0ccd0e0b.
+Toolkit: CUDA 12.6.85; GCC 13.2.0; CMake 3.28.3.
+Timing: interactive laptop with normal clocks; no concurrent compilation or sanitizer runs during benchmark measurements. Diagnostics run after the planning timer.
+Known limitation: earlier lineinfo racecheck reports remain unresolved; no core concurrency change was made or claimed in this study.

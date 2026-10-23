@@ -1,0 +1,27 @@
+========= COMPUTE-SANITIZER
+Note: Google Test filter = RMPPIKernels.ValidateCombinedInitEvalKernelAgainstCPU
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RMPPIKernels
+[ RUN      ] RMPPIKernels.ValidateCombinedInitEvalKernelAgainstCPU
+========= Error: Race reported between Write access at mppi::sampling_distributions::SamplingDistribution<mppi::sampling_distributions::GaussianDistribution<DoubleIntegratorParams>, mppi::sampling_distributions::GaussianParams, DoubleIntegratorParams>::readControlSample(const int &, const int &, const int &, float *, float *, const int &, const int &, const float *)+0x2210 in /repo/include/mppi/sampling_distributions/sampling_distribution.cu:193
+=========     and Read access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::enforceConstraints(float *, float *)+0x27f0 in /repo/include/mppi/dynamics/dynamics.cu:116 [2432 hazards]
+=========
+========= Error: Race reported between Write access at MPPI_internal::Dynamics<DoubleIntegratorDynamics, DoubleIntegratorParams>::stateToOutput(const float *, float *)+0x3810 in /repo/include/mppi/dynamics/dynamics.cu:163
+=========     and Read access at DoubleIntegratorCircleCost::computeStateCost(float *, int, float *, int *)+0x3d00 in /repo/include/mppi/cost_functions/double_integrator/double_integrator_circle_cost.cu:10 [512 hazards]
+=========
+========= Warning: Race reported between Read access at void mppi::kernels::warpReduceAdd<(int)8>(volatile float *, int, int)+0x6830 in /repo/include/mppi/core/mppi_common.cu:1196
+=========     and Write access at void mppi::kernels::warpReduceAdd<(int)8>(volatile float *, int, int)+0x6810 in /repo/include/mppi/core/mppi_common.cu:1192 [6912 hazards]
+=========     and Write access at void mppi::kernels::warpReduceAdd<(int)8>(volatile float *, int, int)+0x6850 in /repo/include/mppi/core/mppi_common.cu:1196 [6912 hazards]
+=========
+========= Warning: Race reported between Read access at void mppi::kernels::warpReduceAdd<(int)8>(volatile float *, int, int)+0x67f0 in /repo/include/mppi/core/mppi_common.cu:1192
+=========     and Write access at void mppi::kernels::warpReduceAdd<(int)8>(volatile float *, int, int)+0x67d0 in /repo/include/mppi/core/mppi_common.cu:1188 [4608 hazards]
+=========     and Write access at void mppi::kernels::warpReduceAdd<(int)8>(volatile float *, int, int)+0x6810 in /repo/include/mppi/core/mppi_common.cu:1192 [4608 hazards]
+=========
+[       OK ] RMPPIKernels.ValidateCombinedInitEvalKernelAgainstCPU (8038 ms)
+[----------] 1 test from RMPPIKernels (8038 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (8038 ms total)
+[  PASSED  ] 1 test.
+========= RACECHECK SUMMARY: 4 hazards displayed (2 errors, 2 warnings)

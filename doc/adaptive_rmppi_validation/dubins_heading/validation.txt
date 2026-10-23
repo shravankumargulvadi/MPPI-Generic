@@ -1,0 +1,16 @@
+Tested MR head: 54895c8; changes f53c75f and 54895c8 over 675f5be.
+Exact submitted benchmark source preserved as submitted_heading.cu. Review harness adds optional ablations and precision/trace columns; defaults preserve submitted behavior.
+PASS: exact submitted/instrumented defaults match all four smoke outcomes, costs, recovery times, and refresh counts within original CSV precision.
+PASS: new CSV schemas align, all analyzed numeric values are finite, and final seeds match exactly 1000-1029 in every mode and condition.
+PASS: clipped trace controls obey speed [0.5,2] and yaw-rate [-2,2].
+PASS: 14 CPU reference tests, 4 adaptive GPU tests, 13 focused diagnostics (overlapping the 4 GPU tests), 38 existing regressions.
+PASS: adaptive GPU memcheck, 4/4 tests and 0 errors.
+PASS: isolated combined rollout racecheck, 0 hazards/0 errors/0 warnings.
+OPEN: two parity diagnostics pass numerical assertions but racecheck reports 4 errors.
+OPEN: isolated combined init-eval CPU/GPU test passes numerically but racecheck reports 2 errors and 2 warnings.
+PASS: mechanism probe reports zero baseline/recovery initial-state, gain, action, and applied-action differences, and exact baseline feedback when plant feedback is disabled.
+OBSERVED: two getFeedbackControl calls in one cycle cause two plant recovery solves; no one-per-cycle guard is enforced.
+GPU: NVIDIA GeForce RTX 3060 Laptop GPU, 6144 MiB; driver 595.99.02.
+Container: trustnav:local_planner, sha256:591b0231a7862a814ab54a3261f64d21058fd07f7e0f58279617c30b0ccd0e0b.
+CUDA toolkit 12.6.85, GCC 13.2.0, CMake 3.28.3; Release/C++17/sm_86/-lineinfo.
+No concurrent builds or sanitizer runs during timed benchmark cases. Normal interactive laptop clocks were not locked.

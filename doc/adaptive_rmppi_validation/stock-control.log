@@ -1,0 +1,45 @@
+Note: Google Test filter = AdaptiveReview.StockMatchesStockWithPinnedKernels
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from AdaptiveReview
+[ RUN      ] AdaptiveReview.StockMatchesStockWithPinnedKernels
+stock/stock cycle 0 max_abs_diff 0
+stock/stock cycle 1 max_abs_diff 0
+stock/stock cycle 2 max_abs_diff 9.83477e-06
+stock/stock cycle 3 max_abs_diff 2.83122e-05
+stock/stock cycle 4 max_abs_diff 8.64267e-06
+stock/stock cycle 5 max_abs_diff 8.43406e-05
+/validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 6 max_abs_diff 3.71933e-05
+stock/stock cycle 7 max_abs_diff 8.64863e-05
+/validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 8 max_abs_diff 0.000170469
+/validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+stock/stock cycle 9 max_abs_diff 0.000154734
+/validation/review_diagnostics.cu:120: Failure
+Value of: ua[i].isApprox(ub[i], 1e-4f)
+  Actual: false
+Expected: true
+
+[  FAILED  ] AdaptiveReview.StockMatchesStockWithPinnedKernels (637 ms)
+[----------] 1 test from AdaptiveReview (637 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (637 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] AdaptiveReview.StockMatchesStockWithPinnedKernels
+
+ 1 FAILED TEST

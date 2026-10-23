@@ -1,0 +1,10 @@
+nominal 0 seed 0 done
+nominal 0 seed 1 done
+nominal 0 seed 2 done
+kick 1 seed 0 done
+kick 1 seed 1 done
+kick 1 seed 2 done
+mismatch 1 seed 0 done
+mismatch 1 seed 1 done
+mismatch 1 seed 2 done
+wrote radius-8.csv

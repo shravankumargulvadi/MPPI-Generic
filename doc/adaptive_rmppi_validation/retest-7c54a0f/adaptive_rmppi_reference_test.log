@@ -1,0 +1,36 @@
+[==========] Running 14 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 14 tests from AdaptiveRMPPIReference
+[ RUN      ] AdaptiveRMPPIReference.DisabledMatchesBaselineTrackingLaw
+[       OK ] AdaptiveRMPPIReference.DisabledMatchesBaselineTrackingLaw (260 ms)
+[ RUN      ] AdaptiveRMPPIReference.NominalTrajectoryUnaffectedByRefresh
+[       OK ] AdaptiveRMPPIReference.NominalTrajectoryUnaffectedByRefresh (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.ZeroErrorNeverTriggersAndHasZeroFeedback
+[       OK ] AdaptiveRMPPIReference.ZeroErrorNeverTriggersAndHasZeroFeedback (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.ForcedTriggerRefreshesAtExpectedSampleAndTime
+[       OK ] AdaptiveRMPPIReference.ForcedTriggerRefreshesAtExpectedSampleAndTime (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.FeedbackSignOpposesTrackingError
+[       OK ] AdaptiveRMPPIReference.FeedbackSignOpposesTrackingError (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.SolverFailureKeepsPreviousGains
+[       OK ] AdaptiveRMPPIReference.SolverFailureKeepsPreviousGains (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.NonFiniteSolverOutputIsRejected
+[       OK ] AdaptiveRMPPIReference.NonFiniteSolverOutputIsRejected (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.PerRolloutAndPerIterationBudgetsAreEnforcedAndLogged
+[       OK ] AdaptiveRMPPIReference.PerRolloutAndPerIterationBudgetsAreEnforcedAndLogged (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.NoRefreshWithLessThanTwoStepsRemaining
+[       OK ] AdaptiveRMPPIReference.NoRefreshWithLessThanTwoStepsRemaining (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.SaturationClipsAppliedControlButNotFeedbackTerm
+[       OK ] AdaptiveRMPPIReference.SaturationClipsAppliedControlButNotFeedbackTerm (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.ResidualTriggerIgnoresOffsetsOnLinearDynamics
+[       OK ] AdaptiveRMPPIReference.ResidualTriggerIgnoresOffsetsOnLinearDynamics (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.SwitchingToResidualTriggerBuildsBaselineJacobians
+[       OK ] AdaptiveRMPPIReference.SwitchingToResidualTriggerBuildsBaselineJacobians (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.ResidualTriggerFiresOnNonlinearDeviation
+[       OK ] AdaptiveRMPPIReference.ResidualTriggerFiresOnNonlinearDeviation (0 ms)
+[ RUN      ] AdaptiveRMPPIReference.DefaultDDPRefreshProducesFiniteLocalPolicy
+[       OK ] AdaptiveRMPPIReference.DefaultDDPRefreshProducesFiniteLocalPolicy (0 ms)
+[----------] 14 tests from AdaptiveRMPPIReference (260 ms total)
+
+[----------] Global test environment tear-down
+[==========] 14 tests from 1 test suite ran. (260 ms total)
+[  PASSED  ] 14 tests.

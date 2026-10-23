@@ -1,0 +1,368 @@
+{
+  "0.5": {
+    "stock": {
+      "success": 1.0,
+      "peak_tracking_error": 0.02307771666666667,
+      "cumulative_cost": 888.3570333333333,
+      "latency_p95_ms": 0.5172123333333334,
+      "refreshes": 0.0,
+      "overflows": 0.0,
+      "survivals": 30,
+      "n": 30,
+      "refreshes_per_cycle": 0.0,
+      "overflows_per_cycle": 0.0,
+      "mean_ci95": {
+        "success": [
+          1.0,
+          1.0
+        ],
+        "peak_tracking_error": [
+          0.022917377916666662,
+          0.02324804366666667
+        ],
+        "cumulative_cost": [
+          883.9102216666666,
+          892.6967400000001
+        ],
+        "latency_p95_ms": [
+          0.5136250391666667,
+          0.5210509091666666
+        ],
+        "refreshes": [
+          0.0,
+          0.0
+        ],
+        "overflows": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "adaptive_v0": {
+      "success": 1.0,
+      "peak_tracking_error": 0.02307715,
+      "cumulative_cost": 888.3738666666666,
+      "latency_p95_ms": 1.1540883333333334,
+      "refreshes": 2520.8333333333335,
+      "overflows": 295.73333333333335,
+      "survivals": 30,
+      "n": 30,
+      "refreshes_per_cycle": 8.402777777777779,
+      "overflows_per_cycle": 0.9857777777777779,
+      "mean_ci95": {
+        "success": [
+          1.0,
+          1.0
+        ],
+        "peak_tracking_error": [
+          0.022917935249999997,
+          0.02324709441666667
+        ],
+        "cumulative_cost": [
+          883.9393258333333,
+          892.7378999999997
+        ],
+        "latency_p95_ms": [
+          1.1458173916666665,
+          1.1631715
+        ],
+        "refreshes": [
+          2483.4325,
+          2556.8333333333335
+        ],
+        "overflows": [
+          283.3666666666667,
+          307.8666666666667
+        ]
+      }
+    },
+    "paired_adaptive_minus_stock": {
+      "success": {
+        "mean": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_tracking_error": {
+        "mean": -5.666666666666552e-07,
+        "bootstrap_ci95": [
+          -4.716833333333547e-06,
+          3.5834999999998794e-06
+        ]
+      },
+      "cumulative_cost": {
+        "mean": 0.01683333333334455,
+        "bootstrap_ci95": [
+          -0.10416833333331112,
+          0.14720000000000946
+        ]
+      },
+      "latency_p95_ms": {
+        "mean": 0.6368759999999999,
+        "bootstrap_ci95": [
+          0.6293187533333334,
+          0.644875735
+        ]
+      },
+      "refreshes": {
+        "mean": 2520.8333333333335,
+        "bootstrap_ci95": [
+          2483.4325,
+          2556.8333333333335
+        ]
+      },
+      "overflows": {
+        "mean": 295.73333333333335,
+        "bootstrap_ci95": [
+          283.3666666666667,
+          307.8666666666667
+        ]
+      }
+    }
+  },
+  "1": {
+    "stock": {
+      "success": 1.0,
+      "peak_tracking_error": 0.026046606666666663,
+      "cumulative_cost": 922.3567000000002,
+      "latency_p95_ms": 0.5211948,
+      "refreshes": 0.0,
+      "overflows": 0.0,
+      "survivals": 30,
+      "n": 30,
+      "refreshes_per_cycle": 0.0,
+      "overflows_per_cycle": 0.0,
+      "mean_ci95": {
+        "success": [
+          1.0,
+          1.0
+        ],
+        "peak_tracking_error": [
+          0.025651834250000005,
+          0.02651134083333333
+        ],
+        "cumulative_cost": [
+          917.5822875,
+          927.1062775
+        ],
+        "latency_p95_ms": [
+          0.5177161499999999,
+          0.5248395658333334
+        ],
+        "refreshes": [
+          0.0,
+          0.0
+        ],
+        "overflows": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "adaptive_v0": {
+      "success": 1.0,
+      "peak_tracking_error": 0.02604549666666667,
+      "cumulative_cost": 922.3270333333334,
+      "latency_p95_ms": 1.1971096666666665,
+      "refreshes": 2548.133333333333,
+      "overflows": 332.8666666666667,
+      "survivals": 30,
+      "n": 30,
+      "refreshes_per_cycle": 8.493777777777778,
+      "overflows_per_cycle": 1.1095555555555556,
+      "mean_ci95": {
+        "success": [
+          1.0,
+          1.0
+        ],
+        "peak_tracking_error": [
+          0.02565061083333334,
+          0.02651078116666667
+        ],
+        "cumulative_cost": [
+          917.5176416666666,
+          927.1164291666666
+        ],
+        "latency_p95_ms": [
+          1.1878479749999997,
+          1.2065507583333333
+        ],
+        "refreshes": [
+          2514.5325,
+          2580.668333333333
+        ],
+        "overflows": [
+          322.3,
+          343.8
+        ]
+      }
+    },
+    "paired_adaptive_minus_stock": {
+      "success": {
+        "mean": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_tracking_error": {
+        "mean": -1.11e-06,
+        "bootstrap_ci95": [
+          -3.2867500000001405e-06,
+          8.735833333334557e-07
+        ]
+      },
+      "cumulative_cost": {
+        "mean": -0.02966666666668895,
+        "bootstrap_ci95": [
+          -0.20543416666667486,
+          0.1410741666666354
+        ]
+      },
+      "latency_p95_ms": {
+        "mean": 0.6759148666666666,
+        "bootstrap_ci95": [
+          0.6675134149999999,
+          0.6844232741666667
+        ]
+      },
+      "refreshes": {
+        "mean": 2548.133333333333,
+        "bootstrap_ci95": [
+          2514.5325,
+          2580.668333333333
+        ]
+      },
+      "overflows": {
+        "mean": 332.8666666666667,
+        "bootstrap_ci95": [
+          322.3,
+          343.8
+        ]
+      }
+    }
+  },
+  "2": {
+    "stock": {
+      "success": 1.0,
+      "peak_tracking_error": 0.08952019666666668,
+      "cumulative_cost": 898.8517333333333,
+      "latency_p95_ms": 0.5254044666666667,
+      "refreshes": 0.0,
+      "overflows": 0.0,
+      "survivals": 30,
+      "n": 30,
+      "refreshes_per_cycle": 0.0,
+      "overflows_per_cycle": 0.0,
+      "mean_ci95": {
+        "success": [
+          1.0,
+          1.0
+        ],
+        "peak_tracking_error": [
+          0.08770268275000002,
+          0.09141310166666666
+        ],
+        "cumulative_cost": [
+          893.2714925000001,
+          904.4925683333336
+        ],
+        "latency_p95_ms": [
+          0.5218944883333334,
+          0.5292817075
+        ],
+        "refreshes": [
+          0.0,
+          0.0
+        ],
+        "overflows": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "adaptive_v0": {
+      "success": 1.0,
+      "peak_tracking_error": 0.08937318333333334,
+      "cumulative_cost": 899.0318000000001,
+      "latency_p95_ms": 1.1890223333333332,
+      "refreshes": 2521.1666666666665,
+      "overflows": 315.5,
+      "survivals": 30,
+      "n": 30,
+      "refreshes_per_cycle": 8.403888888888888,
+      "overflows_per_cycle": 1.0516666666666667,
+      "mean_ci95": {
+        "success": [
+          1.0,
+          1.0
+        ],
+        "peak_tracking_error": [
+          0.08754880033333334,
+          0.09126021033333333
+        ],
+        "cumulative_cost": [
+          893.5821100000001,
+          904.574085
+        ],
+        "latency_p95_ms": [
+          1.1814641666666668,
+          1.1964007
+        ],
+        "refreshes": [
+          2482.7975,
+          2558.5025
+        ],
+        "overflows": [
+          303.8666666666667,
+          327.0
+        ]
+      }
+    },
+    "paired_adaptive_minus_stock": {
+      "success": {
+        "mean": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_tracking_error": {
+        "mean": -0.00014701333333333455,
+        "bootstrap_ci95": [
+          -0.0004395400833333332,
+          1.0034166666663645e-06
+        ]
+      },
+      "cumulative_cost": {
+        "mean": 0.1800666666666757,
+        "bootstrap_ci95": [
+          -0.22366749999999352,
+          0.7785041666666748
+        ]
+      },
+      "latency_p95_ms": {
+        "mean": 0.6636178666666666,
+        "bootstrap_ci95": [
+          0.6551324075000002,
+          0.6716582133333334
+        ]
+      },
+      "refreshes": {
+        "mean": 2521.1666666666665,
+        "bootstrap_ci95": [
+          2482.7975,
+          2558.5025
+        ]
+      },
+      "overflows": {
+        "mean": 315.5,
+        "bootstrap_ci95": [
+          303.8666666666667,
+          327.0
+        ]
+      }
+    }
+  }
+}

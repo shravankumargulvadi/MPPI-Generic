@@ -1,0 +1,22 @@
+nominal 0 seed 20 done
+nominal 0 seed 21 done
+nominal 0 seed 22 done
+kick 0.5 seed 20 done
+kick 0.5 seed 21 done
+kick 0.5 seed 22 done
+kick 1 seed 20 done
+kick 1 seed 21 done
+kick 1 seed 22 done
+kick 1.5 seed 20 done
+kick 1.5 seed 21 done
+kick 1.5 seed 22 done
+mismatch 0.5 seed 20 done
+mismatch 0.5 seed 21 done
+mismatch 0.5 seed 22 done
+mismatch 1 seed 20 done
+mismatch 1 seed 21 done
+mismatch 1 seed 22 done
+mismatch 1.5 seed 20 done
+mismatch 1.5 seed 21 done
+mismatch 1.5 seed 22 done
+wrote /validation/cartpole-tuning/parameter-screen/force20.csv

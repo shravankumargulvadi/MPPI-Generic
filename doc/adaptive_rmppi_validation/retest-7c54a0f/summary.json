@@ -1,0 +1,485 @@
+[
+  {
+    "scenario": "kick",
+    "severity": 1.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.9039903666666667,
+        "cumulative_cost_mean": 3916.127,
+        "trial_p95_latency_ms_mean": 0.5405036666666667,
+        "latency_max_ms": 1.58136,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.9039529666666667,
+        "cumulative_cost_mean": 3915.8716666666664,
+        "trial_p95_latency_ms_mean": 1.7688519999999994,
+        "latency_max_ms": 4.71523,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.16533666666666,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        -3.7399999999980045e-05,
+        [
+          -0.00013730166666665156,
+          5.6667500000030594e-05
+        ]
+      ],
+      "cumulative_cost": [
+        -0.2553333333333436,
+        [
+          -1.0823583333333404,
+          0.5437083333333322
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.2283483333333332,
+        [
+          1.113295193333333,
+          1.3672917141666667
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "kick",
+    "severity": 2.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 21,
+        "peak_error_mean": 4.643128333333332,
+        "cumulative_cost_mean": 72106.66,
+        "trial_p95_latency_ms_mean": 0.5032827666666667,
+        "latency_max_ms": 0.866909,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 21,
+        "peak_error_mean": 4.643147,
+        "cumulative_cost_mean": 72108.76000000001,
+        "trial_p95_latency_ms_mean": 1.6802596666666667,
+        "latency_max_ms": 4.17262,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.14215,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 0.9998374
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        1.8666666666640926e-05,
+        [
+          2.6666666665953187e-06,
+          4.0333333333272275e-05
+        ]
+      ],
+      "cumulative_cost": [
+        2.1,
+        [
+          -0.22666666666677582,
+          5.320083333333058
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1769769000000003,
+        [
+          1.1367101291666664,
+          1.2196220591666667
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "kick",
+    "severity": 3.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.7428753333333327,
+        "cumulative_cost_mean": 8308.318666666666,
+        "trial_p95_latency_ms_mean": 0.48285436666666665,
+        "latency_max_ms": 0.787178,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.7428749999999993,
+        "cumulative_cost_mean": 8308.317666666666,
+        "trial_p95_latency_ms_mean": 1.6734276666666665,
+        "latency_max_ms": 4.12021,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 62.59735666666667,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        -3.3333333333551706e-07,
+        [
+          -1.0000000000065511e-06,
+          0.0
+        ]
+      ],
+      "cumulative_cost": [
+        -0.0010000000000218278,
+        [
+          -0.0030000000000654837,
+          0.0
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1905733,
+        [
+          1.128148479166667,
+          1.2631626633333333
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "mismatch",
+    "severity": 1.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 1.3863723333333329,
+        "cumulative_cost_mean": 7181.399333333334,
+        "trial_p95_latency_ms_mean": 0.5036332333333333,
+        "latency_max_ms": 0.927377,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 1.3849173333333336,
+        "cumulative_cost_mean": 7182.983333333333,
+        "trial_p95_latency_ms_mean": 1.7106883333333336,
+        "latency_max_ms": 2.97751,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.20110666666667,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        -0.0014549999999999915,
+        [
+          -0.0035040333333333437,
+          0.0004536666666666413
+        ]
+      ],
+      "cumulative_cost": [
+        1.5840000000000145,
+        [
+          -13.721375000000007,
+          16.760100000000023
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.2070550999999996,
+        [
+          1.177017091666667,
+          1.232804901666667
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "mismatch",
+    "severity": 2.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 3.4943833333333334,
+        "cumulative_cost_mean": 15077.273333333334,
+        "trial_p95_latency_ms_mean": 0.49090893333333335,
+        "latency_max_ms": 0.875699,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 3.494469,
+        "cumulative_cost_mean": 15077.746666666668,
+        "trial_p95_latency_ms_mean": 1.6428423333333333,
+        "latency_max_ms": 3.24911,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 61.183813333333326,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 0.9916142333333333
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        8.566666666668018e-05,
+        [
+          5.666666666673814e-06,
+          0.00018533333333337805
+        ]
+      ],
+      "cumulative_cost": [
+        0.47333333333299377,
+        [
+          -3.0316490059097606e-13,
+          1.0399999999996
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1519333999999999,
+        [
+          1.1007067091666667,
+          1.2093688591666667
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "mismatch",
+    "severity": 3.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.691386666666667,
+        "cumulative_cost_mean": 8064.138999999999,
+        "trial_p95_latency_ms_mean": 0.49873276666666666,
+        "latency_max_ms": 0.867758,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 0,
+        "success_ci95": [
+          -1.3877787807814457e-17,
+          0.113517091390478
+        ],
+        "failed_constraint": 30,
+        "peak_error_mean": 2.691386666666667,
+        "cumulative_cost_mean": 8064.137666666666,
+        "trial_p95_latency_ms_mean": 1.6423506666666665,
+        "latency_max_ms": 4.04841,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 62.886100000000006,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "cumulative_cost": [
+        -0.0013333333333624372,
+        [
+          -0.0036666666667467024,
+          0.0
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.1436179,
+        [
+          1.0906908525,
+          1.2026113175000002
+        ]
+      ]
+    }
+  },
+  {
+    "scenario": "nominal",
+    "severity": 0.0,
+    "paired_seeds": 30,
+    "modes": {
+      "stock": {
+        "successes": 30,
+        "success_ci95": [
+          0.8864829086095221,
+          1.0
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.05001663666666666,
+        "cumulative_cost_mean": 6.614867000000001,
+        "trial_p95_latency_ms_mean": 0.6069573666666666,
+        "latency_max_ms": 1.68296,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 0.0,
+        "refreshes_per_cycle_p95_max": 0.0,
+        "budget_hit_fraction_mean": 0.0
+      },
+      "adaptive_v0": {
+        "successes": 30,
+        "success_ci95": [
+          0.8864829086095221,
+          1.0
+        ],
+        "failed_constraint": 0,
+        "peak_error_mean": 0.05001663666666666,
+        "cumulative_cost_mean": 6.614867000000001,
+        "trial_p95_latency_ms_mean": 2.330866666666666,
+        "latency_max_ms": 13.9235,
+        "deadline_misses": 0,
+        "refreshes_per_cycle_mean": 63.108226666666674,
+        "refreshes_per_cycle_p95_max": 64.0,
+        "budget_hit_fraction_mean": 1.0
+      }
+    },
+    "diff": {
+      "success": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "peak_error": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "cumulative_cost": [
+        0.0,
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "trial_p95_latency_ms": [
+        1.7239093000000003,
+        [
+          1.556862576666667,
+          1.8885895133333337
+        ]
+      ]
+    }
+  }
+]

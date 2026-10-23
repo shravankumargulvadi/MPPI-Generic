@@ -1,0 +1,65 @@
+[==========] Running 13 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from AdaptiveRMPPI
+[ RUN      ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+[       OK ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed (204 ms)
+[ RUN      ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+[       OK ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock (38 ms)
+[ RUN      ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged
+[       OK ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged (19 ms)
+[ RUN      ] AdaptiveRMPPI.FirstViolationMatchesCPUReference
+[       OK ] AdaptiveRMPPI.FirstViolationMatchesCPUReference (17 ms)
+[----------] 4 tests from AdaptiveRMPPI (279 ms total)
+
+[----------] 3 tests from AdaptiveReview
+[ RUN      ] AdaptiveReview.DisabledParityWithPinnedEvaluationKernels
+autotuned eval choices 0 0
+cycle 0 stock -0.230892 0.0409486 adaptive -0.230892 0.0409486 max_abs_diff 0
+cycle 1 stock -0.553965 -0.157399 adaptive -0.553965 -0.157399 max_abs_diff 0
+cycle 2 stock -0.585117 -0.311315 adaptive -0.585117 -0.311315 max_abs_diff 0
+cycle 3 stock -0.472985 -0.306905 adaptive -0.472985 -0.306905 max_abs_diff 0
+cycle 4 stock -0.440155 -0.219021 adaptive -0.440155 -0.219021 max_abs_diff 0
+cycle 5 stock -0.502079 -0.194801 adaptive -0.502079 -0.194801 max_abs_diff 0
+cycle 6 stock -0.553607 -0.285604 adaptive -0.553607 -0.285604 max_abs_diff 0
+cycle 7 stock -0.629615 -0.347679 adaptive -0.629615 -0.347679 max_abs_diff 0
+cycle 8 stock -0.649365 -0.392504 adaptive -0.649365 -0.392504 max_abs_diff 0
+cycle 9 stock -0.553806  -0.46737 adaptive -0.553806  -0.46737 max_abs_diff 0
+[       OK ] AdaptiveReview.DisabledParityWithPinnedEvaluationKernels (36 ms)
+[ RUN      ] AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix
+event sample=0 t=1 outcome=0
+event sample=0 t=2 outcome=0
+event sample=0 t=3 outcome=1
+t=1 CPU control=-0.2    0 GPU control=-0.2    0
+[       OK ] AdaptiveReview.SecondRefreshPreservesFirstRefreshPrefix (14 ms)
+[ RUN      ] AdaptiveReview.StockMatchesStockWithPinnedKernels
+stock/stock cycle 0 max_abs_diff 0
+stock/stock cycle 1 max_abs_diff 0
+stock/stock cycle 2 max_abs_diff 0
+stock/stock cycle 3 max_abs_diff 0
+stock/stock cycle 4 max_abs_diff 0
+stock/stock cycle 5 max_abs_diff 0
+stock/stock cycle 6 max_abs_diff 0
+stock/stock cycle 7 max_abs_diff 0
+stock/stock cycle 8 max_abs_diff 0
+stock/stock cycle 9 max_abs_diff 0
+[       OK ] AdaptiveReview.StockMatchesStockWithPinnedKernels (30 ms)
+[----------] 3 tests from AdaptiveReview (81 ms total)
+
+[----------] 6 tests from AdaptiveRetest
+[ RUN      ] AdaptiveRetest.GPURejectsEnabledResidualTriggerWithoutChangingConfig
+[       OK ] AdaptiveRetest.GPURejectsEnabledResidualTriggerWithoutChangingConfig (0 ms)
+[ RUN      ] AdaptiveRetest.ZeroRefreshBudgetStillReportsViolations
+[       OK ] AdaptiveRetest.ZeroRefreshBudgetStillReportsViolations (13 ms)
+[ RUN      ] AdaptiveRetest.FinalReplayReportsUnmetRefreshDemand
+[       OK ] AdaptiveRetest.FinalReplayReportsUnmetRefreshDemand (13 ms)
+[ RUN      ] AdaptiveRetest.DisablingClearsLastIterationStats
+[       OK ] AdaptiveRetest.DisablingClearsLastIterationStats (14 ms)
+[ RUN      ] AdaptiveRetest.EnabledModeSelectsCombinedKernel
+[       OK ] AdaptiveRetest.EnabledModeSelectsCombinedKernel (12 ms)
+[ RUN      ] AdaptiveRetest.CombinedKernelRejectsExcessSharedMemory
+[       OK ] AdaptiveRetest.CombinedKernelRejectsExcessSharedMemory (10 ms)
+[----------] 6 tests from AdaptiveRetest (64 ms total)
+
+[----------] Global test environment tear-down
+[==========] 13 tests from 3 test suites ran. (425 ms total)
+[  PASSED  ] 13 tests.
