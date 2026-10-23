@@ -1,5 +1,61 @@
 # Adaptive RMPPI follow up GPU validation
 
+**Latest tested MR head: `7c54a0f5e4803dfb83eb43cd43574a42e27fe2c7`.** Both benchmark executables now apply the RMPPI tracking feedback to the simulated plant. The lineinfo build and all CPU/GPU regression suites pass, including the parity checks that previously failed; adaptive memcheck is clean. The full nonlinear benchmark shows why its combined success rate was zero: at 1 rad/s, pole angle/rate recovery is 30/30 in both modes, while the cart has not met the primary cart-and-pole recovery threshold. At 2 and 3 rad/s neither mode recovers the pole. Adaptive planning remains slower and continues to use nearly all refresh budget. Lineinfo racecheck still reports shared-memory hazards.
+
+The primary recovery definition remains unchanged: weighted cart-and-pole state error below 0.2 within 2 seconds and maintained through the trial, subject to track and pole-angle limits. A separate pole-only statistic is derived from the trace and recorded alongside it; this gives a useful diagnosis without redefining the earlier primary result. The 1 rad/s matched/mismatched scenarios each produce 30/30 pole-only recoveries in both modes, while primary combined recovery remains 0/30. At 2/3 rad/s, pole-only recovery is 0/30.
+
+In the recovery run, adaptive mean trial p95 latency is 1.64-2.33 ms versus 0.48-0.61 ms stock, with 99.2-100% of cycles hitting its 64-refresh budget. There were no measured 20 ms deadline misses. The feedback-corrected linear benchmark again shows identical peak-error/cost averages at displayed precision and about 2.2x adaptive latency. Earlier benchmark results through `6731dcb` omitted plant-side feedback and are superseded.
+
+Lineinfo racecheck passes its numerical assertions but reports 9 hazards in the isolated combined rollout and 22 in the two parity diagnostics together. The latest reports point to sampling/control/dynamics shared-memory handoffs rather than either modified reduction helper. Racecheck is still not clean; investigate these reports before closing the concurrency finding. Recommendation remains request changes until the reported hazards are understood and the adaptive path shows a useful recovery regime at acceptable cost.
+
+Full results and raw traces are in [retest-7c54a0f](adaptive_rmppi_validation/retest-7c54a0f/README.md). The previous `6731dcb` and `c0f2fa7` retests remain below as historical evidence.
+
+## Latest test results
+
+| Suite or check | Result |
+| --- | --- |
+| CPU reference | 14/14 passed |
+| Adaptive GPU suite | 4/4 passed |
+| Expanded review diagnostics | 13/13 passed; overlaps adaptive GPU tests |
+| Existing RMPPI kernels | 5/5 passed |
+| Existing RMPPI controller | 21/21 passed |
+| Existing DDP | 10/10 passed |
+| Existing generic feedback | 2/2 passed |
+| Adaptive CUDA memcheck | 4/4 passed; 0 memory errors |
+| Isolated combined rollout racecheck | numerical assertion passed; 9 hazards reported with lineinfo |
+| Two parity diagnostic racechecks | both numerical assertions passed; 22 hazards reported with lineinfo |
+
+## Feedback-corrected nonlinear recovery results
+
+| Condition | Primary recovery, stock/adaptive | Pole-only recovery, stock/adaptive | Mean trial p95, stock/adaptive (ms) | Adaptive refreshes/cycle | Budget-hit cycles |
+| --- | --- | --- | ---: | ---: | ---: |
+| Nominal | 30/30 / 30/30 | 30/30 / 30/30 | 0.607 / 2.331 | 63.108 | 1.000 |
+| Matched kick 1 rad/s | 0/30 / 0/30 | 30/30 / 30/30 | 0.541 / 1.769 | 63.165 | 1.000 |
+| Matched kick 2 rad/s | 0/30 / 0/30 | 0/30 / 0/30 | 0.503 / 1.680 | 63.142 | 1.000 |
+| Matched kick 3 rad/s | 0/30 / 0/30 | 0/30 / 0/30 | 0.483 / 1.673 | 62.597 | 1.000 |
+| Mismatch kick 1 rad/s | 0/30 / 0/30 | 30/30 / 30/30 | 0.504 / 1.711 | 63.201 | 1.000 |
+| Mismatch kick 2 rad/s | 0/30 / 0/30 | 0/30 / 0/30 | 0.491 / 1.643 | 61.184 | 0.992 |
+| Mismatch kick 3 rad/s | 0/30 / 0/30 | 0/30 / 0/30 | 0.499 / 1.642 | 62.886 | 1.000 |
+
+Pole-only recovery uses the same 0.2 tolerance and 2-second deadline on angle plus angular velocity, with weights 1 and 0.1; it omits cart position and track-limit checks and must remain under threshold through the recorded trace. It is a secondary diagnostic, not the primary success criterion. Full paired bootstrap tables and the exact definition are in the linked artifact README.
+
+The refresh budget saturation persists even in nominal balancing. The 1 rad/s results show pole recovery while cart recovery remains outside the primary tolerance, consistent with the metric distinction. The 2/3 rad/s cases remain too difficult for either controller to recover in this configuration. These results do not establish an adaptive recovery advantage.
+
+## Feedback-corrected linear benchmark
+
+| Velocity kick | Mode | Survival | Mean peak tracking error | Mean cost | Mean trial p95 (ms) | Refreshes/cycle |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| 0.5 | stock | 30/30 | 0.023103 | 881.249 | 0.577 | 0.000 |
+| 0.5 | adaptive | 30/30 | 0.023103 | 881.249 | 1.307 | 8.376 |
+| 1.0 | stock | 30/30 | 0.023068 | 896.451 | 0.732 | 0.000 |
+| 1.0 | adaptive | 30/30 | 0.023068 | 896.451 | 1.642 | 8.485 |
+| 2.0 | stock | 30/30 | 0.051383 | 883.531 | 0.801 | 0.000 |
+| 2.0 | adaptive | 30/30 | 0.051383 | 883.531 | 1.788 | 8.507 |
+
+Both modes report identical mean outcome metrics at this precision. The adaptive path is about 2.2x slower in this linear benchmark, which cannot establish performance on nonlinear recovery.
+
+## Earlier retests
+
 **Latest tested MR head: `6731dcbf08cf4258af83c6bf605eaa69169cae86`.** The reported combined-kernel cost-index fix restores same-seed parity in the targeted GPU tests and passes CUDA memcheck. The full nonlinear recovery benchmark found no recovery benefit in its kicked cases and showed the adaptive path consuming its refresh cap on almost every cycle. CUDA racecheck still reports shared-memory hazards, including in an isolated combined-rollout test, so the concurrency finding remains open. Recommendation: request changes.
 
 The new benchmark ran 30 paired seeds for nominal balancing, three matched-plant kicks and three mismatched-plant kicks. Both controllers succeeded in all nominal trials and in none of the disturbance trials. The disturbance conditions are too severe to establish adaptive effectiveness: every 2/3 rad/s kick and every mismatch trial hit a safety limit, while 1 rad/s kicks did not recover within the stated criterion. Adaptive mean trial p95 latency was 1.55-1.77 ms versus 0.48-0.49 ms stock; it hit the 64-refresh budget on 99.8-100% of cycles. No measured cycle missed the 20 ms deadline. Peak-error and cost intervals include zero.

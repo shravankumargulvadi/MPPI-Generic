@@ -1,0 +1,18 @@
+========= COMPUTE-SANITIZER
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from AdaptiveRMPPI
+[ RUN      ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed
+[       OK ] AdaptiveRMPPI.DisabledMatchesStockRMPPIWithSameSeed (1020 ms)
+[ RUN      ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock
+[       OK ] AdaptiveRMPPI.EnabledWithUnreachableRadiusMatchesStock (785 ms)
+[ RUN      ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged
+[       OK ] AdaptiveRMPPI.RefreshesAreBoundedAndLogged (348 ms)
+[ RUN      ] AdaptiveRMPPI.FirstViolationMatchesCPUReference
+[       OK ] AdaptiveRMPPI.FirstViolationMatchesCPUReference (315 ms)
+[----------] 4 tests from AdaptiveRMPPI (2470 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (2470 ms total)
+[  PASSED  ] 4 tests.
+========= ERROR SUMMARY: 0 errors
