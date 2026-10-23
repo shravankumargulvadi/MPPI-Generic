@@ -99,3 +99,13 @@ nominal heading push the wrong way once the heading error exceeds pi/2, while a 
 heading does not. Success requires `sqrt(y^2 + yaw^2) < 0.2` from some time within 4 s of the kick until the end,
 with |y| never exceeding 10 m. The analyzer `adaptive_rmppi_recovery_analyze.py` works on its output unchanged.
 Not yet run on a GPU.
+
+## Per-sample barriers in the RMPPI rollout kernels (stock)
+
+With `MPPI_USE_CUDA_BARRIERS_ROLLOUT` / `_DYN` (both ON by default) the RMPPI rollout kernels synchronized each
+sample's `threadIdx.y` group with its own `cuda::barrier`. The actual rollout, however, reads the nominal rollout's
+state `x_nom`, which is advanced by a different group under a different barrier, so nothing ordered those accesses
+and the nominal group could run an iteration ahead and overwrite the buffer being read. `rolloutRMPPIKernel` and
+`rolloutRMPPIDynamicsKernel` now use `__syncthreads()` regardless of the barrier options; the single-system MPPI
+kernels and the RMPPI init-eval kernel are unchanged. Expected to remove the remaining lineinfo racecheck reports on
+the `u`/`y` handoffs in those kernels; not verified here (no GPU).
