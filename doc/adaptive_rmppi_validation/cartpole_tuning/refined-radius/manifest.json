@@ -1,0 +1,117 @@
+[
+  {
+    "name": "radius-3.5",
+    "horizon": 50,
+    "radius": 3.5,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "5",
+      "300",
+      "/validation/cartpole-tuning/refined-radius/radius-3.5.csv",
+      "3.5",
+      "-",
+      "10",
+      "1",
+      "--diagnostics"
+    ]
+  },
+  {
+    "name": "radius-4",
+    "horizon": 50,
+    "radius": 4,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "5",
+      "300",
+      "/validation/cartpole-tuning/refined-radius/radius-4.csv",
+      "4",
+      "-",
+      "10",
+      "1",
+      "--diagnostics"
+    ]
+  },
+  {
+    "name": "radius-4.5",
+    "horizon": 50,
+    "radius": 4.5,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "5",
+      "300",
+      "/validation/cartpole-tuning/refined-radius/radius-4.5.csv",
+      "4.5",
+      "-",
+      "10",
+      "1",
+      "--diagnostics"
+    ]
+  },
+  {
+    "name": "radius-5",
+    "horizon": 50,
+    "radius": 5,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "5",
+      "300",
+      "/validation/cartpole-tuning/refined-radius/radius-5.csv",
+      "5",
+      "-",
+      "10",
+      "1",
+      "--diagnostics"
+    ]
+  },
+  {
+    "name": "radius-1e+06",
+    "horizon": 50,
+    "radius": 1000000.0,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "5",
+      "300",
+      "/validation/cartpole-tuning/refined-radius/radius-1e+06.csv",
+      "1000000.0",
+      "-",
+      "10",
+      "1",
+      "--diagnostics"
+    ]
+  }
+]

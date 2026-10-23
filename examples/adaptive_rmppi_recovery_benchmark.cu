@@ -18,6 +18,10 @@
  *        [seed_offset=1000] [kicks=1,2,3]
  * Writes one summary row per (scenario, severity, mode, seed) and, unless trace is "-", one trace row per cycle.
  * Calibrate kicks and radius with seed_offset < 1000 (e.g. 0) and then freeze them before the evaluation run.
+ * Optional experiment settings after the kick list: --force=10 --cart-weight=50 --noise=5 --lambda=0.25
+ * --ddp-iterations=1 --budget=64 --modes=both|stock|adaptive --scenarios=all|nominal,kick,mismatch
+ * --diagnostics records relative policy-gain changes outside the planning timer. Horizon is set at compile time
+ * with ADAPTIVE_CARTPOLE_HORIZON (default 50). The primary success criterion is fixed across experiments.
  * Requires a CUDA GPU.
  */
 #include <mppi/controllers/R-MPPI/adaptive_robust_mppi_controller.cuh>
@@ -32,12 +36,17 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
 namespace
 {
-const int T = 50;
+#ifndef ADAPTIVE_CARTPOLE_HORIZON
+#define ADAPTIVE_CARTPOLE_HORIZON 50
+#endif
+const int T = ADAPTIVE_CARTPOLE_HORIZON;
 const int N = 1024;
 using DYN = CartpoleDynamics;
 using COST = CartpoleQuadraticCost;
@@ -62,6 +71,25 @@ const float TRACK_LIMIT = 5.0f;
 const float MISMATCH_POLE_MASS = 1.5f;
 const float MISMATCH_POLE_LENGTH = 1.3f;
 
+// Experiment controls. Defaults reproduce the original benchmark settings.
+struct Experiment
+{
+  float force = MAX_FORCE;
+  float cart_weight = 50.0f;
+  float noise = SAMPLING_STD_DEV;
+  float lambda = LAMBDA;
+  int ddp_iterations = 1;
+  int budget = 64;
+  bool diagnostics = false;
+  std::string modes = "both";
+  std::string scenarios = "all";
+} experiment;
+
+bool includeScenario(const std::string& name)
+{
+  return experiment.scenarios == "all" || ("," + experiment.scenarios + ",").find("," + name + ",") != std::string::npos;
+}
+
 struct Scenario
 {
   std::string name;
@@ -74,12 +102,27 @@ struct CycleStats
   int refreshes = 0;
   int overflows = 0;
   int violations = 0;
+  float refreshed_weight_mass = 0.0f;
+  float gain_change_sum = 0.0f;
+  float gain_change_max = 0.0f;
 };
 
 struct RunResult
 {
   bool success = false;
   bool failed_constraint = false;
+  bool pole_success = false;
+  float pole_recovery_time_s = -1.0f;
+  float peak_cart_position = 0.0f;
+  float peak_pole_angle = 0.0f;
+  float saturation_fraction = 0.0f;
+  float nominal_gap_mean = 0.0f;
+  float feedback_abs_mean = 0.0f;
+  float refreshed_weight_mass_mean = 0.0f;
+  float refreshed_weight_mass_max = 0.0f;
+  float refreshed_weight_mass_active_mean = 0.0f;
+  float gain_change_mean = 0.0f;
+  float gain_change_max = 0.0f;
   float recovery_time_s = -1.0f;
   float peak_error = 0.0f;       // max e over cycles >= DISTURBANCE_STEP
   float cumulative_cost = 0.0f;  // true-plant state cost summed over cycles >= DISTURBANCE_STEP
@@ -118,14 +161,14 @@ float percentile(std::vector<float> v, float q)
 
 void setupModel(DYN& model)
 {
-  model.control_rngs_->x = -MAX_FORCE;
-  model.control_rngs_->y = MAX_FORCE;
+  model.control_rngs_->x = -experiment.force;
+  model.control_rngs_->y = experiment.force;
 }
 
 void setupCost(COST& cost)
 {
   CartpoleQuadraticCostParams p;
-  p.cart_position_coeff = 50;
+  p.cart_position_coeff = experiment.cart_weight;
   p.cart_velocity_coeff = 10;
   p.pole_angle_coeff = 200;
   p.pole_angular_velocity_coeff = 1;
@@ -143,10 +186,10 @@ void setFbParams(FB& fb)
 {
   auto p = fb.getParams();
   p.Q.setZero();
-  p.Q.diagonal() << 50, 10, 200, 1;
+  p.Q.diagonal() << experiment.cart_weight, 10, 200, 1;
   p.Q_f = p.Q;
   p.R.setIdentity();
-  p.num_iterations = 1;
+  p.num_iterations = experiment.ddp_iterations;
   fb.setParams(p);
 }
 
@@ -172,6 +215,10 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
   RunResult r;
   std::vector<float> latency, refreshes_per_cycle;
   int budget_hits = 0;
+  int refresh_cycles = 0;
+  int last_pole_violation_k = -1;
+  bool pole_failed = false;
+  int saturation_cycles = 0;
   int last_violation_k = -1;  // last cycle >= DISTURBANCE_STEP with e >= RECOVERY_TOL
   DYN::state_array x, next, der;
   DYN::output_array y;
@@ -183,9 +230,14 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
       x(3) += sc.severity;
     }
     const float e = recoveryError(x);
+    const float pole_angle = std::fabs(wrapAngle(x(2) - static_cast<float>(M_PI)));
+    const float pole_error = std::sqrt(pole_angle * pole_angle + 0.1f * x(3) * x(3));
     if (k >= DISTURBANCE_STEP)
     {
       r.peak_error = std::max(r.peak_error, e);
+      r.peak_cart_position = std::max(r.peak_cart_position, std::fabs(x(0)));
+      r.peak_pole_angle = std::max(r.peak_pole_angle, pole_angle);
+      if (!(pole_error < RECOVERY_TOL)) last_pole_violation_k = k;
       if (!(e < RECOVERY_TOL))
       {
         last_violation_k = k;
@@ -195,6 +247,7 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
         std::fabs(x(0)) > TRACK_LIMIT)
     {
       r.failed_constraint = true;
+      pole_failed = !x.allFinite() || pole_angle >= M_PI / 2;
       break;
     }
     auto t0 = std::chrono::steady_clock::now();
@@ -210,15 +263,38 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
     r.violations += cs.violations;
     refreshes_per_cycle.push_back(static_cast<float>(cs.refreshes));
     budget_hits += cs.overflows > 0;
+    refresh_cycles += cs.refreshes > 0;
+    r.refreshed_weight_mass_mean += cs.refreshed_weight_mass;
+    r.refreshed_weight_mass_max = std::max(r.refreshed_weight_mass_max, cs.refreshed_weight_mass);
+    r.gain_change_mean += cs.gain_change_sum;
+    r.gain_change_max = std::max(r.gain_change_max, cs.gain_change_max);
+    const auto target = c.getTargetStateSeq().col(0).eval();
+    float gap_sq = 0.0f;
+    for (int i = 0; i < DYN::STATE_DIM; ++i)
+    {
+      const float d = i == 2 ? wrapAngle(x(i) - target(i)) : x(i) - target(i);
+      gap_sq += RECOVERY_WEIGHTS[i] * d * d;
+    }
+    const float nominal_gap = std::sqrt(gap_sq);
+    const float feedforward = c.getControlSeq()(0, 0);
+    const float feedback = c.getFeedbackControl(x, target, 0)(0);
+    const float requested = feedforward + feedback;
+    const bool saturated = std::fabs(requested) > experiment.force;
+    saturation_cycles += saturated;
+    r.nominal_gap_mean += nominal_gap;
+    r.feedback_abs_mean += std::fabs(feedback);
     if (trace)
     {
       *trace << sc.name << "," << sc.severity << "," << mode << "," << seed << "," << k << "," << k * DT << ","
              << x(0) << "," << x(1) << "," << x(2) << "," << x(3) << "," << e << "," << ms << "," << cs.refreshes
-             << "," << cs.overflows << "," << cs.violations << "\n";
+             << "," << cs.overflows << "," << cs.violations << "," << feedforward << "," << feedback
+             << "," << std::max(-experiment.force, std::min(experiment.force, requested)) << "," << saturated
+             << "," << nominal_gap << "," << pole_error << "," << cs.gain_change_sum << "," << cs.gain_change_max << "," << cs.refreshed_weight_mass << "\n";
     }
     // RMPPI applies u*_0 + K_0 (x - x*_0): its control sequence is optimized for the nominal state x*, which can
     // differ from the plant state, so the tracking feedback must be applied on the real system too.
-    DYN::control_array u = c.getControlSeq().col(0) + c.getFeedbackControl(x, c.getTargetStateSeq().col(0), 0);
+    DYN::control_array u;
+    u << requested;
     plant.enforceConstraints(x, u);
     plant.step(x, next, der, u, y, k * DT, DT);
     x = next;
@@ -232,8 +308,19 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
     r.recovery_time_s = (last_violation_k < 0 ? 0 : last_violation_k + 1 - DISTURBANCE_STEP) * DT;
     r.success = last_violation_k < steps - 1 && r.recovery_time_s <= RECOVERY_DEADLINE_S;
   }
+  if (!pole_failed)
+  {
+    r.pole_recovery_time_s = (last_pole_violation_k < 0 ? 0 : last_pole_violation_k + 1 - DISTURBANCE_STEP) * DT;
+    r.pole_success = last_pole_violation_k < steps - 1 && r.pole_recovery_time_s <= RECOVERY_DEADLINE_S;
+  }
+  if (refresh_cycles) r.refreshed_weight_mass_active_mean = r.refreshed_weight_mass_mean / refresh_cycles;
+  if (r.refreshes) r.gain_change_mean /= r.refreshes;
   if (!latency.empty())
   {
+    r.saturation_fraction = static_cast<float>(saturation_cycles) / latency.size();
+    r.refreshed_weight_mass_mean /= latency.size();
+    r.nominal_gap_mean /= latency.size();
+    r.feedback_abs_mean /= latency.size();
     r.latency_p95_ms = percentile(latency, 0.95f);
     r.latency_max_ms = *std::max_element(latency.begin(), latency.end());
     r.refreshes_mean = static_cast<float>(r.refreshes) / latency.size();
@@ -250,7 +337,12 @@ void writeRow(std::ofstream& out, const Scenario& sc, const std::string& mode, u
       << r.failed_constraint << "," << r.recovery_time_s << "," << r.peak_error << "," << r.cumulative_cost << ","
       << r.latency_p95_ms << "," << r.latency_max_ms << "," << r.deadline_misses << "," << r.refreshes_mean << ","
       << r.refreshes_p95 << "," << r.budget_hit_fraction << "," << r.violations << "," << r.refreshes << ","
-      << r.overflows << "\n";
+      << r.overflows << "," << r.pole_success << "," << r.pole_recovery_time_s << "," << r.peak_cart_position
+      << "," << r.peak_pole_angle << "," << r.saturation_fraction << "," << r.nominal_gap_mean << ","
+      << r.feedback_abs_mean << "," << r.gain_change_mean << "," << r.gain_change_max << "," << experiment.force
+      << "," << experiment.cart_weight << "," << experiment.noise << "," << experiment.lambda << ","
+      << experiment.ddp_iterations << "," << experiment.budget << "," << T << "," << r.refreshed_weight_mass_mean
+      << "," << r.refreshed_weight_mass_max << "," << r.refreshed_weight_mass_active_mean << "\n";
 }
 
 RunResult runStock(const Scenario& sc, unsigned seed, int steps, std::ofstream* trace)
@@ -260,11 +352,11 @@ RunResult runStock(const Scenario& sc, unsigned seed, int steps, std::ofstream* 
   COST cost;
   setupCost(cost);
   SAMPLING::SAMPLING_PARAMS_T sp;
-  sp.std_dev[0] = SAMPLING_STD_DEV;
+  sp.std_dev[0] = experiment.noise;
   SAMPLING sampler(sp);
   STOCK_FB fb(&model, DT);
   setFbParams(fb);
-  STOCK c(&model, &cost, &fb, &sampler, DT, 1, LAMBDA, ALPHA, VALUE_FUNCTION_THRESHOLD);
+  STOCK c(&model, &cost, &fb, &sampler, DT, 1, experiment.lambda, ALPHA, VALUE_FUNCTION_THRESHOLD);
   configure(c, seed);
   return run(c, sc, cost, steps, [](CycleStats&) {}, trace, "stock", seed);
 }
@@ -276,26 +368,59 @@ RunResult runAdaptive(const Scenario& sc, unsigned seed, int steps, float radius
   COST cost;
   setupCost(cost);
   SAMPLING::SAMPLING_PARAMS_T sp;
-  sp.std_dev[0] = SAMPLING_STD_DEV;
+  sp.std_dev[0] = experiment.noise;
   SAMPLING sampler(sp);
   ADAPTIVE_FB fb(&model, DT);
   setFbParams(fb);
-  ADAPTIVE c(&model, &cost, &fb, &sampler, DT, 1, LAMBDA, ALPHA, VALUE_FUNCTION_THRESHOLD);
+  ADAPTIVE c(&model, &cost, &fb, &sampler, DT, 1, experiment.lambda, ALPHA, VALUE_FUNCTION_THRESHOLD);
   configure(c, seed);
   ADAPTIVE_FB::Config cfg;
   cfg.enabled = true;
   cfg.distance_radius = radius;
+  cfg.max_refreshes_per_iteration = experiment.budget;
   for (int i = 0; i < DYN::STATE_DIM; i++)
   {
     cfg.state_weights[i] = RECOVERY_WEIGHTS[i];
   }
   cfg.angle_state_mask[2] = 1;
   c.setAdaptiveConfig(cfg);
-  auto stats = [&c](CycleStats& s) {
+  auto stats = [&c, &fb](CycleStats& s) {
     const auto& st = c.getLastIterationStats();
     s.refreshes = st.refreshes;
     s.overflows = st.budget_overflows;
     s.violations = st.violations;
+    if (experiment.diagnostics)
+    {
+      std::vector<int> previous_slot(N, -1);
+      std::vector<bool> refreshed(N, false);
+      int slot = 0;
+      for (const auto& e : st.events)
+      {
+        if (e.outcome != mppi::adaptive::RefreshOutcome::REFRESHED) continue;
+        refreshed[e.sample] = true;
+        double change_sq = 0.0, base_sq = 0.0;
+        for (int t = e.t; t < T; ++t)
+        {
+          const auto old_gain = fb.getPolicyGain(previous_slot[e.sample], t);
+          const auto new_gain = fb.getPolicyGain(slot, t);
+          change_sq += (new_gain - old_gain).squaredNorm();
+          base_sq += old_gain.squaredNorm();
+        }
+        const float relative_change = std::sqrt(change_sq / std::max(base_sq, 1e-12));
+        s.gain_change_sum += relative_change;
+        s.gain_change_max = std::max(s.gain_change_max, relative_change);
+        previous_slot[e.sample] = slot++;
+      }
+      // computeControl leaves normalized-exponential actual-system weights in this host array.
+      const auto weights = c.getSampledCostSeq();
+      double total_weight = 0.0, refreshed_weight = 0.0;
+      for (int n = 0; n < N; ++n)
+      {
+        total_weight += weights(n);
+        if (refreshed[n]) refreshed_weight += weights(n);
+      }
+      s.refreshed_weight_mass = total_weight > 0 ? refreshed_weight / total_weight : 0.0;
+    }
   };
   return run(c, sc, cost, steps, stats, trace, "adaptive_v0", seed);
 }
@@ -327,6 +452,28 @@ int main(int argc, char** argv)
     }
   }
 
+  for (int i = 8; i < argc; ++i)
+  {
+    std::string arg = argv[i];
+    const size_t eq = arg.find('=');
+    const std::string key = arg.substr(0, eq), value = eq == std::string::npos ? "" : arg.substr(eq + 1);
+    if (key == "--force") experiment.force = std::stof(value);
+    else if (key == "--cart-weight") experiment.cart_weight = std::stof(value);
+    else if (key == "--noise") experiment.noise = std::stof(value);
+    else if (key == "--lambda") experiment.lambda = std::stof(value);
+    else if (key == "--ddp-iterations") experiment.ddp_iterations = std::stoi(value);
+    else if (key == "--budget") experiment.budget = std::stoi(value);
+    else if (key == "--diagnostics") experiment.diagnostics = true;
+    else if (key == "--modes") experiment.modes = value;
+    else if (key == "--scenarios") experiment.scenarios = value;
+    else throw std::invalid_argument("Unknown experiment option: " + arg);
+  }
+  if (num_seeds < 1 || steps <= DISTURBANCE_STEP || !(radius > 0) || !(experiment.force > 0) ||
+      !(experiment.cart_weight > 0) || !(experiment.noise > 0) || !(experiment.lambda > 0) ||
+      experiment.ddp_iterations < 1 || experiment.budget < 0 || experiment.budget > 64 ||
+      (experiment.modes != "both" && experiment.modes != "stock" && experiment.modes != "adaptive"))
+    throw std::invalid_argument("Invalid experiment settings");
+
   std::vector<Scenario> scenarios = { { "nominal", 0.0f, false } };
   for (float s : kicks)
   {
@@ -338,20 +485,28 @@ int main(int argc, char** argv)
   }
 
   std::ofstream out(out_path);
+  if (!out) throw std::runtime_error("Cannot write summary: " + out_path);
+  out << std::setprecision(10);
   out << "scenario,severity,mode,seed,order,success,failed_constraint,recovery_time_s,peak_error,cumulative_cost,"
          "latency_p95_ms,latency_max_ms,deadline_misses,refreshes_mean,refreshes_p95,budget_hit_fraction,violations,"
-         "refreshes,overflows\n";
+         "refreshes,overflows,pole_success,pole_recovery_time_s,peak_cart_position,peak_pole_angle,saturation_fraction,"
+         "nominal_gap_mean,feedback_abs_mean,gain_change_mean,gain_change_max,force,cart_weight,noise,lambda,"
+         "ddp_iterations,refresh_budget,horizon,refreshed_weight_mass_mean,refreshed_weight_mass_max,refreshed_weight_mass_active_mean\n";
   std::ofstream trace_file;
   std::ofstream* trace = nullptr;
   if (trace_path != "-")
   {
     trace_file.open(trace_path);
+    if (!trace_file) throw std::runtime_error("Cannot write trace: " + trace_path);
+    trace_file << std::setprecision(10);
     trace_file << "scenario,severity,mode,seed,cycle,time_s,x,x_dot,theta,theta_dot,error,latency_ms,refreshes,"
-                  "overflows,violations\n";
+                  "overflows,violations,feedforward,feedback,applied_control,saturated,nominal_gap,pole_error,gain_change_sum,"
+                  "gain_change_max,refreshed_weight_mass\n";
     trace = &trace_file;
   }
   for (const auto& sc : scenarios)
   {
+    if (!includeScenario(sc.name)) continue;
     for (int s = 0; s < num_seeds; s++)
     {
       const unsigned seed = seed_offset + s;
@@ -360,10 +515,12 @@ int main(int argc, char** argv)
       {
         if ((order == 0) == stock_first)
         {
+          if (experiment.modes == "adaptive") continue;
           writeRow(out, sc, "stock", seed, order, runStock(sc, seed, steps, trace));
         }
         else
         {
+          if (experiment.modes == "stock") continue;
           writeRow(out, sc, "adaptive_v0", seed, order, runAdaptive(sc, seed, steps, radius, trace));
         }
       }

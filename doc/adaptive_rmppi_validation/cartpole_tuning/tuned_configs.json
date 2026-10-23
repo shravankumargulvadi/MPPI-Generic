@@ -1,0 +1,13 @@
+{
+  "original_cartpole": {
+    "distance_radius": 4.0, "horizon_steps": 50, "force_limit": 10.0,
+    "cart_position_weight": 50.0, "sampling_stddev": 5.0, "lambda": 0.25,
+    "ddp_iterations": 1, "refresh_budget": 64
+  },
+  "improved_shared_cartpole": {
+    "distance_radius": 4.5, "horizon_steps": 50, "force_limit": 20.0,
+    "cart_position_weight": 200.0, "sampling_stddev": 5.0, "lambda": 0.25,
+    "ddp_iterations": 1, "refresh_budget": 64
+  },
+  "interpretation": "Calibrated benchmark settings, not a stability certificate or evidence to enable adaptive feedback by default."
+}

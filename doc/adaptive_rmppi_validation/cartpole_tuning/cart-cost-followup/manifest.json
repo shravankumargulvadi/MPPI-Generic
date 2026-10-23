@@ -1,0 +1,160 @@
+[
+  {
+    "name": "cart100",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart100.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=100"
+    ]
+  },
+  {
+    "name": "cart200",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart200.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=200"
+    ]
+  },
+  {
+    "name": "cart500",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart500.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=500"
+    ]
+  },
+  {
+    "name": "cart200-force20",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart200-force20.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=200",
+      "--force=20"
+    ]
+  },
+  {
+    "name": "cart200-noise2.5",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart200-noise2.5.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=200",
+      "--noise=2.5"
+    ]
+  },
+  {
+    "name": "cart200-lambda1",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart200-lambda1.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=200",
+      "--lambda=1"
+    ]
+  },
+  {
+    "name": "cart200-ddp3",
+    "horizon": 50,
+    "radius": 4.0,
+    "seeds": [
+      100,
+      101,
+      102
+    ],
+    "command": [
+      "/validation/build/mppi/examples/adaptive_rmppi_recovery_benchmark",
+      "3",
+      "300",
+      "/validation/cartpole-tuning/cart-cost-followup/cart200-ddp3.csv",
+      "4.0",
+      "-",
+      "100",
+      "0.25,0.5,0.75,1",
+      "--diagnostics",
+      "--cart-weight=200",
+      "--ddp-iterations=3"
+    ]
+  }
+]
