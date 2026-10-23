@@ -137,6 +137,9 @@ public:
 
   // Host copy of a stored policy gain (baseline when slot < 0) for tests and logging.
   feedback_gain_matrix getPolicyGain(int slot, int t);
+  // Remaining-horizon recovery solve from x at timestep t against the current nominal reference. Does not touch the
+  // policy bank; used for the plant-side tracking term.
+  mppi::adaptive::RefreshOutcome solveRecovery(int t, const state_array& x, typename Reference::Cache& cache);
 
   Reference& getReference()
   {

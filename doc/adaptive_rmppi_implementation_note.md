@@ -81,3 +81,21 @@ Plant-side feedback: before this fix, both benchmarks applied only `getControlSe
 RMPPI optimizes from a nominal state x* that can differ from the plant state, so the real system also needs the
 tracking term. Both benchmarks now apply `u*_0 + K_0 (x - x*_0)`, using `getFeedbackControl` against
 `getTargetStateSeq().col(0)`. Results recorded for `6731dcb` and earlier were produced without this term.
+
+## Plant-side adaptive feedback and the heading-kick scenario
+
+RMPPI applies `u*_0 + K_0 (x - x*_0)` to the real system. Until now adaptive mode refreshed gains only inside the
+sampled rollouts, so the plant still used the nominal's gains after a large deviation. `AdaptiveRobustMPPIController`
+now overrides `getFeedbackControl`: when adaptive mode is enabled, `plant_feedback` is on and the plant state is
+outside `distance_radius` of the nominal state, it solves one remaining-horizon recovery policy from the plant state
+(`AdaptiveDDPFeedback::solveRecovery`, same DDP problem as the rollout refresh, at most one solve per cycle) and
+applies that policy's first action `u~_0 + K~_0 (x - x~_0)` instead of the baseline correction. Inside the radius,
+and whenever the solve fails, behaviour is stock. Counts are reported as `plant_refreshes` /
+`plant_refresh_failures`. This term is the hypothesis under test, not an established result.
+
+`examples/adaptive_rmppi_heading_benchmark` is the scenario built to expose the mechanism: a Dubins vehicle tracks
+the line y = 0 and receives a yaw kick of 1, 2, 2.5 or 3 rad. Since `y_dot = v sin(yaw)`, gains linearized about the
+nominal heading push the wrong way once the heading error exceeds pi/2, while a policy re-solved at the actual
+heading does not. Success requires `sqrt(y^2 + yaw^2) < 0.2` from some time within 4 s of the kick until the end,
+with |y| never exceeding 10 m. The analyzer `adaptive_rmppi_recovery_analyze.py` works on its output unchanged.
+Not yet run on a GPU.

@@ -101,10 +101,12 @@ if args.plot and args.trace:
     import matplotlib.pyplot as plt
     traces = defaultdict(lambda: defaultdict(list))
     latencies = defaultdict(list)
+    # Plot the hardest condition: the last scenario name alphabetically that is not 'nominal', at its largest severity.
+    disturbed = sorted((sc, sev) for sc, sev in groups if sc != 'nominal')
+    plot_sc, plot_sev = disturbed[-1] if disturbed else ('nominal', 0.0)
     for row in csv.DictReader(args.trace.open()):
         latencies[row['mode']].append(float(row['latency_ms']))
-        if row['scenario'] == 'mismatch' and float(row['severity']) == max(
-                sev for sc, sev in groups if sc == 'mismatch'):
+        if row['scenario'] == plot_sc and float(row['severity']) == plot_sev:
             traces[row['mode']][int(row['seed'])].append((float(row['time_s']), float(row['error'])))
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
     for m in MODES:
@@ -116,7 +118,7 @@ if args.plot and args.trace:
             ax1.plot(t, np.median(e, axis=0), label=f'{m} median')
             ax1.fill_between(t, np.percentile(e, 10, axis=0), np.percentile(e, 90, axis=0), alpha=0.2)
         ax2.hist(latencies[m], bins=60, alpha=0.5, label=m)
-    ax1.set(xlabel='time (s)', ylabel='weighted recovery error', title='Mismatch, largest kick (10-90%)')
+    ax1.set(xlabel='time (s)', ylabel='weighted recovery error', title=f'{plot_sc} {plot_sev:g} (median, 10-90%)')
     ax1.legend()
     ax2.axvline(CYCLE_DEADLINE_MS, color='k', linestyle='--', label='deadline')
     ax2.set(xlabel='control-cycle latency (ms)', ylabel='cycles', title='Latency, all scenarios', yscale='log')

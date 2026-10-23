@@ -36,6 +36,9 @@ struct AdaptiveRolloutStats
   int solver_failures = 0;
   int budget_overflows = 0;
   int horizon_too_short = 0;
+  // Plant-side recovery solves (getFeedbackControl); counted separately from rollout refreshes.
+  int plant_refreshes = 0;
+  int plant_refresh_failures = 0;
   std::vector<RefreshEvent> events;
 
   void accumulate(const AdaptiveRolloutStats& o)
@@ -47,6 +50,8 @@ struct AdaptiveRolloutStats
     solver_failures += o.solver_failures;
     budget_overflows += o.budget_overflows;
     horizon_too_short += o.horizon_too_short;
+    plant_refreshes += o.plant_refreshes;
+    plant_refresh_failures += o.plant_refresh_failures;
   }
 };
 }  // namespace adaptive
@@ -63,6 +68,8 @@ public:
   using FEEDBACK_GPU = typename PARENT_CLASS::FEEDBACK_GPU;
   using Config = typename FB_T::Config;
   using Stats = mppi::adaptive::AdaptiveRolloutStats;
+  using state_array = typename PARENT_CLASS::state_array;
+  using control_array = typename PARENT_CLASS::control_array;
 
   using PARENT_CLASS::PARENT_CLASS;
 
@@ -95,6 +102,14 @@ public:
   {
     total_stats_ = Stats();
   }
+
+  /**
+   * Plant-side tracking term. Stock behaviour (baseline K_t (x - x*_t)) unless adaptive mode is enabled, plant
+   * feedback is on and the plant state is outside the trigger radius; then a remaining-horizon recovery policy is
+   * solved from the plant state and its first action replaces the baseline correction.
+   */
+  control_array getFeedbackControl(const Eigen::Ref<const state_array>& state,
+                                   const Eigen::Ref<const state_array>& goal_state, int t) override;
 
 protected:
   void launchRolloutKernels() override;

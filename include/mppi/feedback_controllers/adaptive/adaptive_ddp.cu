@@ -307,5 +307,13 @@ typename AdaptiveDDP::feedback_gain_matrix AdaptiveDDP::getPolicyGain(int slot, 
   return Eigen::Map<feedback_gain_matrix>(&base[t * SC]);
 }
 
+ADAPTIVE_DDP_TEMPLATE
+mppi::adaptive::RefreshOutcome AdaptiveDDP::solveRecovery(int t, const state_array& x,
+                                                           typename Reference::Cache& cache)
+{
+  cache = reference_->getBaselineCache();
+  return reference_->refresh(cache, t, x);
+}
+
 #undef AdaptiveDDP
 #undef ADAPTIVE_DDP_TEMPLATE

@@ -102,6 +102,7 @@ struct CycleStats
   int refreshes = 0;
   int overflows = 0;
   int violations = 0;
+  int plant_refreshes = 0;
   float refreshed_weight_mass = 0.0f;
   float gain_change_sum = 0.0f;
   float gain_change_max = 0.0f;
@@ -135,6 +136,7 @@ struct RunResult
   int refreshes = 0;
   int overflows = 0;
   int violations = 0;
+  int plant_refreshes = 0;
 };
 
 float wrapAngle(float a)
@@ -253,11 +255,18 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
     auto t0 = std::chrono::steady_clock::now();
     c.updateImportanceSamplingControl(x, 1);
     c.computeControl(x, 1);
+    // RMPPI applies u*_0 + K_0 (x - x*_0): its control sequence is optimized for the nominal state x*, which can
+    // differ from the plant state, so the tracking feedback must be applied on the real system too. In adaptive mode
+    // getFeedbackControl may run one CPU recovery solve, so it is inside the timed region.
+    const auto target = c.getTargetStateSeq().col(0).eval();
+    const float feedforward = c.getControlSeq()(0, 0);
+    const float feedback = c.getFeedbackControl(x, target, 0)(0);
     const float ms = std::chrono::duration<float, std::milli>(std::chrono::steady_clock::now() - t0).count();
     latency.push_back(ms);
     r.deadline_misses += ms > CYCLE_DEADLINE_MS;
     CycleStats cs;
-    stats(cs);
+    stats(cs);  // after getFeedbackControl so plant-side solves of this cycle are counted
+    r.plant_refreshes += cs.plant_refreshes;
     r.refreshes += cs.refreshes;
     r.overflows += cs.overflows;
     r.violations += cs.violations;
@@ -268,7 +277,6 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
     r.refreshed_weight_mass_max = std::max(r.refreshed_weight_mass_max, cs.refreshed_weight_mass);
     r.gain_change_mean += cs.gain_change_sum;
     r.gain_change_max = std::max(r.gain_change_max, cs.gain_change_max);
-    const auto target = c.getTargetStateSeq().col(0).eval();
     float gap_sq = 0.0f;
     for (int i = 0; i < DYN::STATE_DIM; ++i)
     {
@@ -276,8 +284,6 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
       gap_sq += RECOVERY_WEIGHTS[i] * d * d;
     }
     const float nominal_gap = std::sqrt(gap_sq);
-    const float feedforward = c.getControlSeq()(0, 0);
-    const float feedback = c.getFeedbackControl(x, target, 0)(0);
     const float requested = feedforward + feedback;
     const bool saturated = std::fabs(requested) > experiment.force;
     saturation_cycles += saturated;
@@ -289,7 +295,7 @@ RunResult run(CONTROLLER& c, const Scenario& sc, COST& cost, int steps, STATS_FN
              << x(0) << "," << x(1) << "," << x(2) << "," << x(3) << "," << e << "," << ms << "," << cs.refreshes
              << "," << cs.overflows << "," << cs.violations << "," << feedforward << "," << feedback
              << "," << std::max(-experiment.force, std::min(experiment.force, requested)) << "," << saturated
-             << "," << nominal_gap << "," << pole_error << "," << cs.gain_change_sum << "," << cs.gain_change_max << "," << cs.refreshed_weight_mass << "\n";
+             << "," << nominal_gap << "," << pole_error << "," << cs.gain_change_sum << "," << cs.gain_change_max << "," << cs.refreshed_weight_mass << "," << cs.plant_refreshes << "\n";
     }
     // RMPPI applies u*_0 + K_0 (x - x*_0): its control sequence is optimized for the nominal state x*, which can
     // differ from the plant state, so the tracking feedback must be applied on the real system too.
@@ -342,7 +348,8 @@ void writeRow(std::ofstream& out, const Scenario& sc, const std::string& mode, u
       << r.feedback_abs_mean << "," << r.gain_change_mean << "," << r.gain_change_max << "," << experiment.force
       << "," << experiment.cart_weight << "," << experiment.noise << "," << experiment.lambda << ","
       << experiment.ddp_iterations << "," << experiment.budget << "," << T << "," << r.refreshed_weight_mass_mean
-      << "," << r.refreshed_weight_mass_max << "," << r.refreshed_weight_mass_active_mean << "\n";
+      << "," << r.refreshed_weight_mass_max << "," << r.refreshed_weight_mass_active_mean << "," << r.plant_refreshes
+      << "\n";
 }
 
 RunResult runStock(const Scenario& sc, unsigned seed, int steps, std::ofstream* trace)
@@ -389,6 +396,7 @@ RunResult runAdaptive(const Scenario& sc, unsigned seed, int steps, float radius
     s.refreshes = st.refreshes;
     s.overflows = st.budget_overflows;
     s.violations = st.violations;
+    s.plant_refreshes = st.plant_refreshes;
     if (experiment.diagnostics)
     {
       std::vector<int> previous_slot(N, -1);
@@ -491,7 +499,8 @@ int main(int argc, char** argv)
          "latency_p95_ms,latency_max_ms,deadline_misses,refreshes_mean,refreshes_p95,budget_hit_fraction,violations,"
          "refreshes,overflows,pole_success,pole_recovery_time_s,peak_cart_position,peak_pole_angle,saturation_fraction,"
          "nominal_gap_mean,feedback_abs_mean,gain_change_mean,gain_change_max,force,cart_weight,noise,lambda,"
-         "ddp_iterations,refresh_budget,horizon,refreshed_weight_mass_mean,refreshed_weight_mass_max,refreshed_weight_mass_active_mean\n";
+         "ddp_iterations,refresh_budget,horizon,refreshed_weight_mass_mean,refreshed_weight_mass_max,refreshed_weight_mass_active_mean,"
+         "plant_refreshes\n";
   std::ofstream trace_file;
   std::ofstream* trace = nullptr;
   if (trace_path != "-")
@@ -501,7 +510,7 @@ int main(int argc, char** argv)
     trace_file << std::setprecision(10);
     trace_file << "scenario,severity,mode,seed,cycle,time_s,x,x_dot,theta,theta_dot,error,latency_ms,refreshes,"
                   "overflows,violations,feedforward,feedback,applied_control,saturated,nominal_gap,pole_error,gain_change_sum,"
-                  "gain_change_max,refreshed_weight_mass\n";
+                  "gain_change_max,refreshed_weight_mass,plant_refreshes\n";
     trace = &trace_file;
   }
   for (const auto& sc : scenarios)

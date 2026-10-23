@@ -46,6 +46,9 @@ struct AdaptiveFeedbackConfig
   // Per-iteration cap on gain refreshes across all rollouts. Overflows are counted, never hidden.
   int max_refreshes_per_iteration = 64;
   RefreshFallback fallback = RefreshFallback::KEEP_PREVIOUS_GAINS;
+  // Also re-solve the plant-side tracking policy when the real state leaves the radius around the nominal state
+  // (at most one CPU solve per control cycle). Only used when `enabled`.
+  bool plant_feedback = true;
 
   AdaptiveFeedbackConfig()
   {

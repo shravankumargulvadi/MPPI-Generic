@@ -16,6 +16,39 @@ AdaptiveRMPPI::~AdaptiveRobustMPPIController()
 }
 
 ADAPTIVE_RMPPI_TEMPLATE
+typename AdaptiveRMPPI::control_array AdaptiveRMPPI::getFeedbackControl(const Eigen::Ref<const state_array>& state,
+                                                                        const Eigen::Ref<const state_array>& goal_state,
+                                                                        int t)
+{
+  using mppi::adaptive::RefreshOutcome;
+  const Config& cfg = this->fb_controller_->getAdaptiveConfig();
+  if (!cfg.enabled || !cfg.plant_feedback)
+  {
+    return PARENT_CLASS::getFeedbackControl(state, goal_state, t);
+  }
+  const float distance = mppi::adaptive::weightedStateDistance<DYN_T::STATE_DIM>(
+      state.data(), goal_state.data(), cfg.state_weights, cfg.angle_state_mask);
+  if (distance <= cfg.distance_radius)
+  {
+    return PARENT_CLASS::getFeedbackControl(state, goal_state, t);
+  }
+  typename FB_T::Reference::Cache recovery;
+  const RefreshOutcome outcome = this->fb_controller_->solveRecovery(t, state, recovery);
+  last_stats_.plant_refreshes++;
+  total_stats_.plant_refreshes++;
+  if (outcome != RefreshOutcome::REFRESHED)
+  {
+    last_stats_.plant_refresh_failures++;
+    total_stats_.plant_refresh_failures++;
+    return PARENT_CLASS::getFeedbackControl(state, goal_state, t);
+  }
+  // The recovery policy is affine about its own trajectory, which starts at the plant state. The controller adds this
+  // term to u*_t, so return the difference between the recovery action and the nominal control.
+  control_array u = recovery.u_ref[0] + recovery.K[0] * (state - recovery.x_ref[0]);
+  return u - this->getControlSeq().col(t);
+}
+
+ADAPTIVE_RMPPI_TEMPLATE
 void AdaptiveRMPPI::ensureCombinedKernel()
 {
   if (shared_mem_per_block_ == 0)
